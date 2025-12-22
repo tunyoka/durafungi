@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fresh Mushroom Subscription – DuraFungi</title>
+    <meta name="description"
+        content="Subscribe & Save on fresh gourmet mushrooms delivered weekly, fortnightly, or monthly. Adelaide-grown, Australia-wide shipping." />
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @font-face {
+            font-family: 'Montserrat';
+            src: url('/assets/fonts/MontserratVariableFontwght.ttf') format('truetype');
+            font-display: swap;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+        }
+    </style>
+    <link href="style.css" rel="stylesheet" />
+    <script src="https://js.stripe.com/v3/"></script>
+</head>
+
+<body class="min-h-screen bg-gray-50 flex flex-col">
+
+    <!-- Header – Tailwind classes, smooth mobile nav -->
+    <header class="bg-[#D8C3A5] border-b-2 border-[#6E7F5D] p-4 flex flex-col items-center sticky top-0 z-20">
+        <a href="index.html">
+            <img src="https://s3.ap-southeast-2.amazonaws.com/durafungi.com/assets/img/logo.png" alt="DuraFungi Logo"
+                class="h-24">
+        </a>
+        <button class="nav-toggle md:hidden p-2" aria-label="Toggle navigation" aria-expanded="false">
+            <span class="block w-6 h-0.5 bg-black mb-1.5"></span>
+            <span class="block w-6 h-0.5 bg-black mb-1.5"></span>
+            <span class="block w-6 h-0.5 bg-black"></span>
+        </button>
+        <nav class="topnav w-full md:flex md:justify-center md:gap-6 md:font-semibold md:mt-2 hidden">
+            <a href="index.html#grow-blocks" class="block py-4 text-center hover:text-[#8B5E3C] transition">Shop</a>
+            <a href="fresh.html" class="block py-4 text-center text-[#3B7A57] font-bold">Subscribe & Save</a>
+            <a href="contact.html" class="block py-4 text-center hover:text-[#8B5E3C] transition">Contact</a>
+            <a href="wholesale.html" class="block py-4 text-center hover:text-[#8B5E3C] transition">Wholesale</a>
+            <a href="farmers-market.html" class="block py-4 text-center hover:text-[#8B5E3C] transition">Farmers
+                Markets</a>
+            <a href="recipes.html" class="block py-4 text-center hover:text-[#8B5E3C] transition">Recipes</a>
+        </nav>
+    </header>
+
+    <main class="flex-grow py-12 px-6">
+        <div class="max-w-6xl mx-auto text-center">
+            <h1 class="text-4xl md:text-5xl font-bold text-[#8B5E3C] mb-4">Fresh Mushroom Subscription</h1>
+            <p class="text-lg text-gray-700 mb-12 max-w-3xl mx-auto">
+                Get our gourmet mushrooms delivered fresh. Save 20% with regular deliveries — weekly, fortnightly, or
+                monthly. Cancel or pause anytime.
+            </p>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+                <!-- WEEKLY -->
+                <div class="bg-white rounded-xl shadow-lg overflow-hidden">
+                    <div class="p-6 text-left">
+                        <h3 class="text-2xl font-bold text-[#8B5E3C] mb-2">Weekly</h3>
+                        <p class="text-gray-700 mb-4">250 g mix (Shiitake + Oyster)</p>
+                        <p class="text-xl font-bold text-[#3B7A57] mb-4">$20 / week</p>
+                        <a href="#" data-price="weekly"
+                            class="block w-full text-center px-6 py-3 bg-[#000000] text-white rounded-full font-bold hover:opacity-90 transition">
+                            Subscribe Weekly
+                        </a>
+                    </div>
+                </div>
+
+                <!-- FORTNIGHTLY -->
+                <div class="bg-white rounded-xl shadow-lg overflow-hidden">
+                    <div class="p-6 text-left">
+                        <h3 class="text-2xl font-bold text-[#8B5E3C] mb-2">Fortnightly</h3>
+                        <p class="text-gray-700 mb-4">250 g mix (Lion’s Mane + Oyster)</p>
+                        <p class="text-xl font-bold text-[#3B7A57] mb-4">$30 / 2 weeks</p>
+                        <a href="#" data-price="fortnightly"
+                            class="block w-full text-center px-6 py-3 bg-[#000000] text-white rounded-full font-bold hover:opacity-90 transition">
+                            Subscribe Fortnightly
+                        </a>
+                    </div>
+                </div>
+
+                <!-- MONTHLY -->
+                <div class="bg-white rounded-xl shadow-lg overflow-hidden">
+                    <div class="p-6 text-left">
+                        <h3 class="text-2xl font-bold text-[#8B5E3C] mb-2">Monthly</h3>
+                        <p class="text-gray-700 mb-4">750 g mix (3 varieties) + free recipe card</p>
+                        <p class="text-xl font-bold text-[#3B7A57] mb-4">$45 / month</p>
+                        <a href="#" data-price="monthly"
+                            class="block w-full text-center px-6 py-3 bg-[#000000] text-white rounded-full font-bold hover:opacity-90 transition">
+                            Subscribe Monthly
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <p class="text-lg text-gray-700 mt-12 max-w-3xl mx-auto">
+                Free shipping on your first box. Secure checkout powered by Stripe. Cancel or pause anytime.
+            </p>
+
+            <!-- SUBSCRIPTION BENEFITS -->
+            <section class="mt-16 bg-white py-12 border-t border-[#C0C0C0]">
+                <h2 class="text-3xl font-bold text-[#8B5E3C] text-center mb-10">Why Subscribe?</h2>
+                <div class="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+                    <div class="text-center">
+                        <div class="text-5xl mb-4">💰</div>
+                        <h3 class="text-xl font-semibold text-[#1F1F1F] mb-3">Save 20%</h3>
+                        <p class="text-gray-700">Every delivery is discounted — the more often you get fresh mushrooms,
+                            the more you save.</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-5xl mb-4">🚚</div>
+                        <h3 class="text-xl font-semibold text-[#1F1F1F] mb-3">Free Shipping on First Box</h3>
+                        <p class="text-gray-700">Your first delivery ships free, Australia-wide. No surprises.</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-5xl mb-4">⏸️</div>
+                        <h3 class="text-xl font-semibold text-[#1F1F1F] mb-3">Flexible & Hassle-Free</h3>
+                        <p class="text-gray-700">Pause, skip, or cancel anytime. Change varieties or frequency with one
+                            click.</p>
+                    </div>
+                </div>
+                <div class="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto mt-12">
+                    <div class="text-center">
+                        <div class="text-5xl mb-4">🌿</div>
+                        <h3 class="text-xl font-semibold text-[#1F1F1F] mb-3">Always Fresh</h3>
+                        <p class="text-gray-700">Picked and packed the same morning they ship — straight from our
+                            Adelaide farm.</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-5xl mb-4">📦</div>
+                        <h3 class="text-xl font-semibold text-[#1F1F1F] mb-3">Convenient Delivery</h3>
+                        <p class="text-gray-700">Arrives chilled and ready to cook. No weekend trips to the market
+                            needed.</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-5xl mb-4">♻️</div>
+                        <h3 class="text-xl font-semibold text-[#1F1F1F] mb-3">Eco-Friendly Packaging</h3>
+                        <p class="text-gray-700">Recyclable and biodegradable materials — good for you and the planet.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SUBSCRIPTION FAQ -->
+            <section class="mt-16 bg-white py-12 border-t border-[#C0C0C0]">
+                <h2 class="text-3xl font-bold text-[#8B5E3C] text-center mb-10">Frequently Asked Questions</h2>
+                <div class="max-w-4xl mx-auto space-y-8">
+                    <details class="bg-[#F5F5F5] rounded-xl p-6 shadow-md">
+                        <summary class="text-xl font-semibold text-[#1F1F1F] cursor-pointer">How does the subscription
+                            work?</summary>
+                        <p class="mt-4 text-gray-700">Choose weekly, fortnightly, or monthly deliveries. We pick, pack,
+                            and ship fresh mushrooms straight from our Adelaide farm on your schedule. You’re billed
+                            automatically, and deliveries continue until you pause or cancel.</p>
+                    </details>
+
+                    <details class="bg-[#F5F5F5] rounded-xl p-6 shadow-md">
+                        <summary class="text-xl font-semibold text-[#1F1F1F] cursor-pointer">Can I change or pause my
+                            subscription?</summary>
+                        <p class="mt-4 text-gray-700">Yes — anytime. Log into your account to skip a delivery, change
+                            frequency, swap varieties, or pause completely. No fees, no questions asked.</p>
+                    </details>
+
+                    <details class="bg-[#F5F5F5] rounded-xl p-6 shadow-md">
+                        <summary class="text-xl font-semibold text-[#1F1F1F] cursor-pointer">What if I want to cancel?
+                        </summary>
+                        <p class="mt-4 text-gray-700">Cancel anytime from your account with one click. No cancellation
+                            fees. You’ll receive any boxes already processed, then it stops.</p>
+                    </details>
+
+                    <details class="bg-[#F5F5F5] rounded-xl p-6 shadow-md">
+                        <summary class="text-xl font-semibold text-[#1F1F1F] cursor-pointer">What varieties will I
+                            receive?</summary>
+                        <p class="mt-4 text-gray-700">Weekly & fortnightly: a rotating 250 g mix (usually 2 varieties).
+                            Monthly: 750 g mix (3 varieties) plus a free recipe card. We choose the best available each
+                            week — always fresh, always gourmet.</p>
+                    </details>
+
+                    <details class="bg-[#F5F5F5] rounded-xl p-6 shadow-md">
+                        <summary class="text-xl font-semibold text-[#1F1F1F] cursor-pointer">How is shipping handled?
+                        </summary>
+                        <p class="mt-4 text-gray-700">Your first box ships free. Subsequent boxes have a flat $12
+                            shipping fee (chilled express). We ship Monday–Wednesday to ensure freshness on arrival.</p>
+                    </details>
+
+                    <details class="bg-[#F5F5F5] rounded-xl p-6 shadow-md">
+                        <summary class="text-xl font-semibold text-[#1F1F1F] cursor-pointer">What if something arrives
+                            damaged?</summary>
+                        <p class="mt-4 text-gray-700">Just send us a photo within 24 hours — we’ll replace it or refund
+                            you, no hassle. Your satisfaction is guaranteed.</p>
+                    </details>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer class="bg-white text-center py-6 text-sm text-gray-600 border-t">
+        © 2025 Dura Fungi. All rights reserved.
+    </footer>
+
+    <!-- Smoother Mobile Nav -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const toggle = document.querySelector('.nav-toggle');
+            const nav = document.querySelector('nav.topnav');
+            if (!toggle || !nav) return;
+
+            toggle.addEventListener('click', () => {
+                const isOpen = nav.classList.toggle('open');
+                toggle.setAttribute('aria-expanded', isOpen);
+                if (isOpen) {
+                    nav.style.transition = 'transform 0.3s ease-in-out, opacity 0.3s ease-in-out';
+                    nav.style.opacity = '1';
+                } else {
+                    nav.style.opacity = '0';
+                }
+            });
+
+            nav.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', () => {
+                    nav.classList.remove('open');
+                    toggle.setAttribute('aria-expanded', 'false');
+                    nav.style.opacity = '0';
+                });
+            });
+
+            document.addEventListener('click', e => {
+                if (!nav.contains(e.target) && !toggle.contains(e.target) && window.innerWidth < 768) {
+                    nav.classList.remove('open');
+                    toggle.setAttribute('aria-expanded', 'false');
+                    nav.style.opacity = '0';
+                }
+            });
+        });
+    </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const stripe = Stripe('pk_live_51RIPZ8B03V57KY6PtGQOF0GyOQHJmiSaX2AOF8mY2hiQVMlPrLRkreB1qHCcOM7hxTIXC2oJnGl7ekVd5L6lVNOW00wBQ6OnNB');
+
+            const prices = {
+                weekly: 'price_1SgvAcB03V57KY6PPdgl79Di',
+                fortnightly: 'price_1Sgv8fB03V57KY6P9cHmSUqi',
+                monthly: 'price_1SdTLJB03V57KY6PDvGiAump'
+            };
+
+            document.querySelectorAll('[data-price]').forEach(btn => {
+                btn.addEventListener('click', async (e) => {
+                    e.preventDefault();
+                    const priceId = prices[btn.dataset.price];
+
+                    try {
+                        // Call your backend
+                        const response = await fetch('/create-checkout-session', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({ priceId })
+                        });
+
+                        if (!response.ok) {
+                            throw new Error(`Server responded with ${response.status}`);
+                        }
+
+                        const data = await response.json();
+
+                        if (!data.sessionId) {
+                            throw new Error('No session ID returned');
+                        }
+
+                        // Redirect to Stripe Checkout
+                        const { error } = await stripe.redirectToCheckout({
+                            sessionId: data.sessionId
+                        });
+
+                        if (error) {
+                            console.error('Stripe redirect error:', error);
+                            alert('Could not redirect to checkout. Check console.');
+                        }
+                    } catch (error) {
+                        console.error('Subscription error:', error);
+                        alert('Something went wrong. Check the console for details.');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>
