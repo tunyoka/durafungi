@@ -6,7 +6,7 @@ const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 const app = express();
 
 // Serve static files (fresh.html, etc.) from the current directory
-app.use(express.static(__dirname)); // <— Added here
+app.use(express.static(__dirname)); // <— serves fresh.html, success.html, etc.
 
 // Parse JSON bodies
 app.use(express.json());
@@ -44,7 +44,9 @@ app.post('/create-checkout-session', async (req, res) => {
 
 // Start the server
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-    console.log(`Server running on http://localhost:${PORT}`);
-    console.log(`Open fresh.html: http://localhost:${PORT}/fresh.html`);
+
+// IMPORTANT: bind to 0.0.0.0 so the world can reach it
+app.listen(PORT, '0.0.0.0', () => {
+    console.log(`Server running on http://0.0.0.0:${PORT}`);
+    console.log(`Open fresh.html: http://0.0.0.0:${PORT}/fresh.html`);
 });
