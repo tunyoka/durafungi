@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Workshops – Dura Fungi Adelaide</title>
+    <meta name="description"
+        content="Join our hands-on mushroom cultivation workshops in Adelaide. Learn to grow Lion's Mane, Oyster, and Shiitake mushrooms." />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @font-face {
+            font-family: 'Montserrat';
+            src: url('/assets/fonts/MontserratVariableFontwght.ttf') format('truetype');
+            font-display: swap;
+        }
+
+        :root {
+            --black: #000000;
+            --charcoal: #1F1F1F;
+            --white: #F5F5F5;
+            --beige: #D8C3A5;
+            --green: #28a745;
+            --rust: #8B5E3C;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: #F5F5F5;
+            color: #1F1F1F;
+            overflow-x: hidden;
+            /* Prevents accidental horizontal scrolling on mobile */
+        }
+
+        header {
+            background: linear-gradient(to bottom, #D8C3A5 0%, #F5F5F5 100%);
+            padding: 0.75rem 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 20;
+        }
+
+        .topnav {
+            display: flex;
+            gap: 1rem;
+            font-size: 0.85rem;
+        }
+
+        /* Desktop specific nav spacing */
+        @media (min-width: 768px) {
+            .topnav {
+                gap: 1.5rem;
+                font-size: 0.95rem;
+            }
+        }
+
+        .workshop-hero {
+            background: linear-gradient(to bottom, rgba(31, 31, 31, 0.8) 0%, rgba(31, 31, 31, 0.6) 100%),
+                url("https://s3.ap-southeast-2.amazonaws.com/durafungi.com/assets/img/lions_mane_pride.webp") center/cover no-repeat;
+            color: #fff;
+            text-align: center;
+            padding: 4rem 1rem;
+        }
+
+        @media (min-width: 768px) {
+            .workshop-hero {
+                padding: 6rem 1.5rem;
+            }
+        }
+
+        .experience-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            transition: transform 0.2s;
+            border: 1px solid #eee;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .experience-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .btn-book {
+            background-color: #28a745;
+            color: white;
+            padding: 0.85rem 2rem;
+            /* Slightly larger for touch */
+            border-radius: 9999px;
+            font-weight: 700;
+            transition: background-color 0.2s;
+            text-align: center;
+            width: 100%;
+            margin-top: auto;
+            display: block;
+        }
+
+        .btn-book:hover {
+            background-color: #218838;
+        }
+
+        footer {
+            background: #fff;
+            padding: 2rem;
+            text-align: center;
+            font-size: 0.85rem;
+            border-top: 1px solid #e0e0e0;
+            margin-top: 3rem;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <a href="/"><img src="https://s3.ap-southeast-2.amazonaws.com/durafungi.com/assets/img/logo.png" alt="DuraFungi"
+                style="height:40px;" class="md:h-[48px]"></a>
+        <nav class="topnav overflow-x-auto whitespace-nowrap pb-1">
+            <a href="/fresh-mushrooms.html">Fresh</a>
+            <a href="/grow-blocks.html">Blocks</a>
+            <a href="/grain-spawn.html">Spawn</a>
+            <a href="/workshops.html" class="font-bold border-b-2 border-green-700">Workshops</a>
+            <a href="/add-ons.html">Add-Ons</a>
+        </nav>
+    </header>
+
+    <main>
+        <section class="workshop-hero">
+            <h1 class="text-3xl md:text-5xl font-bold mb-4 px-4">Mushroom Cultivation Workshops</h1>
+            <p class="text-base md:text-xl max-w-2xl mx-auto px-4 opacity-90">Master the art and science of growing
+                exotic fungi. Hands-on learning for all skill levels.</p>
+        </section>
+
+        <section class="max-w-7xl mx-auto py-10 md:py-16 px-6">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+
+                <div class="experience-card p-6 md:p-8">
+                    <div class="mb-4">
+                        <span
+                            class="bg-beige text-rust px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest">Entry
+                            Level</span>
+                    </div>
+                    <h3 class="text-xl md:text-2xl font-bold mb-4">Beginner Exotic Mushroom Cultivation</h3>
+                    <p class="text-gray-600 mb-6 text-sm md:text-base">A hands-on introduction to the lifecycle of
+                        fungi. Learn basic inoculation techniques and take home your own grow kit. Available in-person
+                        or virtually.</p>
+                    <div class="mb-6">
+                        <p class="text-3xl md:text-4xl font-bold text-charcoal">$180.00</p>
+                    </div>
+                    <a href="#" data-price-id="price_1Sj5DaB03V57KY6PxUR9C0p8" class="btn-book">Book Now</a>
+                </div>
+
+                <div class="experience-card p-6 md:p-8 border-2 border-rust shadow-sm">
+                    <div class="mb-4">
+                        <span
+                            class="bg-rust text-white px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest">Advanced</span>
+                    </div>
+                    <h3 class="text-xl md:text-2xl font-bold mb-4">Advanced Techniques: Flow Hoods & Scaling</h3>
+                    <p class="text-gray-600 mb-6 text-sm md:text-base">Designed for serious growers. Master sterile lab
+                        techniques, agar work, liquid cultures, and scaling your production for commercial success.</p>
+                    <div class="mb-6">
+                        <p class="text-3xl md:text-4xl font-bold text-charcoal">$350.00</p>
+                    </div>
+                    <a href="#" data-price-id="price_1Sj5EQB03V57KY6Pgm4SSksS" class="btn-book">Book Now</a>
+                </div>
+
+                <div class="experience-card p-6 md:p-8">
+                    <div class="mb-4">
+                        <span
+                            class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest">Family
+                            Friendly</span>
+                    </div>
+                    <h3 class="text-xl md:text-2xl font-bold mb-4">Kids Fungi Adventure: School Workshop</h3>
+                    <p class="text-gray-600 mb-6 text-sm md:text-base">An engaging, educational experience for families
+                        and schools. Discover the magic of the "Wood Wide Web" and start a classroom growing project.
+                    </p>
+                    <div class="mb-6">
+                        <p class="text-3xl md:text-4xl font-bold text-charcoal">$80.00</p>
+                    </div>
+                    <a href="#" data-price-id="price_1Sj5FEB03V57KY6Pw0wcH8rR" class="btn-book">Book Now</a>
+                </div>
+
+            </div>
+        </section>
+
+        <section class="bg-charcoal text-white py-12 md:py-16">
+            <div class="max-w-4xl mx-auto px-6 text-center">
+                <h2 class="text-2xl md:text-3xl font-bold mb-6">Why Learn with Dura Fungi?</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10 text-left">
+                    <div>
+                        <h4 class="text-rust font-bold mb-2">Expert Guidance</h4>
+                        <p class="text-gray-400 text-sm md:text-base">Learn directly from Adelaide growers who manage a
+                            high-yield urban farm every day.</p>
+                    </div>
+                    <div>
+                        <h4 class="text-rust font-bold mb-2">Community Building</h4>
+                        <p class="text-gray-400 text-sm md:text-base">Connect with other local hobbyists and
+                            professional growers in the South Australian community.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>© 2025 Dura Fungi. All rights reserved.</footer>
+
+    <!-- ✅ Minimal checkout wiring (preserves layout/design/content/price IDs) -->
+    <script>
+        (function () {
+            const API = "https://api.durafungi.com/create-checkout-session";
+
+            async function createSession({ priceId }) {
+                const res = await fetch(API, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        checkoutMode: "payment",
+                        items: [{ price: priceId, quantity: 1 }],
+                        // ✅ KEY IMPROVEMENT: return to this exact page on success/cancel (backend must honor it)
+                        returnUrl: window.location.href
+                    })
+                });
+
+                const data = await res.json().catch(() => ({}));
+                if (!res.ok) throw new Error(data?.error || data?.message || `Server error: ${res.status}`);
+                if (!data?.url) throw new Error("No checkout URL returned from server.");
+                return data.url;
+            }
+
+            function setLoading(link, isLoading) {
+                if (!link) return;
+                link.dataset.dfOriginalText ??= link.textContent;
+                link.textContent = isLoading ? "Redirecting to secure checkout…" : link.dataset.dfOriginalText;
+                link.style.pointerEvents = isLoading ? "none" : "";
+                link.style.opacity = isLoading ? "0.7" : "";
+            }
+
+            async function onClick(e) {
+                const a = e.target.closest('a[data-price-id]');
+                if (!a) return;
+
+                e.preventDefault();
+
+                const priceId = a.getAttribute("data-price-id");
+                if (!priceId) return;
+
+                try {
+                    setLoading(a, true);
+                    const url = await createSession({ priceId });
+                    // ✅ Best practice: same-tab redirect
+                    window.location.href = url;
+                } catch (err) {
+                    console.error(err);
+                    alert(err.message || "Checkout failed. Please try again.");
+                    setLoading(a, false);
+                }
+            }
+
+            document.addEventListener("click", onClick);
+        })();
+    </script>
+
+</body>
+
+</html>

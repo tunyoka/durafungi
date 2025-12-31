@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Grain Spawn – Dura Fungi Adelaide</title>
+    <meta name="description"
+        content="Professional-grade mushroom grain spawn. Inoculate your own substrates with Lion’s Mane and Oyster mushroom cultures." />
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <style>
+        @font-face {
+            font-family: 'Montserrat';
+            src: url('/assets/fonts/MontserratVariableFontwght.ttf') format('truetype');
+            font-display: swap;
+        }
+
+        :root {
+            --black: #000000;
+            --charcoal: #1F1F1F;
+            --white: #F5F5F5;
+            --beige: #D8C3A5;
+            --green: #28a745;
+            --olive: #6E7F5D;
+            --rust: #8B5E3C;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: #F5F5F5;
+            color: #1F1F1F;
+            padding-bottom: 96px;
+        }
+
+        header {
+            background: linear-gradient(to bottom, #D8C3A5 0%, #F5F5F5 100%);
+            padding: 0.75rem 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 20;
+        }
+
+        .topnav {
+            display: flex;
+            gap: 1.5rem;
+            font-size: 0.95rem;
+        }
+
+        .spawn-hero {
+            background: linear-gradient(to bottom, rgba(31, 31, 31, 0.8) 0%, rgba(31, 31, 31, 0.6) 100%),
+                url("https://s3.ap-southeast-2.amazonaws.com/durafungi.com/assets/img/lions_mane_pride.webp") center/cover no-repeat;
+            color: #fff;
+            text-align: center;
+            padding: 5rem 1.5rem;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            transition: transform 0.2s;
+            border: 1px solid #eee;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .btn-add-cart {
+            background-color: #28a745;
+            color: white;
+            padding: 0.5rem 1.5rem;
+            border-radius: 9999px;
+            font-weight: 700;
+            transition: background-color 0.2s;
+            display: inline-block;
+        }
+
+        .btn-add-cart:hover {
+            background-color: #218838;
+        }
+
+        footer {
+            background: #fff;
+            padding: 2rem;
+            text-align: center;
+            font-size: 0.85rem;
+            border-top: 1px solid #e0e0e0;
+            margin-top: 3rem;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <a href="/"><img src="https://s3.ap-southeast-2.amazonaws.com/durafungi.com/assets/img/logo.png" alt="DuraFungi"
+                style="height:48px;"></a>
+        <nav class="topnav">
+            <a href="/fresh-mushrooms.html">Fresh Mushrooms</a>
+            <a href="/grow-blocks.html">Grow Blocks</a>
+            <a href="/grain-spawn.html" class="font-bold border-b-2 border-green-700">Grain Spawn</a>
+            <a href="/workshops.html">Workshops</a>
+            <a href="/add-ons.html">Add-Ons</a>
+            <a href="/contact.html">Contact</a>
+        </nav>
+    </header>
+
+    <main>
+        <section class="spawn-hero">
+            <h1 class="text-4xl font-bold mb-4">Professional Grain Spawn</h1>
+            <p class="text-lg mb-6">High-vigor mycelium on organic rye grain. Ready for inoculation.</p>
+        </section>
+
+        <section class="max-w-6xl mx-auto py-12 px-6">
+            <h2 class="text-3xl font-bold mb-8 text-center text-rust">Available Cultures</h2>
+
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="product-card p-6 flex flex-col items-center">
+                    <img src="https://s3.ap-southeast-2.amazonaws.com/durafungi.com/assets/img/lions_mane_pride.webp"
+                        class="rounded-lg mb-4 h-64 w-full object-cover">
+                    <h3 class="text-2xl font-bold mb-2">Lion’s Mane Grain Spawn (1kg)</h3>
+                    <p class="text-gray-600 mb-4 text-center">
+                        Inoculates ~10–20kg of substrate. Ideal for hardwood sawdust or master's mix.
+                    </p>
+                    <p class="text-3xl font-bold text-green-700 mb-6">$45.00</p>
+                    <a href="#" data-price-id="price_1RTgTSB03V57KY6PrqjdXuPm" class="btn-add-cart">Add to Cart</a>
+                </div>
+
+                <div class="product-card p-6 flex flex-col items-center">
+                    <img src="https://s3.ap-southeast-2.amazonaws.com/durafungi.com/assets/img/blue-grey-oyster-mushroom-grain-spawn-kit.webp"
+                        class="rounded-lg mb-4 h-64 w-full object-cover">
+                    <h3 class="text-2xl font-bold mb-2">Blue-Grey Oyster Grain Spawn (1kg)</h3>
+                    <p class="text-gray-600 mb-4 text-center">
+                        Aggressive colonizer, perfect for straw, coffee grounds, or sawdust.
+                    </p>
+                    <p class="text-3xl font-bold text-green-700 mb-6">$45.00</p>
+                    <a href="#" data-price-id="price_1RTgPuB03V57KY6PcReRpaza" class="btn-add-cart">Add to Cart</a>
+                </div>
+            </div>
+        </section>
+
+        <section class="bg-beige py-12">
+            <div class="max-w-4xl mx-auto px-6">
+                <h2 class="text-3xl font-bold mb-8 text-center">Prepare Your Own Substrate</h2>
+
+                <div class="bg-white rounded-xl shadow-lg overflow-hidden flex flex-col md:flex-row">
+                    <div class="md:w-1/3">
+                        <img src="https://s3.ap-southeast-2.amazonaws.com/durafungi.com/assets/img/rye_grain_substrate.webp"
+                            class="h-full w-full object-cover">
+                    </div>
+                    <div class="p-8 md:w-2/3">
+                        <h3 class="text-2xl font-bold mb-2 text-rust">Sterilised Organic Rye Grain (2.5kg)</h3>
+                        <p class="text-gray-600 mb-6">
+                            Hydrated and pressure-sterilised, ready for liquid culture or G2G transfer.
+                        </p>
+                        <div class="flex items-center justify-between">
+                            <span class="text-2xl font-bold">$25.00</span>
+                            <a href="#" data-price-id="price_1RThOMB03V57KY6Pzpa0N5dd" class="btn-add-cart">Add to
+                                Cart</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Sticky Cart Bar -->
+    <div id="cart-bar"
+        class="fixed bottom-0 left-0 right-0 bg-black text-white px-6 py-4 flex justify-between items-center z-50"
+        style="display:none;">
+        <span class="font-bold">
+            Cart items: <span id="cart-count">0</span>
+        </span>
+        <button onclick="checkoutCart()" class="bg-white text-black px-6 py-2 rounded-full font-bold">
+            Checkout
+        </button>
+    </div>
+
+    <footer>© 2025 Dura Fungi. All rights reserved.</footer>
+
+    <!-- Cart + Checkout Logic -->
+    <script>
+        (function () {
+            const API = "https://api.durafungi.com/create-checkout-session";
+            const CART_KEY = "grain_spawn_cart";
+
+            const cart = JSON.parse(localStorage.getItem(CART_KEY) || "{}");
+
+            function saveCart() {
+                localStorage.setItem(CART_KEY, JSON.stringify(cart));
+                renderCart();
+            }
+
+            function addToCart(priceId) {
+                cart[priceId] = (cart[priceId] || 0) + 1;
+                saveCart();
+            }
+
+            function cartCount() {
+                return Object.values(cart).reduce((a, b) => a + b, 0);
+            }
+
+            function renderCart() {
+                const count = cartCount();
+                document.getElementById("cart-count").innerText = count;
+                document.getElementById("cart-bar").style.display =
+                    count > 0 ? "flex" : "none";
+            }
+
+            async function checkoutCart() {
+                const items = Object.entries(cart).map(([price, quantity]) => ({
+                    price,
+                    quantity
+                }));
+
+                if (!items.length) return;
+
+                try {
+                    const res = await fetch(API, {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({
+                            checkoutMode: "payment",
+                            items,
+                            returnUrl: window.location.href
+                        })
+                    });
+
+                    const data = await res.json();
+                    if (!data?.url) throw new Error("Checkout failed");
+
+                    localStorage.removeItem(CART_KEY);
+                    window.location.href = data.url;
+
+                } catch (e) {
+                    alert(e.message || "Checkout error");
+                }
+            }
+
+            document.addEventListener("click", (e) => {
+                const btn = e.target.closest("a[data-price-id]");
+                if (!btn) return;
+                e.preventDefault();
+                addToCart(btn.dataset.priceId);
+            });
+
+            window.checkoutCart = checkoutCart;
+            renderCart();
+        })();
+    </script>
+
+</body>
+
+</html>

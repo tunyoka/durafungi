@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
+    <title>Dura Fungi – South Australia’s Exotic Mushrooms</title>
+    <meta name="description"
+        content="Organic Lion’s Mane, Shiitake, Blue-Grey Oyster & Maitake grown in Adelaide. Ready-to-fruit blocks, fresh mushrooms, spawn & workshops." />
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <style>
+        @font-face {
+            font-family: 'Montserrat';
+            src: url('/assets/fonts/MontserratVariableFontwght.ttf') format('truetype');
+            font-display: swap;
+        }
+
+        :root {
+            --black: #000000;
+            --charcoal: #1F1F1F;
+            --white: #F5F5F5;
+            --beige: #D8C3A5;
+            --green: #3B7A57;
+            --olive: #6E7F5D;
+            --rust: #8B5E3C;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: var(--white);
+            color: var(--charcoal);
+            line-height: 1.6;
+        }
+
+        /* HEADER & NAVIGATION */
+        header {
+            background: linear-gradient(to bottom, var(--beige) 0%, var(--white) 100%);
+            padding: 0.75rem 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .topnav {
+            display: none;
+            flex-direction: column;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: #fff;
+            padding: 1.5rem;
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+            gap: 1.25rem;
+        }
+
+        .topnav.open {
+            display: flex;
+        }
+
+        @media (min-width: 1024px) {
+            .nav-toggle {
+                display: none;
+            }
+
+            .topnav {
+                display: flex;
+                position: static;
+                flex-direction: row;
+                background: transparent;
+                box-shadow: none;
+                padding: 0;
+                gap: 1.5rem;
+            }
+
+            .topnav a {
+                font-weight: 600;
+                position: relative;
+            }
+
+            .topnav a:hover::after {
+                content: "";
+                position: absolute;
+                left: 0;
+                right: 0;
+                bottom: -4px;
+                height: 2px;
+                background: var(--green);
+            }
+        }
+
+        /* HERO SECTION */
+        .home-hero {
+            background: linear-gradient(to bottom, rgba(31, 31, 31, 0.85) 0%, rgba(31, 31, 31, 0.6) 100%),
+                url("https://s3.ap-southeast-2.amazonaws.com/durafungi.com/assets/img/lions_mane_pride_01.jpg") center/cover no-repeat;
+            color: #fff;
+            text-align: center;
+            padding: 5rem 1.5rem;
+        }
+
+        .mode-btn {
+            padding: 0.85rem 1.25rem;
+            font-weight: 700;
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .mode-btn.active {
+            background: var(--green);
+            border-color: var(--green);
+        }
+
+        .btn-cta-beige {
+            background-color: var(--beige);
+            color: var(--charcoal);
+            padding: 1rem 2.5rem;
+            border-radius: 999px;
+            font-weight: 800;
+            display: inline-block;
+            transition: 0.2s;
+        }
+
+        .btn-cta-green {
+            background-color: var(--green);
+            color: #fff;
+            padding: 1rem 2.5rem;
+            border-radius: 999px;
+            font-weight: 800;
+            display: inline-block;
+            transition: 0.2s;
+        }
+
+        .promo-banner {
+            background: var(--rust);
+            color: white;
+            text-align: center;
+            padding: 0.5rem;
+            font-weight: 700;
+            font-size: 0.9rem;
+        }
+
+        footer {
+            background: #fff;
+            padding: 2.5rem;
+            text-align: center;
+            border-top: 1px solid #eee;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="promo-banner">
+        🍄 INTRO OFFER: 15% OFF your first month of any subscription!
+    </div>
+
+    <header>
+        <a href="index.html">
+            <img src="https://s3.ap-southeast-2.amazonaws.com/durafungi.com/assets/img/logo.png" alt="DuraFungi"
+                class="h-10 md:h-12">
+        </a>
+        <button class="nav-toggle" id="menuBtn" aria-label="Menu">
+            <div class="w-6 h-0.5 bg-black mb-1"></div>
+            <div class="w-6 h-0.5 bg-black mb-1"></div>
+            <div class="w-6 h-0.5 bg-black"></div>
+        </button>
+        <nav class="topnav" id="navMenu">
+            <a href="fresh.html">Fresh Mushrooms</a>
+            <a href="grow-blocks.html">Grow Blocks</a>
+            <a href="workshops.html">Workshops</a>
+            <a href="grain-spawn.html">Grain Spawn</a>
+            <a href="add-ons.html">Add-Ons</a>
+            <a href="contact.html">Contact</a>
+        </nav>
+    </header>
+
+    <main>
+        <section class="home-hero">
+            <h1 class="text-4xl md:text-6xl font-bold mb-4">Adelaide's Finest Exotic Fungi</h1>
+            <p class="text-lg md:text-xl mb-8 opacity-90">Organic Lion’s Mane, Shiitake & Oyster. Grown Fresh, Delivered
+                Local.</p>
+
+            <div class="flex justify-center mb-10">
+                <button id="mode-payment" class="mode-btn rounded-l-full" onclick="setMode('payment')">Buy Once</button>
+                <button id="mode-subscription" class="mode-btn rounded-r-full active"
+                    onclick="setMode('subscription')">Subscribe & Save 20%</button>
+            </div>
+
+            <div class="flex flex-col sm:flex-row justify-center gap-4">
+                <a href="fresh.html" class="btn-cta-beige">Shop Fresh Harvest</a>
+                <a href="grow-blocks.html" class="btn-cta-green">Start Growing Today</a>
+            </div>
+        </section>
+
+        <section class="py-16 px-6 bg-white">
+            <div class="max-w-7xl mx-auto">
+                <h2 class="text-3xl font-bold mb-12 text-center text-rust">Explore Our Farm</h2>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6">
+
+                    <a href="fresh.html"
+                        class="group bg-beige/10 rounded-2xl overflow-hidden hover:shadow-xl transition-all">
+                        <img src="https://s3.ap-southeast-2.amazonaws.com/durafungi.com/assets/img/lions_mane_pride.webp"
+                            class="w-full h-48 object-cover">
+                        <div class="p-6">
+                            <h3 class="font-bold text-lg">Fresh Harvest</h3>
+                            <p class="text-sm text-gray-600">Weekly Variety Bundles from $45</p>
+                        </div>
+                    </a>
+
+                    <a href="grow-blocks.html"
+                        class="group bg-beige/10 rounded-2xl overflow-hidden hover:shadow-xl transition-all">
+                        <img src="https://s3.ap-southeast-2.amazonaws.com/durafungi.com/assets/img/shiitake_grow_block_2.webp"
+                            class="w-full h-48 object-cover">
+                        <div class="p-6">
+                            <h3 class="font-bold text-lg">Grow Blocks</h3>
+                            <p class="text-sm text-gray-600">Ready-to-Fruit Kits from $55</p>
+                        </div>
+                    </a>
+
+                    <a href="add-ons.html"
+                        class="group border-2 border-green-700 rounded-2xl overflow-hidden hover:shadow-xl transition-all">
+                        <div class="bg-green-700 text-white text-[10px] uppercase font-bold text-center py-1">Top Entry
+                            Choice</div>
+                        <img src="https://s3.ap-southeast-2.amazonaws.com/durafungi.com/assets/img/rye_grain_substrate.webp"
+                            class="w-full h-40 object-cover">
+                        <div class="p-6">
+                            <h3 class="font-bold text-lg">Starter Kit</h3>
+                            <p class="text-sm text-green-700 font-bold">Only $20 — The perfect gift</p>
+                        </div>
+                    </a>
+
+                    <a href="workshops.html"
+                        class="group bg-beige/10 rounded-2xl overflow-hidden hover:shadow-xl transition-all">
+                        <img src="https://s3.ap-southeast-2.amazonaws.com/durafungi.com/assets/img/learning-workshop.webp"
+                            class="w-full h-48 object-cover">
+                        <div class="p-6">
+                            <h3 class="font-bold text-lg">Workshops</h3>
+                            <p class="text-sm text-gray-600">Hands-on Cultivation Classes</p>
+                        </div>
+                    </a>
+
+                    <a href="grain-spawn.html"
+                        class="group bg-beige/10 rounded-2xl overflow-hidden hover:shadow-xl transition-all">
+                        <img src="https://s3.ap-southeast-2.amazonaws.com/durafungi.com/assets/img/blue-grey-oyster-mushroom-grain-spawn-kit.webp"
+                            class="w-full h-48 object-cover">
+                        <div class="p-6">
+                            <h3 class="font-bold text-lg">Grain Spawn</h3>
+                            <p class="text-sm text-gray-600">Pure Cultures for Serious Growers</p>
+                        </div>
+                    </a>
+
+                </div>
+            </div>
+        </section>
+
+        <section class="py-20 px-6 bg-stone-100">
+            <div class="max-w-4xl mx-auto text-center">
+                <h2 class="text-3xl font-bold mb-6 text-rust">Grown in Adelaide, For Adelaide</h2>
+                <p class="text-lg text-gray-700 leading-relaxed italic">
+                    "Sustainable. Local. Organic. We believe the best food doesn't travel thousands of kilometers.
+                    Every DuraFungi harvest is grown right here in South Australia using organic methods and premium
+                    substrates."
+                </p>
+                <div class="mt-8 flex justify-center gap-8 opacity-60">
+                    <span class="font-bold uppercase tracking-widest text-xs">100% Organic</span>
+                    <span class="font-bold uppercase tracking-widest text-xs">Zero Plastic Waste Focus</span>
+                    <span class="font-bold uppercase tracking-widest text-xs">Adelaide Local</span>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p class="mb-4">© 2025 Dura Fungi. All rights reserved.</p>
+        <div class="flex justify-center gap-4">
+            <a href="contact.html" class="text-xs hover:text-green-700 underline">Contact Us</a>
+            <a href="wholesale.html" class="text-xs hover:text-green-700 underline">Wholesale</a>
+        </div>
+    </footer>
+
+    <script>
+        // MOBILE NAV
+        const menuBtn = document.getElementById('menuBtn');
+        const navMenu = document.getElementById('navMenu');
+        menuBtn.addEventListener('click', () => navMenu.classList.toggle('open'));
+
+        // MODE TOGGLE
+        let currentMode = 'subscription';
+        function setMode(mode) {
+            currentMode = mode;
+            document.querySelectorAll('.mode-btn').forEach(btn => btn.classList.remove('active'));
+            document.getElementById(`mode-${mode}`).classList.add('active');
+
+            // Update CTA links to reflect mode
+            document.querySelectorAll('.btn-cta-beige, .btn-cta-green').forEach(btn => {
+                const baseHref = btn.getAttribute('href').split('?')[0];
+                btn.setAttribute('href', `${baseHref}?mode=${mode}`);
+            });
+        }
+    </script>
+</body>
+
+</html>

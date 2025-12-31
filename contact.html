@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>Contact Us – Dura Fungi Adelaide</title>
+    <meta name="description"
+        content="Get in touch with Dura Fungi. Scan our QR code, send an email, or visit our Adelaide facility by appointment." />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @font-face {
+            font-family: 'Montserrat';
+            src: url('/assets/fonts/MontserratVariableFontwght.ttf') format('truetype');
+            font-display: swap;
+        }
+
+        :root {
+            --black: #000000;
+            --charcoal: #1F1F1F;
+            --white: #F5F5F5;
+            --beige: #D8C3A5;
+            --green: #28a745;
+            --rust: #8B5E3C;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: #F5F5F5;
+            color: #1F1F1F;
+            overflow-x: hidden;
+        }
+
+        header {
+            background: linear-gradient(to bottom, #D8C3A5 0%, #F5F5F5 100%);
+            padding: 0.75rem 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 50;
+        }
+
+        .topnav {
+            display: flex;
+            gap: 1rem;
+            font-size: 0.85rem;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            padding-bottom: 4px;
+        }
+
+        .topnav::-webkit-scrollbar {
+            display: none;
+        }
+
+        .hero-section {
+            background: linear-gradient(to bottom, rgba(31, 31, 31, 0.8) 0%, rgba(31, 31, 31, 0.6) 100%),
+                url("https://s3.ap-southeast-2.amazonaws.com/durafungi.com/assets/img/lions_mane_pride.webp") center/cover no-repeat;
+            color: #fff;
+            text-align: center;
+            padding: 4rem 1rem;
+        }
+
+        .contact-card {
+            background: white;
+            border-radius: 12px;
+            border: 1px solid #eee;
+            height: 100%;
+        }
+
+        .social-icon {
+            transition: transform 0.2s;
+            filter: grayscale(1);
+        }
+
+        .social-icon:hover {
+            transform: scale(1.1);
+            filter: grayscale(0);
+        }
+
+        footer {
+            background: #fff;
+            padding: 2rem;
+            text-align: center;
+            font-size: 0.85rem;
+            border-top: 1px solid #e0e0e0;
+            margin-top: 3rem;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <a href="/"><img src="https://s3.ap-southeast-2.amazonaws.com/durafungi.com/assets/img/logo.png" alt="DuraFungi"
+                style="height:35px;" class="md:h-[48px]"></a>
+        <nav class="topnav">
+            <a href="/fresh-mushrooms.html">Fresh</a>
+            <a href="/grow-blocks.html">Blocks</a>
+            <a href="/grain-spawn.html">Spawn</a>
+            <a href="/workshops.html">Workshops</a>
+            <a href="/add-ons.html">Add-Ons</a>
+            <a href="/contact.html" class="font-bold border-b-2 border-green-700">Contact</a>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero-section">
+            <h1 class="text-3xl md:text-5xl font-bold mb-2">Get In Touch</h1>
+            <p class="text-sm md:text-xl opacity-90 max-w-2xl mx-auto">We're here to help you grow your mushroom
+                passion. Choose the best way to connect!</p>
+        </section>
+
+        <section class="max-w-7xl mx-auto py-12 px-6">
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+
+                <div class="contact-card p-8 flex flex-col items-center text-center">
+                    <h2 class="text-2xl font-bold text-rust mb-4">Instant Connection</h2>
+                    <p class="text-gray-600 text-sm mb-6">Scan our vCard to save our contact details directly to your
+                        phone. 📱</p>
+                    <div class="bg-beige p-4 rounded-xl mb-6">
+                        <img src="https://s3.ap-southeast-2.amazonaws.com/durafungi.com/assets/img/DuraFungi-qr-code.png"
+                            alt="Dura Fungi QR Code" class="w-48 h-48">
+                    </div>
+                    <p class="font-bold text-green-700 uppercase tracking-widest text-sm">Connect Instantly!</p>
+                </div>
+
+                <div class="contact-card p-8">
+                    <h2 class="text-2xl font-bold text-rust mb-6">Ways to Reach Us</h2>
+
+                    <div class="space-y-6">
+                        <div>
+                            <h4 class="text-xs uppercase font-bold text-gray-400 mb-1">Email</h4>
+                            <a href="mailto:info@durafungi.com"
+                                class="text-lg font-bold hover:text-green-700 transition-colors">info@durafungi.com</a>
+                        </div>
+
+                        <div>
+                            <h4 class="text-xs uppercase font-bold text-gray-400 mb-1">Phone</h4>
+                            <a href="tel:+614770088037"
+                                class="text-lg font-bold hover:text-green-700 transition-colors">+61 477 008 8037</a>
+                        </div>
+
+                        <div>
+                            <h4 class="text-xs uppercase font-bold text-gray-400 mb-1">Location</h4>
+                            <p class="text-gray-700">Adelaide Facility<br><span class="text-sm text-gray-500">(By
+                                    appointment only)</span></p>
+                        </div>
+
+                        <div>
+                            <h4 class="text-xs uppercase font-bold text-gray-400 mb-1">Hours</h4>
+                            <p class="text-gray-700 font-medium">Mon - Fri: 9:00 AM - 5:00 PM ACST</p>
+                        </div>
+                    </div>
+
+                    <div class="mt-10 pt-8 border-t border-gray-100">
+                        <p class="text-sm font-bold mb-4">Follow our farm:</p>
+                        <div class="flex gap-4">
+                            <a href="https://www.facebook.com/profile.php?id=100064090211229" target="_blank">
+                                <img src="https://img.icons8.com/ios-filled/50/28a745/facebook-new.png"
+                                    class="w-8 h-8 social-icon" alt="Facebook">
+                            </a>
+                            <a href="https://www.instagram.com/vamangt/" target="_blank">
+                                <img src="https://img.icons8.com/ios-filled/50/28a745/instagram-new.png"
+                                    class="w-8 h-8 social-icon" alt="Instagram">
+                            </a>
+                            <a href="https://x.com/DuraFungi" target="_blank">
+                                <img src="https://img.icons8.com/ios-filled/50/28a745/twitterx--v2.png"
+                                    class="w-8 h-8 social-icon" alt="X">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="contact-card p-8 lg:col-span-1">
+                    <h2 class="text-2xl font-bold text-rust mb-6">Send a Message</h2>
+                    <div class="rounded-lg overflow-hidden border border-gray-100">
+                        <iframe src="https://form.jotform.com/253546237362863" title="Contact Form"
+                            style="width:100%; height:550px; border:none;"></iframe>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+    </main>
+
+    <footer>© 2025 Dura Fungi. All rights reserved.</footer>
+
+</body>
+
+</html>
