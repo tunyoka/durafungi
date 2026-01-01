@@ -696,6 +696,7 @@
                     body: JSON.stringify({
                         checkoutMode: currentMode === 'subscription' ? 'subscription' : 'payment',
                         items: items,
+                        returnUrl: window.location.href,
                         ...(isEmailValid ? { customerEmail: email } : {})
                     })
                 });
