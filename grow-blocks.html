@@ -135,6 +135,32 @@
             outline: 3px solid rgba(59, 122, 87, 0.35);
             transition: outline 0.15s;
         }
+
+        /* Success toast */
+        .toast {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #3B7A57;
+            color: white;
+            padding: 12px 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            z-index: 1000;
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
     </style>
 </head>
 
@@ -364,9 +390,32 @@
         // 2. CART STATE with localStorage persistence
         let cartItems = JSON.parse(localStorage.getItem('durafungi_cart')) || [];
 
-        // 3. UI FUNCTIONS
+        // 3. UTILITY FUNCTIONS
+        function showToast(message, type = 'success') {
+            // Remove existing toast
+            const existingToast = document.querySelector('.toast');
+            if (existingToast) existingToast.remove();
+
+            // Create new toast
+            const toast = document.createElement('div');
+            toast.className = `toast ${type === 'success' ? 'bg-[#3B7A57]' : 'bg-red-500'}`;
+            toast.textContent = message;
+            document.body.appendChild(toast);
+
+            // Remove after 3 seconds
+            setTimeout(() => {
+                if (toast.parentNode) {
+                    toast.style.opacity = '0';
+                    setTimeout(() => toast.remove(), 300);
+                }
+            }, 3000);
+        }
+
+        // 4. UI FUNCTIONS
         function updateUIQty(id, delta) {
             const input = document.getElementById(`qty-${id}`);
+            if (!input) return;
+
             let val = parseInt(input.value) + delta;
             if (val < 0) val = 0;
             input.value = val;
@@ -427,6 +476,9 @@
             updateUIQty(id, 0);
             flashCard(id);
 
+            // Show success message
+            showToast(`Added ${qty} ${product.name} to cart!`);
+
             // Render cart and open it
             renderCart();
             document.getElementById('cart-dropdown').classList.add('open');
@@ -462,7 +514,7 @@
                         <p class="font-bold">${item.name}</p>
                         <p class="text-gray-500">${item.quantity} × $${item.unitPrice}</p>
                     </div>
-                    <button onclick="removeFromCart(${index})" class="text-red-500 hover:text-red-700">Remove</button>
+                    <button onclick="removeFromCart(${index})" class="text-red-500 hover:text-red-700 text-xs">Remove</button>
                 `;
                 list.appendChild(div);
             });
@@ -474,34 +526,47 @@
 
             checkoutBtn.disabled = (count === 0);
             checkoutBtn.className = count > 0
-                ? "w-full bg-[#3B7A57] text-white py-3 rounded-xl font-bold hover:bg-[#2d6145]"
+                ? "w-full bg-[#3B7A57] text-white py-3 rounded-xl font-bold hover:bg-[#2d6145] transition"
                 : "w-full bg-gray-400 text-white py-3 rounded-xl font-bold";
+
+            if (count > 0) {
+                checkoutBtn.textContent = `Checkout ($${total.toFixed(2)})`;
+            } else {
+                checkoutBtn.textContent = "Checkout";
+            }
         }
 
         function removeFromCart(index) {
+            const removedItem = cartItems[index];
             cartItems.splice(index, 1);
             localStorage.setItem('durafungi_cart', JSON.stringify(cartItems));
             renderCart();
+            showToast(`Removed ${removedItem.name} from cart`, 'info');
         }
 
-        // 4. CHECKOUT LOGIC
+        // 5. CHECKOUT LOGIC - USING YOUR BACKEND URL
         async function handleCheckout() {
             const btn = document.getElementById('checkout-btn');
-            const originalText = btn.innerText;
-            btn.innerText = "Connecting...";
+            const originalText = btn.textContent;
+            btn.textContent = "Processing...";
             btn.disabled = true;
 
             try {
                 // Determine if any item is recurring to set checkoutMode
                 const hasRecurring = cartItems.some(item => item.recurring);
 
-                // IMPORTANT: Replace this URL with your actual backend URL
-                // For now, I'll use a placeholder. You need to set this to your actual backend URL
-                const backendUrl = 'https://your-backend-server.onrender.com'; // CHANGE THIS
+                // YOUR BACKEND URL - this is critical!
+                const backendUrl = 'https://api.durafungi.com';
+
+                console.log('Sending checkout request to:', backendUrl);
+                console.log('Cart items:', cartItems);
 
                 const response = await fetch(`${backendUrl}/create-checkout-session`, {
                     method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    },
                     body: JSON.stringify({
                         items: cartItems.map(i => ({
                             price: i.price,
@@ -512,7 +577,13 @@
                     })
                 });
 
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                }
+
                 const data = await response.json();
+                console.log('Backend response:', data);
+
                 if (data.url) {
                     // Clear cart on successful checkout initiation
                     cartItems = [];
@@ -522,19 +593,17 @@
                     // Redirect to Stripe
                     window.location.href = data.url;
                 } else {
-                    alert("Checkout Error: " + (data.error || "Unknown error"));
-                    btn.innerText = originalText;
-                    btn.disabled = false;
+                    throw new Error(data.error || "No checkout URL received from server");
                 }
             } catch (err) {
                 console.error('Checkout error:', err);
-                alert("Failed to connect to checkout server. Please try again.");
-                btn.innerText = originalText;
+                showToast(`Checkout failed: ${err.message}`, 'error');
+                btn.textContent = originalText;
                 btn.disabled = false;
             }
         }
 
-        // 5. INITIALIZE
+        // 6. INITIALIZE
         function initPage() {
             // Set up cart toggle
             const cartToggle = document.getElementById('cart-toggle');
@@ -548,7 +617,8 @@
             // Close cart if clicking outside
             document.addEventListener('click', (e) => {
                 const cartDropdown = document.getElementById('cart-dropdown');
-                if (cartDropdown && !cartDropdown.contains(e.target) && !cartToggle.contains(e.target)) {
+                if (cartDropdown && !cartDropdown.contains(e.target) &&
+                    (!cartToggle || !cartToggle.contains(e.target))) {
                     cartDropdown.classList.remove('open');
                 }
             });
@@ -565,8 +635,13 @@
             // Check for return from Stripe
             const urlParams = new URLSearchParams(window.location.search);
             if (urlParams.has('checkout') && urlParams.get('checkout') === 'success') {
-                alert('🎉 Thank you for your purchase!');
+                showToast('🎉 Thank you for your purchase! Your order is confirmed.', 'success');
                 // Remove query parameter
+                window.history.replaceState({}, document.title, window.location.pathname);
+            }
+
+            if (urlParams.has('checkout') && urlParams.get('checkout') === 'cancelled') {
+                showToast('Checkout was cancelled. Your cart items are still saved.', 'info');
                 window.history.replaceState({}, document.title, window.location.pathname);
             }
         }
