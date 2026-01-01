@@ -157,11 +157,33 @@
             transition: 0.2s;
             -webkit-tap-highlight-color: transparent;
             text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
         }
 
         .plan-card.active {
             border-color: var(--green);
             background-color: #f0fdf4;
+        }
+
+        .plan-select-btn {
+            margin-top: 1rem;
+            background-color: var(--green);
+            color: white;
+            font-weight: bold;
+            padding: 0.75rem;
+            border-radius: 0.75rem;
+            transition: background-color 0.2s;
+        }
+
+        .plan-select-btn:hover {
+            background-color: #2d6046;
+        }
+
+        .plan-card.active .plan-select-btn {
+            background-color: white;
+            color: var(--green);
         }
 
         .qty-input {
@@ -249,14 +271,6 @@
                         Purchase</button>
                 </div>
 
-                <div id="email-wrapper" class="max-w-md mx-auto mb-10 px-4 text-left">
-                    <label for="email" class="block text-sm font-bold mb-2 ml-1">Email for Subscription</label>
-                    <input id="email" type="email" placeholder="you@example.com" oninput="validateCheckout()"
-                        class="w-full rounded-2xl border border-gray-300 px-4 py-4 outline-none focus:ring-2 focus:ring-[#3B7A57] text-lg shadow-sm" />
-                    <p id="email-error" class="text-red-500 text-sm mt-2 hidden ml-1">Please enter a valid email for
-                        subscriptions.</p>
-                </div>
-
                 <div id="section-subscription" class="space-y-12 px-2">
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 text-left">
                         <div class="space-y-4">
@@ -267,24 +281,40 @@
                                     <div class="font-bold text-sm md:text-base">1-Variety</div>
                                     <div class="text-xs md:text-sm text-gray-500">(250g)</div>
                                     <div class="mt-1 font-bold text-green-700">$20/wk</div>
+                                    <button type="button" class="plan-select-btn"
+                                        onclick="event.stopPropagation(); selectPlan(this.closest('.plan-card'), 'price_1SdSS9B03V57KY6P1w2mylJ5', '$20.00/wk')">
+                                        Choose Plan
+                                    </button>
                                 </div>
                                 <div class="plan-card"
                                     onclick="selectPlan(this, 'price_1SdSO7B03V57KY6P6OiZkgvF', '$25.00/wk')">
                                     <div class="font-bold text-sm md:text-base">2-Variety</div>
                                     <div class="text-xs md:text-sm text-gray-500">(500g)</div>
                                     <div class="mt-1 font-bold text-green-700">$25/wk</div>
+                                    <button type="button" class="plan-select-btn"
+                                        onclick="event.stopPropagation(); selectPlan(this.closest('.plan-card'), 'price_1SdSO7B03V57KY6P6OiZkgvF', '$25.00/wk')">
+                                        Choose Plan
+                                    </button>
                                 </div>
                                 <div class="plan-card"
                                     onclick="selectPlan(this, 'price_1SdSXkB03V57KY6PnfAUocFz', '$35.00/wk')">
                                     <div class="font-bold text-sm md:text-base">3-Variety</div>
                                     <div class="text-xs md:text-sm text-gray-500">(750g)</div>
                                     <div class="mt-1 font-bold text-green-700">$35/wk</div>
+                                    <button type="button" class="plan-select-btn"
+                                        onclick="event.stopPropagation(); selectPlan(this.closest('.plan-card'), 'price_1SdSXkB03V57KY6PnfAUocFz', '$35.00/wk')">
+                                        Choose Plan
+                                    </button>
                                 </div>
                                 <div class="plan-card"
                                     onclick="selectPlan(this, 'price_1Sj3JZB03V57KY6PUl9AnG95', '$45.00/wk')">
                                     <div class="font-bold text-sm md:text-base">4-Variety</div>
                                     <div class="text-xs md:text-sm text-gray-500">(1kg)</div>
                                     <div class="mt-1 font-bold text-green-700">$45/wk</div>
+                                    <button type="button" class="plan-select-btn"
+                                        onclick="event.stopPropagation(); selectPlan(this.closest('.plan-card'), 'price_1Sj3JZB03V57KY6PUl9AnG95', '$45.00/wk')">
+                                        Choose Plan
+                                    </button>
                                 </div>
                             </div>
                         </div>
@@ -296,24 +326,40 @@
                                     <div class="font-bold text-sm md:text-base">1-Variety</div>
                                     <div class="text-xs md:text-sm text-gray-500">(250g)</div>
                                     <div class="mt-1 font-bold text-green-700">$22/fn</div>
+                                    <button type="button" class="plan-select-btn"
+                                        onclick="event.stopPropagation(); selectPlan(this.closest('.plan-card'), 'price_1Sj3awB03V57KY6PCX55FRHv', '$22.00/fn')">
+                                        Choose Plan
+                                    </button>
                                 </div>
                                 <div class="plan-card"
                                     onclick="selectPlan(this, 'price_1Sj3YxB03V57KY6PoNoaBiRn', '$27.00/fn')">
                                     <div class="font-bold text-sm md:text-base">2-Variety</div>
                                     <div class="text-xs md:text-sm text-gray-500">(500g)</div>
                                     <div class="mt-1 font-bold text-green-700">$27/fn</div>
+                                    <button type="button" class="plan-select-btn"
+                                        onclick="event.stopPropagation(); selectPlan(this.closest('.plan-card'), 'price_1Sj3YxB03V57KY6PoNoaBiRn', '$27.00/fn')">
+                                        Choose Plan
+                                    </button>
                                 </div>
                                 <div class="plan-card"
                                     onclick="selectPlan(this, 'price_1Sj3edB03V57KY6PenA9ZByZ', '$32.00/fn')">
                                     <div class="font-bold text-sm md:text-base">3-Variety</div>
                                     <div class="text-xs md:text-sm text-gray-500">(750g)</div>
                                     <div class="mt-1 font-bold text-green-700">$32/fn</div>
+                                    <button type="button" class="plan-select-btn"
+                                        onclick="event.stopPropagation(); selectPlan(this.closest('.plan-card'), 'price_1Sj3edB03V57KY6PenA9ZByZ', '$32.00/fn')">
+                                        Choose Plan
+                                    </button>
                                 </div>
                                 <div class="plan-card"
                                     onclick="selectPlan(this, 'price_1Sj3VZB03V57KY6PxDUrEFNg', '$40.00/fn')">
                                     <div class="font-bold text-sm md:text-base">4-Variety</div>
                                     <div class="text-xs md:text-sm text-gray-500">(1kg)</div>
                                     <div class="mt-1 font-bold text-green-700">$40/fn</div>
+                                    <button type="button" class="plan-select-btn"
+                                        onclick="event.stopPropagation(); selectPlan(this.closest('.plan-card'), 'price_1Sj3VZB03V57KY6PxDUrEFNg', '$40.00/fn')">
+                                        Choose Plan
+                                    </button>
                                 </div>
                             </div>
                         </div>
@@ -325,27 +371,55 @@
                                     <div class="font-bold text-sm md:text-base">1-Variety</div>
                                     <div class="text-xs md:text-sm text-gray-500">(250g)</div>
                                     <div class="mt-1 font-bold text-green-700">$20/mo</div>
+                                    <button type="button" class="plan-select-btn"
+                                        onclick="event.stopPropagation(); selectPlan(this.closest('.plan-card'), 'price_1Sj3rlB03V57KY6Pi9IJdF8y', '$20.00/mo')">
+                                        Choose Plan
+                                    </button>
                                 </div>
                                 <div class="plan-card"
                                     onclick="selectPlan(this, 'price_1Sj3nTB03V57KY6Phuo34Ps2', '$32.00/mo')">
                                     <div class="font-bold text-sm md:text-base">2-Variety</div>
                                     <div class="text-xs md:text-sm text-gray-500">(500g)</div>
                                     <div class="mt-1 font-bold text-green-700">$32/mo</div>
+                                    <button type="button" class="plan-select-btn"
+                                        onclick="event.stopPropagation(); selectPlan(this.closest('.plan-card'), 'price_1Sj3nTB03V57KY6Phuo34Ps2', '$32.00/mo')">
+                                        Choose Plan
+                                    </button>
                                 </div>
                                 <div class="plan-card"
                                     onclick="selectPlan(this, 'price_1Sj3llB03V57KY6PuHfwaxuQ', '$40.00/mo')">
                                     <div class="font-bold text-sm md:text-base">3-Variety</div>
                                     <div class="text-xs md:text-sm text-gray-500">(1kg)</div>
                                     <div class="mt-1 font-bold text-green-700">$40/mo</div>
+                                    <button type="button" class="plan-select-btn"
+                                        onclick="event.stopPropagation(); selectPlan(this.closest('.plan-card'), 'price_1Sj3llB03V57KY6PuHfwaxuQ', '$40.00/mo')">
+                                        Choose Plan
+                                    </button>
                                 </div>
                                 <div class="plan-card"
                                     onclick="selectPlan(this, 'price_1Sj3jYB03V57KY6PwCVObZmX', '$55.00/mo')">
                                     <div class="font-bold text-sm md:text-base">4-Variety</div>
                                     <div class="text-xs md:text-sm text-gray-500">(1.5kg)</div>
                                     <div class="mt-1 font-bold text-green-700">$55/mo</div>
+                                    <button type="button" class="plan-select-btn"
+                                        onclick="event.stopPropagation(); selectPlan(this.closest('.plan-card'), 'price_1Sj3jYB03V57KY6PwCVObZmX', '$55.00/mo')">
+                                        Choose Plan
+                                    </button>
                                 </div>
                             </div>
                         </div>
+                    </div>
+
+                    <!-- Email field moved below plan grid for subscription mode -->
+                    <div id="email-wrapper" class="max-w-md mx-auto mt-12 px-4 text-left">
+                        <label for="email" class="block text-sm font-bold mb-2 ml-1">Your email (required for all
+                            orders)</label>
+                        <input id="email" type="email" placeholder="you@example.com" oninput="validateCheckout()"
+                            class="w-full rounded-2xl border border-gray-300 px-4 py-4 outline-none focus:ring-2 focus:ring-[#3B7A57] text-lg shadow-sm" />
+                        <p class="text-xs text-gray-600 mt-2 ml-1">We'll use this to create your account and send order
+                            updates.</p>
+                        <p id="email-error" class="text-red-500 text-sm mt-2 hidden ml-1">Please enter a valid email.
+                        </p>
                     </div>
                 </div>
 
