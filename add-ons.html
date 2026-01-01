@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>Add-Ons & Supplies – Dura Fungi Adelaide</title>
+    <meta name="description"
+        content="Essential mushroom growing supplies: Soy Hull Pellets, Masters Mix, and cultivation accessories." />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @font-face {
+            font-family: 'Montserrat';
+            src: url('/assets/fonts/MontserratVariableFontwght.ttf') format('truetype');
+            font-display: swap;
+        }
+
+        :root {
+            --black: #000000;
+            --charcoal: #1F1F1F;
+            --white: #F5F5F5;
+            --beige: #D8C3A5;
+            --green: #28a745;
+            --rust: #8B5E3C;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: #F5F5F5;
+            color: #1F1F1F;
+            overflow-x: hidden;
+        }
+
+        header {
+            background: linear-gradient(to bottom, #D8C3A5 0%, #F5F5F5 100%);
+            padding: 0.75rem 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 50;
+        }
+
+        .topnav {
+            display: flex;
+            gap: 1rem;
+            font-size: 0.85rem;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            padding-bottom: 4px;
+        }
+
+        .topnav::-webkit-scrollbar {
+            display: none;
+        }
+
+        .hero-section {
+            background: linear-gradient(to bottom, rgba(31, 31, 31, 0.8) 0%, rgba(31, 31, 31, 0.6) 100%),
+                url("https://s3.ap-southeast-2.amazonaws.com/durafungi.com/assets/img/lions_mane_pride.webp") center/cover no-repeat;
+            color: #fff;
+            text-align: center;
+            padding: 3rem 1rem;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            border: 2px solid #f3f4f6;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            position: relative;
+        }
+
+        .product-card.has-items {
+            border-color: var(--green);
+            background-color: #f0fdf4;
+            transform: translateY(-4px);
+        }
+
+        .product-card.added-flash {
+            outline: 3px solid rgba(40, 167, 69, 0.35);
+            transition: outline 0.15s;
+        }
+
+        /* Fixed Image Styling */
+        .product-img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            background: #e5e7eb;
+        }
+
+        .btn-add {
+            background-color: #28a745;
+            color: white;
+            padding: 1rem;
+            border-radius: 8px;
+            font-weight: 700;
+            text-align: center;
+            display: block;
+            margin-top: auto;
+            transition: background-color 0.2s;
+            cursor: pointer;
+        }
+
+        .btn-add:hover {
+            background-color: #218838;
+        }
+
+        .btn-add:disabled {
+            background-color: #9ca3af;
+            cursor: not-allowed;
+        }
+
+        footer {
+            background: #fff;
+            padding: 2rem;
+            text-align: center;
+            font-size: 0.85rem;
+            border-top: 1px solid #e0e0e0;
+        }
+
+        /* Cart Dropdown */
+        #cart-dropdown {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            width: 340px;
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 1rem;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            display: none;
+            z-index: 50;
+        }
+
+        #cart-dropdown.open {
+            display: block;
+        }
+
+        /* Toast notifications */
+        .toast {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #28a745;
+            color: white;
+            padding: 12px 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            z-index: 1000;
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        /* Cart toggle button */
+        #cart-toggle {
+            position: relative;
+            padding: 8px;
+        }
+
+        #cart-badge {
+            position: absolute;
+            top: 0;
+            right: 0;
+            background: #28a745;
+            color: white;
+            font-size: 10px;
+            border-radius: 50%;
+            width: 18px;
+            height: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        @media (max-width: 767px) {
+            #cart-dropdown {
+                width: 100%;
+                left: 0;
+                right: 0;
+                border-radius: 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <a href="/"><img src="https://s3.ap-southeast-2.amazonaws.com/durafungi.com/assets/img/logo.png" alt="DuraFungi"
+                style="height:35px;" class="md:h-[48px]"></a>
+        <nav class="topnav">
+            <a href="/fresh-mushrooms.html">Fresh</a>
+            <a href="/grow-blocks.html">Blocks</a>
+            <a href="/grain-spawn.html">Spawn</a>
+            <a href="/workshops.html">Workshops</a>
+            <a href="/add-ons.html" class="font-bold border-b-2 border-green-700">Add-Ons</a>
+        </nav>
+
+        <!-- Cart Toggle -->
+        <div class="relative">
+            <button id="cart-toggle" class="relative p-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" fill="none" viewBox="0 0 24 24"
+                    stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
+                </svg>
+                <span id="cart-badge" class="hidden"></span>
+            </button>
+
+            <div id="cart-dropdown" class="p-4">
+                <div class="border-b pb-3 mb-3">
+                    <h3 class="font-bold text-lg">Your Cart</h3>
+                </div>
+                <div id="cart-items-list" class="space-y-3 mb-4 max-h-60 overflow-y-auto"></div>
+                <div id="cart-empty-msg" class="text-center py-4 text-gray-400">Your cart is empty</div>
+                <div class="border-t pt-3">
+                    <div class="flex justify-between font-bold mb-4">
+                        <span>Total</span>
+                        <span id="cart-total-display">$0.00</span>
+                    </div>
+                    <button id="checkout-btn" onclick="handleCheckout()" disabled
+                        class="w-full bg-gray-400 text-white py-3 rounded-xl font-bold">Checkout</button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero-section">
+            <h1 class="text-2xl md:text-5xl font-bold mb-2">Grow Supplies</h1>
+            <p class="text-sm md:text-xl opacity-90">Essential substrate and tools for your urban farm.</p>
+        </section>
+
+        <section class="max-w-7xl mx-auto py-8 px-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+                <div class="product-card" id="card-soy-hull">
+                    <img src="https://s3.ap-southeast-2.amazonaws.com/durafungi.com/assets/img/soy-hull-pellets.png"
+                        alt="Soy Hull Pellets" class="product-img">
+                    <div class="p-5 flex flex-col flex-grow">
+                        <h3 class="text-lg font-bold mb-1">Organic Soy Hull Pellets (20KG)</h3>
+                        <p class="text-gray-600 text-xs mb-4">Nitrogen-rich supplement for high-yield fruiting.</p>
+                        <p class="text-xl font-bold mb-4">$58.75</p>
+                        <button data-id="soy-hull" data-price="price_1Sjd9hB03V57KY6PzvbuDXXc"
+                            data-name="Organic Soy Hull Pellets (20KG)" data-price="58.75"
+                            class="btn-add add-to-cart-btn">Add to Cart</button>
+                    </div>
+                </div>
+
+                <div class="product-card border-2 border-beige" id="card-masters-mix">
+                    <img src="https://s3.ap-southeast-2.amazonaws.com/durafungi.com/assets/img/hardwood-sawdust-pellets.png"
+                        alt="Masters Mix" class="product-img">
+                    <div class="p-5 flex flex-col flex-grow">
+                        <h3 class="text-lg font-bold mb-1">Masters Mix Substrate (4kg)</h3>
+                        <p class="text-gray-600 text-xs mb-4">Hydrated and pre-sterilised 50/50 Oak/Soy blend.</p>
+                        <p class="text-xl font-bold mb-4">$45.00</p>
+                        <button data-id="masters-mix" data-price="price_1RTgdTB03V57KY6POw8v2ig0"
+                            data-name="Masters Mix Substrate (4kg)" data-price="45.00"
+                            class="btn-add add-to-cart-btn">Add to Cart</button>
+                    </div>
+                </div>
+
+                <div class="product-card" id="card-hardwood-pellets">
+                    <img src="https://s3.ap-southeast-2.amazonaws.com/durafungi.com/assets/img/hardwood-pellets.png"
+                        alt="Hardwood Pellets" class="product-img">
+                    <div class="p-5 flex flex-col flex-grow">
+                        <h3 class="text-lg font-bold mb-1">Hardwood Sawdust Pellets (15KG)</h3>
+                        <p class="text-gray-600 text-xs mb-4">Clean, compressed hardwood for substrate base.</p>
+                        <p class="text-xl font-bold mb-4">$35.00</p>
+                        <button data-id="hardwood-pellets" data-price="price_1Sjd7DB03V57KY6PMss3Pw4I"
+                            data-name="Hardwood Sawdust Pellets (15KG)" data-price="35.00"
+                            class="btn-add add-to-cart-btn">Add to Cart</button>
+                    </div>
+                </div>
+
+                <div class="product-card" id="card-coco-coir">
+                    <img src="https://s3.ap-southeast-2.amazonaws.com/durafungi.com/assets/img/coco-coir-block.png"
+                        alt="Coco Coir Block" class="product-img">
+                    <div class="p-5 flex flex-col flex-grow">
+                        <h3 class="text-lg font-bold mb-1">Coco Coir Block</h3>
+                        <p class="text-gray-600 text-xs mb-4">High-retention organic growing medium.</p>
+                        <p class="text-xl font-bold mb-4">$45.00</p>
+                        <button data-id="coco-coir" data-price="price_1RThS3B03V57KY6Pb6fp4TyR"
+                            data-name="Coco Coir Block" data-price="45.00" class="btn-add add-to-cart-btn">Add to
+                            Cart</button>
+                    </div>
+                </div>
+
+                <div class="product-card bg-green-50" id="card-starter-kit">
+                    <img src="https://s3.ap-southeast-2.amazonaws.com/durafungi.com/assets/img/lions_mane_pride.webp"
+                        alt="Starter Kit" class="product-img">
+                    <div class="p-5 flex flex-col flex-grow">
+                        <h3 class="text-lg font-bold mb-1 text-green-800">Grow Starter Kit</h3>
+                        <p class="text-gray-600 text-xs mb-4">Tent, spray bottle, and guide. Best for beginners.</p>
+                        <p class="text-xl font-bold mb-4">$20.00</p>
+                        <button data-id="starter-kit" data-price="price_1Sj4zrB03V57KY6PMuYhW3xN"
+                            data-name="Grow Starter Kit" data-price="20.00" class="btn-add add-to-cart-btn">Add to
+                            Cart</button>
+                    </div>
+                </div>
+
+                <div class="product-card" id="card-humidity-tent">
+                    <img src="https://s3.ap-southeast-2.amazonaws.com/durafungi.com/assets/img/Fine-Mist-Spray-Bottle.webp"
+                        alt="Spray Bottle" class="product-img">
+                    <div class="p-5 flex flex-col flex-grow">
+                        <h3 class="text-lg font-bold mb-1">Humidity Tent Kit</h3>
+                        <p class="text-gray-600 text-xs mb-4">Essential for maintaining fruiting moisture.</p>
+                        <p class="text-xl font-bold mb-4">$15.00</p>
+                        <button data-id="humidity-tent" data-price="price_1Sj4q9B03V57KY6PxInoLjWZ"
+                            data-name="Humidity Tent Kit" data-price="15.00" class="btn-add add-to-cart-btn">Add to
+                            Cart</button>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+    </main>
+
+    <footer>© 2025 Dura Fungi. All rights reserved.</footer>
+
+    <script>
+        // 1. PRODUCT CATALOG
+        const CATALOG = {
+            'soy-hull': {
+                price: 'price_1Sjd9hB03V57KY6PzvbuDXXc',
+                name: 'Organic Soy Hull Pellets (20KG)',
+                unitPrice: 58.75,
+                recurring: false
+            },
+            'masters-mix': {
+                price: 'price_1RTgdTB03V57KY6POw8v2ig0',
+                name: 'Masters Mix Substrate (4kg)',
+                unitPrice: 45.00,
+                recurring: false
+            },
+            'hardwood-pellets': {
+                price: 'price_1Sjd7DB03V57KY6PMss3Pw4I',
+                name: 'Hardwood Sawdust Pellets (15KG)',
+                unitPrice: 35.00,
+                recurring: false
+            },
+            'coco-coir': {
+                price: 'price_1RThS3B03V57KY6Pb6fp4TyR',
+                name: 'Coco Coir Block',
+                unitPrice: 45.00,
+                recurring: false
+            },
+            'starter-kit': {
+                price: 'price_1Sj4zrB03V57KY6PMuYhW3xN',
+                name: 'Grow Starter Kit',
+                unitPrice: 20.00,
+                recurring: false
+            },
+            'humidity-tent': {
+                price: 'price_1Sj4q9B03V57KY6PxInoLjWZ',
+                name: 'Humidity Tent Kit',
+                unitPrice: 15.00,
+                recurring: false
+            }
+        };
+
+        // 2. CART STATE with localStorage persistence (shared across all pages)
+        let cartItems = JSON.parse(localStorage.getItem('durafungi_cart')) || [];
+
+        // 3. UTILITY FUNCTIONS
+        function showToast(message, type = 'success') {
+            // Remove existing toast
+            const existingToast = document.querySelector('.toast');
+            if (existingToast) existingToast.remove();
+
+            // Create new toast
+            const toast = document.createElement('div');
+            toast.className = `toast ${type === 'success' ? 'bg-[#28a745]' : 'bg-red-500'}`;
+            toast.textContent = message;
+            document.body.appendChild(toast);
+
+            // Remove after 3 seconds
+            setTimeout(() => {
+                if (toast.parentNode) {
+                    toast.style.opacity = '0';
+                    setTimeout(() => toast.remove(), 300);
+                }
+            }, 3000);
+        }
+
+        function flashCard(id) {
+            const card = document.getElementById(`card-${id}`);
+            if (card) {
+                card.classList.add('added-flash');
+                setTimeout(() => card.classList.remove('added-flash'), 300);
+            }
+        }
+
+        // 4. CART FUNCTIONS
+        function addToCart(id, quantity = 1) {
+            const product = CATALOG[id];
+            if (!product) {
+                console.error('Product not found:', id);
+                return;
+            }
+
+            // Check if item already exists
+            const existingIndex = cartItems.findIndex(item => item.price === product.price);
+
+            if (existingIndex > -1) {
+                cartItems[existingIndex].quantity += quantity;
+            } else {
+                cartItems.push({
+                    id: id,
+                    price: product.price,
+                    name: product.name,
+                    unitPrice: product.unitPrice,
+                    quantity: quantity,
+                    recurring: product.recurring
+                });
+            }
+
+            // Save to localStorage
+            localStorage.setItem('durafungi_cart', JSON.stringify(cartItems));
+
+            // Visual feedback
+            flashCard(id);
+            showToast(`Added ${product.name} to cart!`);
+
+            // Render cart and open it
+            renderCart();
+            document.getElementById('cart-dropdown').classList.add('open');
+        }
+
+        function renderCart() {
+            const list = document.getElementById('cart-items-list');
+            const badge = document.getElementById('cart-badge');
+            const emptyMsg = document.getElementById('cart-empty-msg');
+            const checkoutBtn = document.getElementById('checkout-btn');
+            const totalDisplay = document.getElementById('cart-total-display');
+
+            list.innerHTML = '';
+            let total = 0;
+            let count = 0;
+
+            cartItems.forEach((item, index) => {
+                total += item.unitPrice * item.quantity;
+                count += item.quantity;
+
+                const div = document.createElement('div');
+                div.className = "flex justify-between items-center text-sm border-b pb-2";
+                div.innerHTML = `
+                    <div>
+                        <p class="font-bold">${item.name}</p>
+                        <p class="text-gray-500">${item.quantity} × $${item.unitPrice}</p>
+                    </div>
+                    <button onclick="removeFromCart(${index})" class="text-red-500 hover:text-red-700 text-xs">Remove</button>
+                `;
+                list.appendChild(div);
+            });
+
+            badge.innerText = count;
+            badge.classList.toggle('hidden', count === 0);
+            emptyMsg.classList.toggle('hidden', count > 0);
+            totalDisplay.innerText = `$${total.toFixed(2)}`;
+
+            checkoutBtn.disabled = (count === 0);
+            checkoutBtn.className = count > 0
+                ? "w-full bg-[#28a745] text-white py-3 rounded-xl font-bold hover:bg-[#218838] transition"
+                : "w-full bg-gray-400 text-white py-3 rounded-xl font-bold";
+
+            if (count > 0) {
+                checkoutBtn.textContent = `Checkout ($${total.toFixed(2)})`;
+            } else {
+                checkoutBtn.textContent = "Checkout";
+            }
+        }
+
+        function removeFromCart(index) {
+            const removedItem = cartItems[index];
+            cartItems.splice(index, 1);
+            localStorage.setItem('durafungi_cart', JSON.stringify(cartItems));
+            renderCart();
+            showToast(`Removed ${removedItem.name} from cart`, 'info');
+        }
+
+        // 5. CHECKOUT LOGIC
+        async function handleCheckout() {
+            const btn = document.getElementById('checkout-btn');
+            const originalText = btn.textContent;
+            btn.textContent = "Processing...";
+            btn.disabled = true;
+
+            try {
+                // Determine if any item is recurring to set checkoutMode
+                const hasRecurring = cartItems.some(item => item.recurring);
+
+                // Backend URL
+                const backendUrl = 'https://api.durafungi.com';
+
+                console.log('Sending checkout request to:', backendUrl);
+                console.log('Cart items:', cartItems);
+
+                const response = await fetch(`${backendUrl}/create-checkout-session`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        items: cartItems.map(i => ({
+                            price: i.price,
+                            quantity: i.quantity
+                        })),
+                        returnUrl: window.location.origin + window.location.pathname,
+                        checkoutMode: hasRecurring ? 'subscription' : 'payment'
+                    })
+                });
+
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                }
+
+                const data = await response.json();
+                console.log('Backend response:', data);
+
+                if (data.url) {
+                    // Clear cart on successful checkout initiation
+                    cartItems = [];
+                    localStorage.removeItem('durafungi_cart');
+                    renderCart();
+
+                    // Redirect to Stripe
+                    window.location.href = data.url;
+                } else {
+                    throw new Error(data.error || "No checkout URL received from server");
+                }
+            } catch (err) {
+                console.error('Checkout error:', err);
+                showToast(`Checkout failed: ${err.message}`, 'error');
+                btn.textContent = originalText;
+                btn.disabled = false;
+            }
+        }
+
+        // 6. INITIALIZE
+        function initPage() {
+            // Set up cart toggle
+            const cartToggle = document.getElementById('cart-toggle');
+            if (cartToggle) {
+                cartToggle.onclick = (e) => {
+                    e.stopPropagation();
+                    document.getElementById('cart-dropdown').classList.toggle('open');
+                };
+            }
+
+            // Close cart if clicking outside
+            document.addEventListener('click', (e) => {
+                const cartDropdown = document.getElementById('cart-dropdown');
+                if (cartDropdown && !cartDropdown.contains(e.target) &&
+                    (!cartToggle || !cartToggle.contains(e.target))) {
+                    cartDropdown.classList.remove('open');
+                }
+            });
+
+            // Prevent cart from closing when clicking inside
+            const cartDropdown = document.getElementById('cart-dropdown');
+            if (cartDropdown) {
+                cartDropdown.onclick = (e) => e.stopPropagation();
+            }
+
+            // Set up add to cart buttons
+            document.querySelectorAll('.add-to-cart-btn').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const id = button.getAttribute('data-id');
+                    addToCart(id);
+                });
+            });
+
+            // Initial render
+            renderCart();
+
+            // Check for return from Stripe
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.has('checkout') && urlParams.get('checkout') === 'success') {
+                showToast('🎉 Thank you for your purchase! Your order is confirmed.', 'success');
+                // Remove query parameter
+                window.history.replaceState({}, document.title, window.location.pathname);
+            }
+
+            if (urlParams.has('checkout') && urlParams.get('checkout') === 'cancelled') {
+                showToast('Checkout was cancelled. Your cart items are still saved.', 'info');
+                window.history.replaceState({}, document.title, window.location.pathname);
+            }
+        }
+
+        // Run initialization when page loads
+        document.addEventListener('DOMContentLoaded', initPage);
+    </script>
+
+</body>
+
+</html>
