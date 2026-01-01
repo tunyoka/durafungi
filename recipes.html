@@ -1,0 +1,815 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Recipes – Dura Fungi Adelaide</title>
+    <meta name="description"
+        content="Quick, no-waste recipes using Dura Fungi mushrooms—Lion's Mane steak, Shiitake stir-fry, Oyster collaboration dishes with Yumi's Pantry." />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @font-face {
+            font-family: 'Montserrat';
+            src: url('/assets/fonts/MontserratVariableFontwght.ttf') format('truetype');
+            font-display: swap;
+        }
+
+        :root {
+            --black: #000000;
+            --charcoal: #1F1F1F;
+            --white: #F5F5F5;
+            --beige: #D8C3A5;
+            --green: #28a745;
+            --rust: #8B5E3C;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: #F5F5F5;
+            color: #1F1F1F;
+            overflow-x: hidden;
+        }
+
+        header {
+            background: linear-gradient(to bottom, #D8C3A5 0%, #F5F5F5 100%);
+            padding: 0.75rem 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 20;
+        }
+
+        .topnav {
+            display: flex;
+            gap: 1rem;
+            font-size: 0.85rem;
+        }
+
+        @media (min-width: 768px) {
+            .topnav {
+                gap: 1.5rem;
+                font-size: 0.95rem;
+            }
+        }
+
+        .recipes-hero {
+            background: linear-gradient(to bottom, rgba(31, 31, 31, 0.9) 0%, rgba(31, 31, 31, 0.7) 100%),
+                url("https://s3.ap-southeast-2.amazonaws.com/durafungi.com/assets/img/lions+mane+steak_couscous.jpg") center/cover no-repeat;
+            color: #fff;
+            text-align: center;
+            padding: 4rem 1rem;
+        }
+
+        @media (min-width: 768px) {
+            .recipes-hero {
+                padding: 6rem 1.5rem;
+            }
+        }
+
+        .content-card {
+            background: white;
+            border-radius: 12px;
+            border: 2px solid #f3f4f6;
+            transition: all 0.3s ease;
+            overflow: hidden;
+        }
+
+        .content-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+        }
+
+        .recipe-card {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            border: 2px solid #f3f4f6;
+            transition: all 0.3s ease;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .recipe-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.1);
+            border-color: var(--rust);
+        }
+
+        .btn-primary {
+            background: linear-gradient(to right, var(--rust), var(--green));
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 9999px;
+            font-weight: 700;
+            transition: all 0.2s;
+            text-align: center;
+            cursor: pointer;
+            border: none;
+            width: 100%;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(139, 94, 60, 0.3);
+        }
+
+        footer {
+            background: #fff;
+            padding: 2rem;
+            text-align: center;
+            font-size: 0.85rem;
+            border-top: 1px solid #e0e0e0;
+            margin-top: 3rem;
+        }
+
+        /* Recipe Tags */
+        .recipe-tag {
+            display: inline-block;
+            background: rgba(139, 94, 60, 0.1);
+            color: var(--rust);
+            font-size: 0.75rem;
+            font-weight: 600;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        /* Recipe Images */
+        .recipe-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+        }
+
+        /* Ingredients & Method Lists */
+        .ingredients-list,
+        .method-list {
+            list-style: none;
+            padding-left: 0;
+            margin: 0.5rem 0;
+        }
+
+        .ingredients-list li,
+        .method-list li {
+            padding: 0.25rem 0;
+            position: relative;
+            padding-left: 1.5rem;
+        }
+
+        .ingredients-list li:before {
+            content: "•";
+            color: var(--rust);
+            position: absolute;
+            left: 0;
+        }
+
+        .method-list li:before {
+            content: counter(item) ".";
+            counter-increment: item;
+            color: var(--rust);
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+        }
+
+        .method-list {
+            counter-reset: item;
+        }
+
+        /* Collab Box */
+        .collab-box {
+            background: linear-gradient(to right, rgba(216, 195, 165, 0.1), rgba(139, 94, 60, 0.05));
+            border-left: 4px solid var(--rust);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 2rem 0;
+        }
+
+        /* Cart Dropdown */
+        #cart-dropdown {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            width: 340px;
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 1rem;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            display: none;
+            z-index: 50;
+        }
+
+        #cart-dropdown.open {
+            display: block;
+        }
+
+        /* Cart toggle button */
+        #cart-toggle {
+            position: relative;
+            padding: 8px;
+        }
+
+        #cart-badge {
+            position: absolute;
+            top: 0;
+            right: 0;
+            background: #28a745;
+            color: white;
+            font-size: 10px;
+            border-radius: 50%;
+            width: 18px;
+            height: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Toast notifications */
+        .toast {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #28a745;
+            color: white;
+            padding: 12px 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            z-index: 1000;
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        @media (max-width: 767px) {
+            #cart-dropdown {
+                width: 100%;
+                left: 0;
+                right: 0;
+                border-radius: 0;
+            }
+
+            .recipe-image {
+                height: 180px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <a href="/"><img src="https://s3.ap-southeast-2.amazonaws.com/durafungi.com/assets/img/logo.png" alt="DuraFungi"
+                style="height:40px;" class="md:h-[48px]"></a>
+        <nav class="topnav overflow-x-auto whitespace-nowrap pb-1">
+            <a href="/fresh-mushrooms.html">Fresh</a>
+            <a href="/grow-blocks.html">Blocks</a>
+            <a href="/grain-spawn.html">Spawn</a>
+            <a href="/workshops.html">Workshops</a>
+            <a href="/add-ons.html">Add-Ons</a>
+            <a href="/wholesale.html">Wholesale</a>
+            <a href="/farmers-market.html">Farmers Markets</a>
+            <a href="/recipes.html" class="font-bold border-b-2 border-green-700">Recipes</a>
+        </nav>
+
+        <!-- Cart Toggle (same as other pages) -->
+        <div class="relative">
+            <button id="cart-toggle" class="relative p-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" fill="none" viewBox="0 0 24 24"
+                    stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
+                </svg>
+                <span id="cart-badge" class="hidden"></span>
+            </button>
+
+            <div id="cart-dropdown" class="p-4">
+                <div class="border-b pb-3 mb-3">
+                    <h3 class="font-bold text-lg">Your Cart</h3>
+                </div>
+                <div id="cart-items-list" class="space-y-3 mb-4 max-h-60 overflow-y-auto"></div>
+                <div id="cart-empty-msg" class="text-center py-4 text-gray-400">Your cart is empty</div>
+                <div class="border-t pt-3">
+                    <div class="flex justify-between font-bold mb-4">
+                        <span>Total</span>
+                        <span id="cart-total-display">$0.00</span>
+                    </div>
+                    <button id="checkout-btn" onclick="handleCheckout()" disabled
+                        class="w-full bg-gray-400 text-white py-3 rounded-xl font-bold">Checkout</button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="recipes-hero">
+            <h1 class="text-3xl md:text-5xl font-bold mb-4 px-4">Fresh Recipes, Straight Off the Farm</h1>
+            <p class="text-base md:text-xl max-w-2xl mx-auto px-4 opacity-90">Simple, quick, and mushroom-forward meals
+                designed to let the fresh flavour of our produce shine.</p>
+        </section>
+
+        <!-- Main Content -->
+        <section class="max-w-7xl mx-auto py-10 md:py-16 px-6">
+            <!-- Quick Weeknight Recipes -->
+            <div class="mb-12 md:mb-16">
+                <div class="content-card p-6 md:p-8 mb-8">
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+                        <div>
+                            <img src="https://s3.ap-southeast-2.amazonaws.com/durafungi.com/assets/img/lions+mane+steak_couscous.jpg"
+                                alt="Za'atar Lion's Mane mushroom steak served over couscous and herb salad"
+                                class="w-full h-auto rounded-lg shadow-lg">
+                            <p class="text-sm text-gray-500 mt-2">Recipe by César Pérez / Photo by Elvin Abril (Food52)
+                            </p>
+                        </div>
+                        <div>
+                            <h2 class="text-2xl md:text-3xl font-bold mb-4 text-charcoal">Quick Weeknight Recipes</h2>
+                            <p class="text-gray-600 mb-6">Small-batch, big taste. Order the mushrooms, make it tonight.
+                            </p>
+
+                            <div class="space-y-4 mb-6">
+                                <div class="border-l-4 border-rust pl-4 py-1">
+                                    <a href="https://food52.com/recipes/90194-zaatar-lions-mane-steak-with-couscous-herb-salad"
+                                        target="_blank" rel="noopener"
+                                        class="text-lg font-semibold text-rust hover:text-green-700">
+                                        Za'atar Lion's Mane Steak
+                                    </a>
+                                    <p class="text-gray-600 text-sm">Pan-seared lion's mane, za'atar, couscous, herb
+                                        salad. Vegan-friendly method.</p>
+                                </div>
+
+                                <div class="border-l-4 border-beige pl-4 py-1">
+                                    <h3 class="text-lg font-semibold text-charcoal">Lion's Mane Steak (5 minutes)</h3>
+                                    <p class="text-gray-600 text-sm">200 g lion's mane, hot pan, garlic + thyme + soy.
+                                        Plate. Done.</p>
+                                </div>
+
+                                <div class="border-l-4 border-beige pl-4 py-1">
+                                    <h3 class="text-lg font-semibold text-charcoal">Shiitake & Greens Stir-Fry</h3>
+                                    <p class="text-gray-600 text-sm">Shiitake, bok choy, ginger, sesame oil – 2 minutes
+                                        on high.</p>
+                                </div>
+
+                                <div class="border-l-4 border-beige pl-4 py-1">
+                                    <h3 class="text-lg font-semibold text-charcoal">Pink Oyster Scramble</h3>
+                                    <p class="text-gray-600 text-sm">Add oysters in the last 30 seconds for colour and
+                                        texture. No dairy needed.</p>
+                                </div>
+                            </div>
+
+                            <a href="/fresh-mushrooms.html" class="btn-primary inline-block text-center">Order
+                                Mushrooms</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Collaboration Box -->
+            <div class="collab-box mb-12">
+                <div class="flex items-start">
+                    <div class="flex-shrink-0">
+                        <span class="text-2xl">🤝</span>
+                    </div>
+                    <div class="ml-4">
+                        <h3 class="text-lg font-bold text-charcoal mb-2">Recipe Collaboration</h3>
+                        <p class="text-gray-600">These recipes were created by <strong class="text-rust">Yumi's
+                                Pantry</strong> using DuraFungi oyster mushrooms. Shared here with permission so you can
+                            cook them at home — using the same fresh produce from our farm. 🍄</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recipe Grid -->
+            <div class="mb-12">
+                <h2 class="text-2xl md:text-3xl font-bold mb-8 text-center text-charcoal">Shiitake & Oyster Recipes</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+                    <!-- Recipe 1 -->
+                    <div class="recipe-card">
+                        <img src="https://s3.ap-southeast-2.amazonaws.com/durafungi.com/assets/img/Shiitake_miso_+parmesan.jpg"
+                            alt="Baked Shiitake Mushrooms with Miso and a generous layer of grated parmesan"
+                            class="recipe-image">
+                        <span class="recipe-tag">Bake • Serves 2</span>
+                        <h3 class="text-xl font-bold mb-2 text-charcoal">Baked Shiitake Mushrooms with Miso, Parmesan
+                        </h3>
+                        <p class="text-sm text-gray-500 mb-4">Featuring: DuraFungi Shiitake Mushrooms + Yumi's Pantry
+                            Organic White Miso</p>
+                        <h4 class="font-semibold mb-2 text-rust">Ingredients</h4>
+                        <ul class="ingredients-list text-sm text-gray-600 mb-4">
+                            <li>10-12 Dura Fungi shiitake mushrooms</li>
+                            <li>25g Yumi's Pantry Organic White Miso</li>
+                            <li>1 tbsp sake</li>
+                            <li>1-2 tbsp olive oil</li>
+                            <li>Fresh thyme leaves</li>
+                            <li>Freshly grated parmesan cheese</li>
+                        </ul>
+                        <h4 class="font-semibold mb-2 text-rust">Method</h4>
+                        <ol class="method-list text-sm text-gray-600">
+                            <li>Preheat the oven to 180°C</li>
+                            <li>Remove the stems from the shiitake mushrooms</li>
+                            <li>Mix the miso and sake until smooth</li>
+                            <li>Place mushrooms on a tray, gill side up, spread miso mixture inside each</li>
+                            <li>Drizzle with olive oil and bake until tender</li>
+                            <li>Finish with thyme, olive oil, and grated parmesan</li>
+                        </ol>
+                        <div class="mt-auto pt-4">
+                            <a href="/fresh-mushrooms.html"
+                                class="text-rust hover:text-green-700 font-semibold text-sm">Order Shiitake Mushrooms
+                                →</a>
+                        </div>
+                    </div>
+
+                    <!-- Recipe 2 -->
+                    <div class="recipe-card">
+                        <img src="https://s3.ap-southeast-2.amazonaws.com/durafungi.com/assets/img/Shiitake_miso_soup.jpg"
+                            alt="A bowl of Shiitake Mushroom Miso Soup garnished with sliced spring onion"
+                            class="recipe-image">
+                        <span class="recipe-tag">Soup • Serves 2</span>
+                        <h3 class="text-xl font-bold mb-2 text-charcoal">Shiitake Mushroom Miso Soup</h3>
+                        <p class="text-sm text-gray-500 mb-4">Featuring: DuraFungi Shiitake Mushrooms + Yumi's Pantry
+                            Organic White Miso</p>
+                        <h4 class="font-semibold mb-2 text-rust">Ingredients</h4>
+                        <ul class="ingredients-list text-sm text-gray-600 mb-4">
+                            <li>300ml filtered water</li>
+                            <li>80g silken tofu</li>
+                            <li>15g spring onion</li>
+                            <li>40g Yumi's Pantry Organic White Miso</li>
+                            <li>80-100g Dura Fungi Shiitake mushrooms, sliced</li>
+                        </ul>
+                        <h4 class="font-semibold mb-2 text-rust">Method</h4>
+                        <ol class="method-list text-sm text-gray-600">
+                            <li>Bring water to a gentle simmer</li>
+                            <li>Slice shiitake mushrooms and add to pot</li>
+                            <li>Simmer until mushrooms are tender</li>
+                            <li>Cut tofu into 1 cm cubes and add to soup</li>
+                            <li>Turn off heat, add miso, stir until dissolved</li>
+                            <li>Finish with sliced spring onion</li>
+                        </ol>
+                        <div class="mt-auto pt-4">
+                            <a href="/fresh-mushrooms.html"
+                                class="text-rust hover:text-green-700 font-semibold text-sm">Order Shiitake Mushrooms
+                                →</a>
+                        </div>
+                    </div>
+
+                    <!-- Recipe 3 -->
+                    <div class="recipe-card">
+                        <img src="https://s3.ap-southeast-2.amazonaws.com/durafungi.com/assets/img/Grilled+Dura+Fungi+Oyster+Mushrooms+with+Umami+Chilli.jpg"
+                            alt="Grilled Dura Fungi Oyster Mushrooms with Umami Chilli" class="recipe-image">
+                        <span class="recipe-tag">Grilled • Serves 2</span>
+                        <h3 class="text-xl font-bold mb-2 text-charcoal">Grilled Oyster Mushrooms with Umami Chilli</h3>
+                        <p class="text-sm text-gray-500 mb-4">Featuring: DuraFungi Oyster Mushrooms + Yumi's Pantry
+                            Umami Chilli</p>
+                        <h4 class="font-semibold mb-2 text-rust">Ingredients</h4>
+                        <ul class="ingredients-list text-sm text-gray-600 mb-4">
+                            <li>200g Dura Fungi oyster mushrooms</li>
+                            <li>3 cloves garlic, minced</li>
+                            <li>2 tbsp olive oil</li>
+                            <li>Fresh thyme, salt, and pepper</li>
+                            <li>10–15g Yumi's Pantry Umami Chilli</li>
+                            <li>½ lemon (juice & zest)</li>
+                        </ul>
+                        <h4 class="font-semibold mb-2 text-rust">Method</h4>
+                        <ol class="method-list text-sm text-gray-600">
+                            <li>Tear mushrooms into desired size</li>
+                            <li>Toss with olive oil, garlic, thyme, salt, and pepper</li>
+                            <li>Grill on medium heat 3–4 minutes per side</li>
+                            <li>Toss through Umami Chilli while still warm</li>
+                            <li>Finish with lemon juice and zest</li>
+                        </ol>
+                        <div class="mt-auto pt-4">
+                            <a href="/fresh-mushrooms.html"
+                                class="text-rust hover:text-green-700 font-semibold text-sm">Order Oyster Mushrooms
+                                →</a>
+                        </div>
+                    </div>
+
+                    <!-- Recipe 4 -->
+                    <div class="recipe-card">
+                        <img src="https://s3.ap-southeast-2.amazonaws.com/durafungi.com/assets/img/Miso+Cream+%26+Dura+Fungi+Oyster+Mushroom+Pasta.jpg"
+                            alt="Miso Cream and Dura Fungi Oyster Mushroom Pasta" class="recipe-image">
+                        <span class="recipe-tag">Pasta • Serves 2</span>
+                        <h3 class="text-xl font-bold mb-2 text-charcoal">Miso Cream & Oyster Mushroom Pasta</h3>
+                        <p class="text-sm text-gray-500 mb-4">Featuring: DuraFungi Oyster Mushrooms + Yumi's Pantry
+                            Organic White Miso</p>
+                        <h4 class="font-semibold mb-2 text-rust">Ingredients</h4>
+                        <ul class="ingredients-list text-sm text-gray-600 mb-4">
+                            <li>180g Dura Fungi oyster mushrooms</li>
+                            <li>200g dried pasta</li>
+                            <li>50g unsalted butter</li>
+                            <li>2 cloves garlic, minced</li>
+                            <li>70ml white wine</li>
+                            <li>130g fresh cream</li>
+                            <li>70g Yumi's Pantry Organic White Miso</li>
+                            <li>Salt & pepper, to taste</li>
+                            <li>Spring onion, finely sliced</li>
+                        </ul>
+                        <h4 class="font-semibold mb-2 text-rust">Method</h4>
+                        <ol class="method-list text-sm text-gray-600">
+                            <li>Cook pasta until al dente, reserve water</li>
+                            <li>Sauté garlic in butter, add mushrooms until golden</li>
+                            <li>Deglaze with wine and reduce slightly</li>
+                            <li>Add cream and miso, stir gently (avoid boiling)</li>
+                            <li>Toss pasta in sauce, add pasta water if needed</li>
+                        </ol>
+                        <div class="mt-auto pt-4">
+                            <a href="/fresh-mushrooms.html"
+                                class="text-rust hover:text-green-700 font-semibold text-sm">Order Oyster Mushrooms
+                                →</a>
+                        </div>
+                    </div>
+
+                    <!-- Recipe 5 -->
+                    <div class="recipe-card">
+                        <img src="https://s3.ap-southeast-2.amazonaws.com/durafungi.com/assets/img/Foil-Baked+Dura+Fungi+Oyster+Mushrooms+with+Miso+Butter.jpg"
+                            alt="Foil-Baked Dura Fungi Oyster Mushrooms with Miso Butter" class="recipe-image">
+                        <span class="recipe-tag">Bake • Serves 2</span>
+                        <h3 class="text-xl font-bold mb-2 text-charcoal">Foil-Baked Oyster Mushrooms with Miso Butter
+                        </h3>
+                        <p class="text-sm text-gray-500 mb-4">Featuring: DuraFungi Oyster Mushrooms + Yumi's Pantry Miso
+                        </p>
+                        <h4 class="font-semibold mb-2 text-rust">Ingredients</h4>
+                        <ul class="ingredients-list text-sm text-gray-600 mb-4">
+                            <li>130g Dura Fungi oyster mushrooms</li>
+                            <li>30g unsalted butter</li>
+                            <li>1 tbsp Yumi's Pantry Organic White Miso</li>
+                            <li>1 tbsp sake or dry white wine</li>
+                            <li>1 small fresh chilli, sliced (optional)</li>
+                            <li>1 spring onion, finely sliced</li>
+                            <li>Lemon juice & black pepper to taste</li>
+                        </ul>
+                        <h4 class="font-semibold mb-2 text-rust">Method</h4>
+                        <ol class="method-list text-sm text-gray-600">
+                            <li>Preheat oven to 200°C</li>
+                            <li>Tear mushrooms and place on foil</li>
+                            <li>Mix butter, miso, and sake; spoon over mushrooms</li>
+                            <li>Add chilli and pepper, seal foil, bake 12–15 minutes</li>
+                            <li>Open carefully, top with spring onion and lemon juice</li>
+                        </ol>
+                        <div class="mt-auto pt-4">
+                            <a href="/fresh-mushrooms.html"
+                                class="text-rust hover:text-green-700 font-semibold text-sm">Order Oyster Mushrooms
+                                →</a>
+                        </div>
+                    </div>
+
+                    <!-- Recipe 6 - Lion's Mane Steak Recipe -->
+                    <div class="recipe-card">
+                        <img src="https://s3.ap-southeast-2.amazonaws.com/durafungi.com/assets/img/lions_mane_pride.webp"
+                            alt="Fresh Lion's Mane mushrooms ready for cooking" class="recipe-image">
+                        <span class="recipe-tag">Sauté • Serves 2</span>
+                        <h3 class="text-xl font-bold mb-2 text-charcoal">Simple Lion's Mane Steak</h3>
+                        <p class="text-sm text-gray-500 mb-4">The easiest way to enjoy Lion's Mane</p>
+                        <h4 class="font-semibold mb-2 text-rust">Ingredients</h4>
+                        <ul class="ingredients-list text-sm text-gray-600 mb-4">
+                            <li>200g Dura Fungi Lion's Mane mushrooms</li>
+                            <li>2 cloves garlic, minced</li>
+                            <li>2 tbsp olive oil or butter</li>
+                            <li>1 tbsp soy sauce or tamari</li>
+                            <li>Fresh thyme or rosemary</li>
+                            <li>Salt and pepper to taste</li>
+                        </ul>
+                        <h4 class="font-semibold mb-2 text-rust">Method</h4>
+                        <ol class="method-list text-sm text-gray-600">
+                            <li>Gently clean Lion's Mane (don't wash)</li>
+                            <li>Heat oil/butter in pan over medium-high heat</li>
+                            <li>Add mushrooms, cook 3-4 minutes each side until golden</li>
+                            <li>Add garlic, herbs, soy sauce in last minute</li>
+                            <li>Season and serve immediately</li>
+                        </ol>
+                        <div class="mt-auto pt-4">
+                            <a href="/fresh-mushrooms.html"
+                                class="text-rust hover:text-green-700 font-semibold text-sm">Order Lion's Mane Mushrooms
+                                →</a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- CTA Section -->
+            <div class="content-card p-8 text-center">
+                <h2 class="text-2xl md:text-3xl font-bold mb-4 text-charcoal">Ready to Cook?</h2>
+                <p class="text-gray-600 mb-6 max-w-2xl mx-auto">Get fresh, locally-grown mushrooms delivered to your
+                    door. Perfect for trying these recipes tonight.</p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                    <a href="/fresh-mushrooms.html" class="btn-primary">Shop Fresh Mushrooms</a>
+                    <a href="/grow-blocks.html"
+                        class="btn-primary bg-white text-charcoal border-2 border-rust hover:bg-rust hover:text-white">Grow
+                        Your Own</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>© 2025 Dura Fungi. All rights reserved.</footer>
+
+    <script>
+        // Shared cart functionality (same as other pages)
+        let cartItems = JSON.parse(localStorage.getItem('durafungi_cart')) || [];
+
+        // Toast notification
+        function showToast(message, type = 'success') {
+            const existingToast = document.querySelector('.toast');
+            if (existingToast) existingToast.remove();
+
+            const toast = document.createElement('div');
+            toast.className = `toast ${type === 'success' ? 'bg-[#28a745]' : 'bg-red-500'}`;
+            toast.textContent = message;
+            document.body.appendChild(toast);
+
+            setTimeout(() => {
+                if (toast.parentNode) {
+                    toast.style.opacity = '0';
+                    setTimeout(() => toast.remove(), 300);
+                }
+            }, 3000);
+        }
+
+        // Cart functionality (shared across pages)
+        function renderCart() {
+            const list = document.getElementById('cart-items-list');
+            const badge = document.getElementById('cart-badge');
+            const emptyMsg = document.getElementById('cart-empty-msg');
+            const checkoutBtn = document.getElementById('checkout-btn');
+            const totalDisplay = document.getElementById('cart-total-display');
+
+            if (!list) return;
+
+            list.innerHTML = '';
+            let total = 0;
+            let count = 0;
+
+            cartItems.forEach((item, index) => {
+                total += item.unitPrice * item.quantity;
+                count += item.quantity;
+
+                const div = document.createElement('div');
+                div.className = "flex justify-between items-center text-sm border-b pb-2";
+                div.innerHTML = `
+                    <div>
+                        <p class="font-bold">${item.name}</p>
+                        <p class="text-gray-500">${item.quantity} × $${item.unitPrice.toFixed(2)}</p>
+                    </div>
+                    <button onclick="removeFromCart(${index})" class="text-red-500 hover:text-red-700 text-xs">Remove</button>
+                `;
+                list.appendChild(div);
+            });
+
+            if (badge) {
+                badge.innerText = count;
+                badge.classList.toggle('hidden', count === 0);
+            }
+
+            if (emptyMsg) {
+                emptyMsg.classList.toggle('hidden', count > 0);
+            }
+
+            if (totalDisplay) {
+                totalDisplay.innerText = `$${total.toFixed(2)}`;
+            }
+
+            if (checkoutBtn) {
+                checkoutBtn.disabled = (count === 0);
+                checkoutBtn.className = count > 0
+                    ? "w-full bg-[#28a745] text-white py-3 rounded-xl font-bold hover:bg-[#218838] transition"
+                    : "w-full bg-gray-400 text-white py-3 rounded-xl font-bold";
+
+                if (count > 0) {
+                    checkoutBtn.textContent = `Checkout ($${total.toFixed(2)})`;
+                } else {
+                    checkoutBtn.textContent = "Checkout";
+                }
+            }
+        }
+
+        function removeFromCart(index) {
+            const removedItem = cartItems[index];
+            cartItems.splice(index, 1);
+            localStorage.setItem('durafungi_cart', JSON.stringify(cartItems));
+            renderCart();
+            showToast(`Removed ${removedItem.name} from cart`, 'info');
+        }
+
+        // Checkout function (shared)
+        async function handleCheckout() {
+            const btn = document.getElementById('checkout-btn');
+            if (!btn) return;
+
+            const originalText = btn.textContent;
+            btn.textContent = "Processing...";
+            btn.disabled = true;
+
+            try {
+                const hasRecurring = cartItems.some(item => item.recurring);
+                const backendUrl = 'https://api.durafungi.com';
+
+                const response = await fetch(`${backendUrl}/create-checkout-session`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        items: cartItems.map(i => ({
+                            price: i.price,
+                            quantity: i.quantity
+                        })),
+                        returnUrl: window.location.origin + window.location.pathname,
+                        checkoutMode: hasRecurring ? 'subscription' : 'payment'
+                    })
+                });
+
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                }
+
+                const data = await response.json();
+
+                if (data.url) {
+                    cartItems = [];
+                    localStorage.removeItem('durafungi_cart');
+                    renderCart();
+                    window.location.href = data.url;
+                } else {
+                    throw new Error(data.error || "No checkout URL received");
+                }
+            } catch (err) {
+                console.error('Checkout error:', err);
+                showToast(`Checkout failed: ${err.message}`, 'error');
+                btn.textContent = originalText;
+                btn.disabled = false;
+            }
+        }
+
+        // Initialize page
+        function initPage() {
+            // Cart toggle
+            const cartToggle = document.getElementById('cart-toggle');
+            if (cartToggle) {
+                cartToggle.onclick = (e) => {
+                    e.stopPropagation();
+                    const cartDropdown = document.getElementById('cart-dropdown');
+                    if (cartDropdown) {
+                        cartDropdown.classList.toggle('open');
+                    }
+                };
+            }
+
+            // Close cart when clicking outside
+            document.addEventListener('click', (e) => {
+                const cartDropdown = document.getElementById('cart-dropdown');
+                const cartToggle = document.getElementById('cart-toggle');
+                if (cartDropdown && !cartDropdown.contains(e.target) &&
+                    (!cartToggle || !cartToggle.contains(e.target))) {
+                    cartDropdown.classList.remove('open');
+                }
+            });
+
+            // Prevent cart from closing when clicking inside
+            const cartDropdown = document.getElementById('cart-dropdown');
+            if (cartDropdown) {
+                cartDropdown.onclick = (e) => e.stopPropagation();
+            }
+
+            // Check for return from Stripe
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.has('checkout') && urlParams.get('checkout') === 'success') {
+                showToast('🎉 Thank you for your purchase! Your order is confirmed.', 'success');
+                window.history.replaceState({}, document.title, window.location.pathname);
+            }
+
+            if (urlParams.has('checkout') && urlParams.get('checkout') === 'cancelled') {
+                showToast('Checkout was cancelled. Your items are still saved in your cart.', 'info');
+                window.history.replaceState({}, document.title, window.location.pathname);
+            }
+
+            // Initial render
+            renderCart();
+        }
+
+        // Run initialization
+        document.addEventListener('DOMContentLoaded', initPage);
+    </script>
+
+</body>
+
+</html>
