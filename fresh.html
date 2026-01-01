@@ -987,6 +987,15 @@
         initOneOffButtons();
         updateCartUI();
     </script>
+
+    <!-- Cart initialization guard -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            if (window.__DF_CART_BOOTED) return;
+            window.__DF_CART_BOOTED = true;
+            window.DF_CART.init();
+        });
+    </script>
 </body>
 
 </html>
