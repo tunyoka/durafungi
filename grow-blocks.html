@@ -533,13 +533,13 @@
             const email = document.getElementById('customerEmail').value.trim();
             const status = document.getElementById('status-line');
             const btn = document.getElementById('checkoutBtn');
-            const items = [];
 
             if (checkoutMode === "subscription" && !isValidEmail(email)) {
                 alert("Please enter a valid email for subscriptions.");
                 return;
             }
 
+            const items = [];
             for (let key in products) {
                 const qty = parseInt(document.getElementById(`qty-${key}`).value);
                 if (qty > 0) {
@@ -560,8 +560,6 @@
                 const payload = {
                     checkoutMode,
                     items,
-
-                    // ✅ KEY IMPROVEMENT: backend can return the customer to this exact page
                     returnUrl: window.location.href
                 };
 
@@ -576,12 +574,17 @@
                     body: JSON.stringify(payload)
                 });
 
+                if (!res.ok) {
+                    const text = await res.text();
+                    throw new Error(`Server error (${res.status}): ${text}`);
+                }
+
                 const data = await res.json();
                 if (data.url) {
                     // Best-practice UX: same-tab redirect
                     window.location.href = data.url;
                 } else {
-                    throw new Error("Session generation failed.");
+                    throw new Error(data.error || "Session generation failed.");
                 }
             } catch (e) {
                 alert("Checkout Error: " + e.message);
@@ -612,6 +615,9 @@
         }
 
         window.onload = loadStorage;
+
+        // Keep checkout button enabled state in sync with email field edits
+        document.getElementById('customerEmail').addEventListener('input', calculateTotal);
     </script>
 </body>
 
