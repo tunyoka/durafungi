@@ -154,6 +154,79 @@
             text-align: center;
             border-top: 1px solid #eee;
         }
+
+        /* GROW GUIDES SECTION STYLES */
+        .guide-card {
+            background: white;
+            border-radius: 16px;
+            border: 2px solid #f3f4f6;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            height: 100%;
+        }
+
+        .guide-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.1);
+            border-color: var(--rust);
+        }
+
+        .guide-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .guide-card:hover .guide-image {
+            transform: scale(1.05);
+        }
+
+        .guide-tag {
+            display: inline-block;
+            background: rgba(139, 94, 60, 0.1);
+            color: var(--rust);
+            font-size: 0.75rem;
+            font-weight: 600;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            margin-bottom: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .btn-guide {
+            background: linear-gradient(to right, var(--rust), var(--green));
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 9999px;
+            font-weight: 700;
+            transition: all 0.2s;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-guide:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(139, 94, 60, 0.3);
+        }
+
+        .btn-view-all {
+            background: linear-gradient(to right, var(--rust), var(--green));
+            color: white;
+            padding: 0.875rem 2rem;
+            border-radius: 9999px;
+            font-weight: 700;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-view-all:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(139, 94, 60, 0.3);
+        }
     </style>
 </head>
 
@@ -179,6 +252,7 @@
             <a href="workshops.html">Workshops</a>
             <a href="grain-spawn.html">Grain Spawn</a>
             <a href="add-ons.html">Add-Ons</a>
+            <a href="recipes.html">Recipes</a>
             <a href="contact.html">Contact</a>
         </nav>
     </header>
@@ -262,6 +336,89 @@
             </div>
         </section>
 
+        <!-- ===== NEW GROW GUIDES SECTION ===== -->
+        <section class="py-16 px-6 bg-gradient-to-b from-white to-[#F9F7F4]">
+            <div class="max-w-6xl mx-auto">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl font-bold mb-4 text-rust">Expert Grow Guides</h2>
+                    <p class="text-lg text-gray-600 max-w-3xl mx-auto">
+                        Free access to detailed, step-by-step instructions for cultivating mushrooms at home.
+                        Created by experts and tailored for Adelaide conditions.
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+                    <!-- Oyster Guide Card -->
+                    <div class="guide-card">
+                        <div class="h-48 overflow-hidden">
+                            <img src="https://s3.ap-southeast-2.amazonaws.com/durafungi.com/assets/img/blue-grey-oyster-mushroom-grain-spawn-kit.webp"
+                                alt="Oyster Mushroom Harvest" class="guide-image">
+                        </div>
+                        <div class="p-6">
+                            <span class="guide-tag">Complete Guide</span>
+                            <h3 class="text-xl font-bold mb-2 text-charcoal">Oyster Mushroom Guide</h3>
+                            <p class="text-gray-600 text-sm mb-4">
+                                White, Grey, and Blue Pearl varieties. Get multiple flushes with our step-by-step guide.
+                            </p>
+                            <button onclick="checkAccess('instructions-oyster-block.html')" class="btn-guide">
+                                View Guide
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Shiitake Guide Card -->
+                    <div class="guide-card">
+                        <div class="h-48 overflow-hidden">
+                            <img src="https://s3.ap-southeast-2.amazonaws.com/durafungi.com/assets/img/shiitake_grow_block_2.webp"
+                                alt="Shiitake Grow Block" class="guide-image">
+                        </div>
+                        <div class="p-6">
+                            <span class="guide-tag">Intermediate</span>
+                            <h3 class="text-xl font-bold mb-2 text-charcoal">Shiitake Mushroom Guide</h3>
+                            <p class="text-gray-600 text-sm mb-4">
+                                Brown rind technique, humidity tents, and getting perfect flushes from your grow block.
+                            </p>
+                            <button onclick="checkAccess('instructions-shiitake-block.html')" class="btn-guide">
+                                View Guide
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Lion's Mane Guide Card -->
+                    <div class="guide-card">
+                        <div class="h-48 overflow-hidden">
+                            <img src="https://s3.ap-southeast-2.amazonaws.com/durafungi.com/assets/img/lions_mane_pride.webp"
+                                alt="Lion's Mane Mushroom" class="guide-image">
+                        </div>
+                        <div class="p-6">
+                            <span class="guide-tag">Beginner Friendly</span>
+                            <h3 class="text-xl font-bold mb-2 text-charcoal">Lion's Mane Guide</h3>
+                            <p class="text-gray-600 text-sm mb-4">
+                                Fluffy pom-pom clusters, jute bag setup, and seafood-like flavor cultivation guide.
+                            </p>
+                            <button onclick="checkAccess('instructions-lions-mane-block.html')" class="btn-guide">
+                                View Guide
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="text-center">
+                    <a href="grow-guides-hub.html" class="btn-view-all">
+                        View All Grow Guides
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd"
+                                d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z"
+                                clip-rule="evenodd" />
+                        </svg>
+                    </a>
+                    <p class="text-sm text-gray-500 mt-3">
+                        Free registration required. No credit card needed.
+                    </p>
+                </div>
+            </div>
+        </section>
+
         <section class="py-20 px-6 bg-stone-100">
             <div class="max-w-4xl mx-auto text-center">
                 <h2 class="text-3xl font-bold mb-6 text-rust">Grown in Adelaide, For Adelaide</h2>
@@ -284,6 +441,7 @@
         <div class="flex justify-center gap-4">
             <a href="contact.html" class="text-xs hover:text-green-700 underline">Contact Us</a>
             <a href="wholesale.html" class="text-xs hover:text-green-700 underline">Wholesale</a>
+            <a href="recipes.html" class="text-xs hover:text-green-700 underline">Recipes</a>
         </div>
     </footer>
 
@@ -306,6 +464,23 @@
                 btn.setAttribute('href', `${baseHref}?mode=${mode}`);
             });
         }
+
+        // GROW GUIDE ACCESS FUNCTION
+        function checkAccess(guidePage) {
+            if (localStorage.getItem('durafungi_access_granted') === 'true') {
+                window.location.href = guidePage;
+            } else {
+                window.location.href = 'registration-gate.html?redirect=' + guidePage;
+            }
+        }
+
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', (event) => {
+            const isClickInsideNav = navMenu.contains(event.target) || menuBtn.contains(event.target);
+            if (!isClickInsideNav && navMenu.classList.contains('open')) {
+                navMenu.classList.remove('open');
+            }
+        });
     </script>
 </body>
 
