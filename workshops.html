@@ -215,14 +215,13 @@
         (function () {
             const API = "https://api.durafungi.com/create-checkout-session";
 
-            async function createSession({ priceId }) {
+            async function createSession(priceId) {
                 const res = await fetch(API, {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({
                         checkoutMode: "payment",
                         items: [{ price: priceId, quantity: 1 }],
-                        // ✅ KEY IMPROVEMENT: return to this exact page on success/cancel (backend must honor it)
                         returnUrl: window.location.href
                     })
                 });
@@ -235,7 +234,7 @@
 
             function setLoading(link, isLoading) {
                 if (!link) return;
-                link.dataset.dfOriginalText ??= link.textContent;
+                if (!link.dataset.dfOriginalText) link.dataset.dfOriginalText = link.textContent;
                 link.textContent = isLoading ? "Redirecting to secure checkout…" : link.dataset.dfOriginalText;
                 link.style.pointerEvents = isLoading ? "none" : "";
                 link.style.opacity = isLoading ? "0.7" : "";
@@ -252,8 +251,7 @@
 
                 try {
                     setLoading(a, true);
-                    const url = await createSession({ priceId });
-                    // ✅ Best practice: same-tab redirect
+                    const url = await createSession(priceId);
                     window.location.href = url;
                 } catch (err) {
                     console.error(err);
