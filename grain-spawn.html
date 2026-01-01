@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
     <title>Grain Spawn – Dura Fungi Adelaide</title>
     <meta name="description"
-        content="Professional-grade mushroom grain spawn. Inoculate your own substrates with Lion’s Mane and Oyster mushroom cultures." />
+        content="Professional-grade mushroom grain spawn. Inoculate your own substrates with Lion's Mane and Oyster mushroom cultures." />
     <script src="https://cdn.tailwindcss.com"></script>
 
     <style>
@@ -48,12 +48,6 @@
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
         }
 
-        .nav-toggle {
-            display: block;
-            cursor: pointer;
-            padding: 0.5rem;
-        }
-
         .nav-toggle-line {
             width: 24px;
             height: 2px;
@@ -76,16 +70,6 @@
 
         #mobile-menu.open {
             display: flex;
-        }
-
-        @media (min-width: 768px) {
-            .nav-toggle {
-                display: none;
-            }
-
-            #mobile-menu {
-                display: none !important;
-            }
         }
 
         .spawn-hero {
@@ -121,17 +105,16 @@
         }
 
         .qty-input {
-            width: 56px;
+            width: 40px;
             text-align: center;
             font-weight: bold;
-            font-size: 1.25rem;
             background: transparent;
             border: none;
         }
 
         .qty-btn {
-            width: 44px;
-            height: 44px;
+            width: 36px;
+            height: 36px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -139,23 +122,21 @@
             background: #f3f4f6;
             border-radius: 50%;
             font-weight: bold;
-            font-size: 1.25rem;
-            touch-action: manipulation;
+            transition: background 0.2s;
+        }
+
+        .qty-btn:hover {
+            background: #e5e7eb;
         }
 
         .add-btn {
-            margin-top: auto;
             background: var(--green);
             color: white;
-            font-weight: 700;
-            padding: 0.75rem 1.5rem;
-            border-radius: 9999px;
-            transition: background-color 0.2s;
-            text-align: center;
-        }
-
-        .add-btn:hover {
-            background: #218838;
+            font-weight: 800;
+            padding: 0.75rem;
+            border-radius: 0.75rem;
+            width: 100%;
+            transition: 0.2s;
         }
 
         .add-btn:disabled {
@@ -167,24 +148,48 @@
             background: var(--beige);
         }
 
-        /* Mini-cart styles (consistent across site) */
+        /* Mini-cart styles */
         #cart-dropdown {
             position: absolute;
             top: 100%;
             right: 0;
             width: 340px;
-            max-height: 70vh;
-            overflow-y: auto;
             background: white;
             border: 1px solid #e5e7eb;
             border-radius: 1rem;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
             display: none;
-            z-index: 200;
+            z-index: 50;
         }
 
         #cart-dropdown.open {
             display: block;
+        }
+
+        /* Toast notifications */
+        .toast {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #28a745;
+            color: white;
+            padding: 12px 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            z-index: 1000;
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
         }
 
         @media (max-width: 767px) {
@@ -214,44 +219,33 @@
         <!-- Shared Mini Cart -->
         <div class="relative">
             <button id="cart-toggle" class="relative p-2" aria-label="Cart">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-gray-700" fill="none" viewBox="0 0 24 24"
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" fill="none" viewBox="0 0 24 24"
                     stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+                        d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
                 </svg>
                 <span id="cart-badge"
-                    class="absolute -top-1 -right-1 bg-green-600 text-white text-xs rounded-full h-6 w-6 flex items-center justify-center hidden">0</span>
+                    class="absolute top-0 right-0 bg-green-600 text-white text-[10px] rounded-full h-5 w-5 flex items-center justify-center hidden">0</span>
             </button>
 
-            <div id="cart-dropdown" class="mt-2">
-                <div class="p-4 border-b">
+            <div id="cart-dropdown" class="p-4">
+                <div class="border-b pb-3 mb-3">
                     <h3 class="font-bold text-lg">Your Cart</h3>
                 </div>
-                <div id="cart-items" class="p-4 space-y-3"></div>
-                <div id="cart-empty" class="p-8 text-center text-gray-500">Your cart is empty</div>
-                <div class="p-4 border-t">
-                    <div class="flex items-center justify-between mb-2">
-                        <div class="font-bold">Total</div>
-                        <div id="cart-total" class="font-bold">$0.00</div>
+                <div id="cart-items-list" class="space-y-3 mb-4 max-h-60 overflow-y-auto"></div>
+                <div id="cart-empty-msg" class="text-center py-4 text-gray-400">Your cart is empty</div>
+                <div class="border-t pt-3">
+                    <div class="flex justify-between font-bold mb-4">
+                        <span>Total</span>
+                        <span id="cart-total-display">$0.00</span>
                     </div>
-                    <div id="mode-hint" class="text-xs text-gray-500 mb-4"></div>
-                    <div id="email-section" class="mb-4 hidden">
-                        <label for="customer-email" class="block text-sm font-bold mb-2">Email (required for
-                            subscriptions)</label>
-                        <input id="customer-email" type="email" placeholder="you@example.com"
-                            class="w-full rounded-xl border px-4 py-3" />
-                        <p id="email-error" class="text-red-500 text-sm mt-1 hidden">Please enter a valid email.</p>
-                    </div>
-                    <button id="proceed-btn" disabled class="w-full text-white py-4 rounded-full font-bold text-lg"
-                        style="background: #9ca3af;">
-                        Proceed to Checkout
-                    </button>
-                    <p id="checkout-status" class="text-sm mt-2 text-gray-500 text-center"></p>
+                    <button id="checkout-btn" onclick="handleCheckout()" disabled
+                        class="w-full bg-gray-400 text-white py-3 rounded-xl font-bold">Checkout</button>
                 </div>
             </div>
         </div>
 
-        <button class="nav-toggle" onclick="toggleMenu()">
+        <button class="md:hidden" onclick="toggleMenu()">
             <div class="nav-toggle-line"></div>
             <div class="nav-toggle-line"></div>
             <div class="nav-toggle-line"></div>
@@ -277,25 +271,24 @@
             <h2 class="text-3xl font-bold mb-8 text-center text-rust">Available Cultures</h2>
 
             <div class="grid md:grid-cols-2 gap-8">
-                <!-- Lion’s Mane Grain Spawn -->
+                <!-- Lion's Mane Grain Spawn -->
                 <div class="product-card" id="card-spawn-lions">
                     <img src="https://s3.ap-southeast-2.amazonaws.com/durafungi.com/assets/img/lions_mane_pride.webp"
                         class="rounded-lg mb-4 h-64 w-full object-cover">
                     <div class="p-6 flex flex-col flex-grow">
-                        <h3 class="text-2xl font-bold mb-2">Lion’s Mane Grain Spawn (1kg)</h3>
-                        <p class="text-gray-600 mb-4 text-center">
+                        <h3 class="text-2xl font-bold mb-2">Lion's Mane Grain Spawn (1kg)</h3>
+                        <p class="text-gray-600 mb-4">
                             Inoculates ~10–20kg of substrate. Ideal for hardwood sawdust or master's mix.
                         </p>
                         <p class="text-3xl font-bold text-green-700 mb-6">$45.00</p>
 
                         <div class="flex justify-center items-center gap-6 mb-4">
-                            <button class="qty-btn" onclick="updateQty('spawn-lions', -1)">-</button>
+                            <button class="qty-btn" onclick="updateUIQty('spawn-lions', -1)">-</button>
                             <input id="qty-spawn-lions" class="qty-input" value="0" readonly>
-                            <button class="qty-btn" onclick="updateQty('spawn-lions', 1)">+</button>
+                            <button class="qty-btn" onclick="updateUIQty('spawn-lions', 1)">+</button>
                         </div>
 
-                        <button id="add-spawn-lions" class="add-btn" disabled
-                            onclick="addToCartFromPage('spawn-lions')">
+                        <button id="add-spawn-lions" class="add-btn" disabled onclick="addToCart('spawn-lions')">
                             Add to Cart
                         </button>
                     </div>
@@ -307,19 +300,18 @@
                         class="rounded-lg mb-4 h-64 w-full object-cover">
                     <div class="p-6 flex flex-col flex-grow">
                         <h3 class="text-2xl font-bold mb-2">Blue-Grey Oyster Grain Spawn (1kg)</h3>
-                        <p class="text-gray-600 mb-4 text-center">
+                        <p class="text-gray-600 mb-4">
                             Aggressive colonizer, perfect for straw, coffee grounds, or sawdust.
                         </p>
                         <p class="text-3xl font-bold text-green-700 mb-6">$45.00</p>
 
                         <div class="flex justify-center items-center gap-6 mb-4">
-                            <button class="qty-btn" onclick="updateQty('spawn-oyster', -1)">-</button>
+                            <button class="qty-btn" onclick="updateUIQty('spawn-oyster', -1)">-</button>
                             <input id="qty-spawn-oyster" class="qty-input" value="0" readonly>
-                            <button class="qty-btn" onclick="updateQty('spawn-oyster', 1)">+</button>
+                            <button class="qty-btn" onclick="updateUIQty('spawn-oyster', 1)">+</button>
                         </div>
 
-                        <button id="add-spawn-oyster" class="add-btn" disabled
-                            onclick="addToCartFromPage('spawn-oyster')">
+                        <button id="add-spawn-oyster" class="add-btn" disabled onclick="addToCart('spawn-oyster')">
                             Add to Cart
                         </button>
                     </div>
@@ -341,18 +333,17 @@
                         <p class="text-gray-600 mb-6">
                             Hydrated and pressure-sterilised, ready for liquid culture or G2G transfer.
                         </p>
-                        <div class="flex items-center justify-between">
+                        <div class="flex items-center justify-between mb-6">
                             <span class="text-2xl font-bold">$25.00</span>
 
                             <div class="flex items-center gap-4">
-                                <button class="qty-btn" onclick="updateQty('rye-grain', -1)">-</button>
+                                <button class="qty-btn" onclick="updateUIQty('rye-grain', -1)">-</button>
                                 <input id="qty-rye-grain" class="qty-input" value="0" readonly>
-                                <button class="qty-btn" onclick="updateQty('rye-grain', 1)">+</button>
+                                <button class="qty-btn" onclick="updateUIQty('rye-grain', 1)">+</button>
                             </div>
                         </div>
 
-                        <button id="add-rye-grain" class="add-btn mt-6" disabled
-                            onclick="addToCartFromPage('rye-grain')">
+                        <button id="add-rye-grain" class="add-btn" disabled onclick="addToCart('rye-grain')">
                             Add to Cart
                         </button>
                     </div>
@@ -365,91 +356,295 @@
         © 2026 Dura Fungi. All rights reserved.
     </footer>
 
-    <!-- Shared cart logic -->
-    <script src="https://s3.ap-southeast-2.amazonaws.com/durafungi.com/assets/js/cart.js"></script>
-
-    <!-- Page-specific glue -->
+    <!-- Page-specific JavaScript -->
     <script>
+        // 1. PRODUCT CATALOG (Matches your Stripe Backend)
+        const CATALOG = {
+            'spawn-lions': {
+                price: 'price_1RTgTSB03V57KY6PrqjdXuPm',
+                name: "Lion's Mane Grain Spawn (1kg)",
+                unitPrice: 45,
+                recurring: false
+            },
+            'spawn-oyster': {
+                price: 'price_1RTgPuB03V57KY6PcReRpaza',
+                name: 'Blue-Grey Oyster Grain Spawn (1kg)',
+                unitPrice: 45,
+                recurring: false
+            },
+            'rye-grain': {
+                price: 'price_1RThOMB03V57KY6Pzpa0N5dd',
+                name: 'Sterilised Organic Rye Grain (2.5kg)',
+                unitPrice: 25,
+                recurring: false
+            }
+        };
+
+        // 2. CART STATE with localStorage persistence
+        let cartItems = JSON.parse(localStorage.getItem('durafungi_cart')) || [];
+
+        // 3. UTILITY FUNCTIONS
+        function showToast(message, type = 'success') {
+            // Remove existing toast
+            const existingToast = document.querySelector('.toast');
+            if (existingToast) existingToast.remove();
+
+            // Create new toast
+            const toast = document.createElement('div');
+            toast.className = `toast ${type === 'success' ? 'bg-[#28a745]' : 'bg-red-500'}`;
+            toast.textContent = message;
+            document.body.appendChild(toast);
+
+            // Remove after 3 seconds
+            setTimeout(() => {
+                if (toast.parentNode) {
+                    toast.style.opacity = '0';
+                    setTimeout(() => toast.remove(), 300);
+                }
+            }, 3000);
+        }
+
+        // 4. UI FUNCTIONS
         function toggleMenu() {
             document.getElementById('mobile-menu').classList.toggle('open');
         }
 
-        const catalog = {
-            'spawn-lions': {
-                price: 'price_1RTgTSB03V57KY6PrqjdXuPm',
-                label: 'Lion’s Mane Grain Spawn (1kg)',
-                unitPrice: 45
-            },
-            'spawn-oyster': {
-                price: 'price_1RTgPuB03V57KY6PcReRpaza',
-                label: 'Blue-Grey Oyster Grain Spawn (1kg)',
-                unitPrice: 45
-            },
-            'rye-grain': {
-                price: 'price_1RThOMB03V57KY6Pzpa0N5dd',
-                label: 'Sterilised Organic Rye Grain (2.5kg)',
-                unitPrice: 25
-            }
-        };
-
-        function flashAdded(cardId) {
-            const el = document.getElementById(cardId);
-            if (el) {
-                el.classList.add('added-flash');
-                setTimeout(() => el.classList.remove('added-flash'), 220);
-            }
-        }
-
-        function updateQty(key, delta) {
-            const input = document.getElementById(`qty-${key}`);
+        function updateUIQty(id, delta) {
+            const input = document.getElementById(`qty-${id}`);
             if (!input) return;
 
-            let qty = parseInt(input.value, 10) || 0;
-            qty = Math.max(0, qty + delta);
-            input.value = qty;
+            let val = parseInt(input.value) + delta;
+            if (val < 0) val = 0;
+            input.value = val;
 
-            const card = document.getElementById(`card-${key}`);
-            if (card) card.classList.toggle('has-items', qty > 0);
+            const card = document.getElementById(`card-${id}`);
+            if (card) card.classList.toggle('has-items', val > 0);
 
-            const btn = document.getElementById(`add-${key}`);
-            if (btn) btn.disabled = (qty === 0);
+            const addBtn = document.getElementById(`add-${id}`);
+            if (addBtn) addBtn.disabled = (val === 0);
         }
 
-        function addToCartFromPage(key) {
-            const item = catalog[key];
-            if (!item) return;
+        function flashCard(id) {
+            const card = document.getElementById(`card-${id}`);
+            if (card) {
+                card.classList.add('added-flash');
+                setTimeout(() => card.classList.remove('added-flash'), 300);
+            }
+        }
 
-            const qtyInput = document.getElementById(`qty-${key}`);
-            const qty = parseInt(qtyInput?.value, 10) || 0;
-            if (qty <= 0) return;
-
-            const addBtn = document.getElementById(`add-${key}`);
-            if (addBtn) {
-                addBtn.disabled = true;
-                addBtn.textContent = "Adding…";
+        function addToCart(id) {
+            const product = CATALOG[id];
+            if (!product) {
+                console.error('Product not found:', id);
+                return;
             }
 
-            DF_CART.addToCart({
-                price: item.price,
-                quantity: qty,
-                recurring: false,  // no subscription on spawn page
-                label: item.label,
-                unitPrice: item.unitPrice
-            });
+            const qty = parseInt(document.getElementById(`qty-${id}`).value) || 0;
+            if (qty <= 0) return;
 
-            qtyInput.value = 0;
-            updateQty(key, 0);
-            flashAdded(`card-${key}`);
+            // Update button state
+            const addBtn = document.getElementById(`add-${id}`);
+            if (addBtn) {
+                addBtn.disabled = true;
+                addBtn.textContent = "Adding...";
+            }
 
-            DF_CART.openCart?.();
+            // Check if item already exists
+            const existingIndex = cartItems.findIndex(item => item.price === product.price);
 
-            if (addBtn) addBtn.textContent = "Add to Cart";
+            if (existingIndex > -1) {
+                cartItems[existingIndex].quantity += qty;
+            } else {
+                cartItems.push({
+                    id: id,
+                    price: product.price,
+                    name: product.name,
+                    unitPrice: product.unitPrice,
+                    quantity: qty,
+                    recurring: product.recurring
+                });
+            }
+
+            // Save to localStorage
+            localStorage.setItem('durafungi_cart', JSON.stringify(cartItems));
+
+            // Reset Page UI
+            document.getElementById(`qty-${id}`).value = 0;
+            updateUIQty(id, 0);
+            flashCard(id);
+
+            // Show success message
+            showToast(`Added ${qty} ${product.name} to cart!`);
+
+            // Render cart and open it
+            renderCart();
+            document.getElementById('cart-dropdown').classList.add('open');
+
+            // Reset button after delay
+            setTimeout(() => {
+                if (addBtn) {
+                    addBtn.disabled = false;
+                    addBtn.textContent = "Add to Cart";
+                }
+            }, 500);
         }
 
-        // Init
-        window.addEventListener("load", () => {
-            DF_CART?.updateCartUI?.();
-        });
+        function renderCart() {
+            const list = document.getElementById('cart-items-list');
+            const badge = document.getElementById('cart-badge');
+            const emptyMsg = document.getElementById('cart-empty-msg');
+            const checkoutBtn = document.getElementById('checkout-btn');
+            const totalDisplay = document.getElementById('cart-total-display');
+
+            list.innerHTML = '';
+            let total = 0;
+            let count = 0;
+
+            cartItems.forEach((item, index) => {
+                total += item.unitPrice * item.quantity;
+                count += item.quantity;
+
+                const div = document.createElement('div');
+                div.className = "flex justify-between items-center text-sm border-b pb-2";
+                div.innerHTML = `
+                    <div>
+                        <p class="font-bold">${item.name}</p>
+                        <p class="text-gray-500">${item.quantity} × $${item.unitPrice}</p>
+                    </div>
+                    <button onclick="removeFromCart(${index})" class="text-red-500 hover:text-red-700 text-xs">Remove</button>
+                `;
+                list.appendChild(div);
+            });
+
+            badge.innerText = count;
+            badge.classList.toggle('hidden', count === 0);
+            emptyMsg.classList.toggle('hidden', count > 0);
+            totalDisplay.innerText = `$${total.toFixed(2)}`;
+
+            checkoutBtn.disabled = (count === 0);
+            checkoutBtn.className = count > 0
+                ? "w-full bg-[#28a745] text-white py-3 rounded-xl font-bold hover:bg-[#218838] transition"
+                : "w-full bg-gray-400 text-white py-3 rounded-xl font-bold";
+
+            if (count > 0) {
+                checkoutBtn.textContent = `Checkout ($${total.toFixed(2)})`;
+            } else {
+                checkoutBtn.textContent = "Checkout";
+            }
+        }
+
+        function removeFromCart(index) {
+            const removedItem = cartItems[index];
+            cartItems.splice(index, 1);
+            localStorage.setItem('durafungi_cart', JSON.stringify(cartItems));
+            renderCart();
+            showToast(`Removed ${removedItem.name} from cart`, 'info');
+        }
+
+        // 5. CHECKOUT LOGIC - USING YOUR BACKEND URL
+        async function handleCheckout() {
+            const btn = document.getElementById('checkout-btn');
+            const originalText = btn.textContent;
+            btn.textContent = "Processing...";
+            btn.disabled = true;
+
+            try {
+                // Determine if any item is recurring to set checkoutMode
+                const hasRecurring = cartItems.some(item => item.recurring);
+
+                // YOUR BACKEND URL
+                const backendUrl = 'https://api.durafungi.com';
+
+                console.log('Sending checkout request to:', backendUrl);
+                console.log('Cart items:', cartItems);
+
+                const response = await fetch(`${backendUrl}/create-checkout-session`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        items: cartItems.map(i => ({
+                            price: i.price,
+                            quantity: i.quantity
+                        })),
+                        returnUrl: window.location.origin + window.location.pathname,
+                        checkoutMode: hasRecurring ? 'subscription' : 'payment'
+                    })
+                });
+
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                }
+
+                const data = await response.json();
+                console.log('Backend response:', data);
+
+                if (data.url) {
+                    // Clear cart on successful checkout initiation
+                    cartItems = [];
+                    localStorage.removeItem('durafungi_cart');
+                    renderCart();
+
+                    // Redirect to Stripe
+                    window.location.href = data.url;
+                } else {
+                    throw new Error(data.error || "No checkout URL received from server");
+                }
+            } catch (err) {
+                console.error('Checkout error:', err);
+                showToast(`Checkout failed: ${err.message}`, 'error');
+                btn.textContent = originalText;
+                btn.disabled = false;
+            }
+        }
+
+        // 6. INITIALIZE
+        function initPage() {
+            // Set up cart toggle
+            const cartToggle = document.getElementById('cart-toggle');
+            if (cartToggle) {
+                cartToggle.onclick = (e) => {
+                    e.stopPropagation();
+                    document.getElementById('cart-dropdown').classList.toggle('open');
+                };
+            }
+
+            // Close cart if clicking outside
+            document.addEventListener('click', (e) => {
+                const cartDropdown = document.getElementById('cart-dropdown');
+                if (cartDropdown && !cartDropdown.contains(e.target) &&
+                    (!cartToggle || !cartToggle.contains(e.target))) {
+                    cartDropdown.classList.remove('open');
+                }
+            });
+
+            // Prevent cart from closing when clicking inside
+            const cartDropdown = document.getElementById('cart-dropdown');
+            if (cartDropdown) {
+                cartDropdown.onclick = (e) => e.stopPropagation();
+            }
+
+            // Initial render
+            renderCart();
+
+            // Check for return from Stripe
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.has('checkout') && urlParams.get('checkout') === 'success') {
+                showToast('🎉 Thank you for your purchase! Your order is confirmed.', 'success');
+                // Remove query parameter
+                window.history.replaceState({}, document.title, window.location.pathname);
+            }
+
+            if (urlParams.has('checkout') && urlParams.get('checkout') === 'cancelled') {
+                showToast('Checkout was cancelled. Your cart items are still saved.', 'info');
+                window.history.replaceState({}, document.title, window.location.pathname);
+            }
+        }
+
+        // Run initialization when page loads
+        document.addEventListener('DOMContentLoaded', initPage);
     </script>
 </body>
 
