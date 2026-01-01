@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Wholesale – Dura Fungi Adelaide</title>
+    <meta name="description"
+        content="Supplying premium mushroom grow blocks, grain spawn, and fresh mushrooms for restaurants, cafés, and commercial growers." />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @font-face {
+            font-family: 'Montserrat';
+            src: url('/assets/fonts/MontserratVariableFontwght.ttf') format('truetype');
+            font-display: swap;
+        }
+
+        :root {
+            --black: #000000;
+            --charcoal: #1F1F1F;
+            --white: #F5F5F5;
+            --beige: #D8C3A5;
+            --green: #28a745;
+            --rust: #8B5E3C;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: #F5F5F5;
+            color: #1F1F1F;
+            overflow-x: hidden;
+        }
+
+        header {
+            background: linear-gradient(to bottom, #D8C3A5 0%, #F5F5F5 100%);
+            padding: 0.75rem 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 20;
+        }
+
+        .topnav {
+            display: flex;
+            gap: 1rem;
+            font-size: 0.85rem;
+        }
+
+        @media (min-width: 768px) {
+            .topnav {
+                gap: 1.5rem;
+                font-size: 0.95rem;
+            }
+        }
+
+        .wholesale-hero {
+            background: linear-gradient(to bottom, rgba(31, 31, 31, 0.9) 0%, rgba(31, 31, 31, 0.7) 100%),
+                url("https://s3.ap-southeast-2.amazonaws.com/durafungi.com/assets/img/wholesale_banner.webp") center/cover no-repeat;
+            color: #fff;
+            text-align: center;
+            padding: 4rem 1rem;
+        }
+
+        @media (min-width: 768px) {
+            .wholesale-hero {
+                padding: 6rem 1.5rem;
+            }
+        }
+
+        .form-section {
+            background: white;
+            border-radius: 12px;
+            border: 2px solid #f3f4f6;
+            transition: all 0.3s ease;
+        }
+
+        .form-section:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+        }
+
+        .form-card {
+            background: white;
+            border-radius: 12px;
+            border: 2px solid #f3f4f6;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .form-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(to right, var(--rust), var(--green));
+        }
+
+        .btn-primary {
+            background: linear-gradient(to right, var(--rust), var(--green));
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 9999px;
+            font-weight: 700;
+            transition: all 0.2s;
+            text-align: center;
+            cursor: pointer;
+            border: none;
+            width: 100%;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(139, 94, 60, 0.3);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: var(--charcoal);
+            padding: 1rem 2rem;
+            border-radius: 9999px;
+            font-weight: 700;
+            transition: all 0.2s;
+            text-align: center;
+            cursor: pointer;
+            border: 2px solid var(--rust);
+            width: 100%;
+        }
+
+        .btn-secondary:hover {
+            background: var(--rust);
+            color: white;
+        }
+
+        .benefit-card {
+            background: white;
+            border-radius: 8px;
+            padding: 1.5rem;
+            border-left: 4px solid var(--rust);
+            transition: all 0.3s ease;
+        }
+
+        .benefit-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        footer {
+            background: #fff;
+            padding: 2rem;
+            text-align: center;
+            font-size: 0.85rem;
+            border-top: 1px solid #e0e0e0;
+            margin-top: 3rem;
+        }
+
+        /* Tabs */
+        .tabs {
+            display: flex;
+            border-bottom: 2px solid #e5e7eb;
+            margin-bottom: 2rem;
+        }
+
+        .tab {
+            padding: 1rem 2rem;
+            cursor: pointer;
+            font-weight: 600;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s;
+        }
+
+        .tab.active {
+            color: var(--rust);
+            border-bottom-color: var(--rust);
+            background: linear-gradient(to bottom, transparent, rgba(216, 195, 165, 0.1));
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Toast notifications */
+        .toast {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #28a745;
+            color: white;
+            padding: 12px 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            z-index: 1000;
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        /* JotForm Container */
+        .jotform-container {
+            width: 100%;
+            min-height: 600px;
+            border: none;
+            position: relative;
+        }
+
+        .jotform-container iframe {
+            transition: height 0.3s ease;
+            border-radius: 8px;
+        }
+
+        /* Cart Dropdown */
+        #cart-dropdown {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            width: 340px;
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 1rem;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            display: none;
+            z-index: 50;
+        }
+
+        #cart-dropdown.open {
+            display: block;
+        }
+
+        /* Cart toggle button */
+        #cart-toggle {
+            position: relative;
+            padding: 8px;
+        }
+
+        #cart-badge {
+            position: absolute;
+            top: 0;
+            right: 0;
+            background: #28a745;
+            color: white;
+            font-size: 10px;
+            border-radius: 50%;
+            width: 18px;
+            height: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        @media (max-width: 767px) {
+            #cart-dropdown {
+                width: 100%;
+                left: 0;
+                right: 0;
+                border-radius: 0;
+            }
+
+            .tabs {
+                flex-direction: column;
+            }
+
+            .tab {
+                text-align: center;
+                border-bottom: none;
+                border-left: 3px solid transparent;
+            }
+
+            .tab.active {
+                border-left-color: var(--rust);
+                border-bottom-color: transparent;
+            }
+
+            .jotform-container iframe {
+                min-height: 700px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <a href="/"><img src="https://s3.ap-southeast-2.amazonaws.com/durafungi.com/assets/img/logo.png" alt="DuraFungi"
+                style="height:40px;" class="md:h-[48px]"></a>
+        <nav class="topnav overflow-x-auto whitespace-nowrap pb-1">
+            <a href="/fresh-mushrooms.html">Fresh</a>
+            <a href="/grow-blocks.html">Blocks</a>
+            <a href="/grain-spawn.html">Spawn</a>
+            <a href="/workshops.html">Workshops</a>
+            <a href="/add-ons.html">Add-Ons</a>
+            <a href="/wholesale.html" class="font-bold border-b-2 border-green-700">Wholesale</a>
+        </nav>
+
+        <!-- Cart Toggle (same as other pages) -->
+        <div class="relative">
+            <button id="cart-toggle" class="relative p-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" fill="none" viewBox="0 0 24 24"
+                    stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
+                </svg>
+                <span id="cart-badge" class="hidden"></span>
+            </button>
+
+            <div id="cart-dropdown" class="p-4">
+                <div class="border-b pb-3 mb-3">
+                    <h3 class="font-bold text-lg">Your Cart</h3>
+                </div>
+                <div id="cart-items-list" class="space-y-3 mb-4 max-h-60 overflow-y-auto"></div>
+                <div id="cart-empty-msg" class="text-center py-4 text-gray-400">Your cart is empty</div>
+                <div class="border-t pt-3">
+                    <div class="flex justify-between font-bold mb-4">
+                        <span>Total</span>
+                        <span id="cart-total-display">$0.00</span>
+                    </div>
+                    <button id="checkout-btn" onclick="handleCheckout()" disabled
+                        class="w-full bg-gray-400 text-white py-3 rounded-xl font-bold">Checkout</button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="wholesale-hero">
+            <h1 class="text-3xl md:text-5xl font-bold mb-4 px-4">Wholesale Partnerships</h1>
+            <p class="text-base md:text-xl max-w-2xl mx-auto px-4 opacity-90">Supplying premium mushroom grow blocks,
+                grain spawn, and fresh mushrooms for restaurants, cafés, and commercial growers.</p>
+        </section>
+
+        <!-- Main Content -->
+        <section class="max-w-7xl mx-auto py-10 md:py-16 px-6">
+            <!-- Benefits Section -->
+            <div class="mb-12 md:mb-16">
+                <h2 class="text-2xl md:text-3xl font-bold mb-8 text-center">Why Partner With Us?</h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="benefit-card">
+                        <div class="text-rust font-bold text-lg mb-2">🏪 Consistent Supply</div>
+                        <p class="text-gray-600">Weekly deliveries with guaranteed quality and quantity. Never worry
+                            about running out.</p>
+                    </div>
+                    <div class="benefit-card">
+                        <div class="text-rust font-bold text-lg mb-2">🏷️ Competitive Pricing</div>
+                        <p class="text-gray-600">Volume-based discounts for restaurants, retailers, and commercial
+                            growing operations.</p>
+                    </div>
+                    <div class="benefit-card">
+                        <div class="text-rust font-bold text-lg mb-2">📍 Local & Fresh</div>
+                        <p class="text-gray-600">Harvested daily in Adelaide. Minimum transport time means maximum
+                            freshness and shelf life.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tabs Section -->
+            <div class="tabs">
+                <div class="tab active" onclick="switchTab('new-inquiry')">New Wholesale Inquiry</div>
+                <div class="tab" onclick="switchTab('existing-login')">Existing Wholesale Login</div>
+            </div>
+
+            <!-- Tab 1: New Inquiry with JotForm -->
+            <div id="new-inquiry" class="tab-content active">
+                <div class="max-w-6xl mx-auto">
+                    <div class="form-card p-6 md:p-8">
+                        <h3 class="text-2xl font-bold mb-2 text-charcoal">Request Wholesale Pricing</h3>
+                        <p class="text-gray-600 mb-6">Complete this form to request wholesale pricing and access to our
+                            bulk product catalog. Our team will review your application and contact you within 24 hours.
+                        </p>
+
+                        <!-- Your JotForm iframe -->
+                        <div class="jotform-container">
+                            <iframe id="JotFormIFrame-252930625361051" title="Wholesale Contact Form"
+                                onload="window.parent.scrollTo(0,0)" allowtransparency="true"
+                                allow="geolocation; microphone; camera; fullscreen; payment"
+                                src="https://form.jotform.com/252930625361051" frameborder="0"
+                                style="min-width:100%;max-width:100%;height:539px;border:none;" scrolling="no">
+                            </iframe>
+                        </div>
+
+                        <div class="mt-6 p-4 bg-blue-50 border border-blue-200 rounded-lg">
+                            <p class="text-sm text-blue-800">
+                                <span class="font-bold">Note:</span> This form submits directly to our wholesale
+                                management system.
+                                You'll receive a confirmation email once your application is received.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tab 2: Existing Login (Preserved from your code) -->
+            <div id="existing-login" class="tab-content">
+                <div class="max-w-md mx-auto">
+                    <div class="form-card p-6 md:p-8">
+                        <h3 class="text-2xl font-bold mb-2 text-charcoal">Wholesale Portal Login</h3>
+                        <p class="text-gray-600 mb-6">Access detailed pricing, place bulk orders, and manage your
+                            wholesale account.</p>
+
+                        <form id="login-form">
+                            <div class="form-group">
+                                <label class="form-label">Email Address *</label>
+                                <input type="email" class="form-input" id="login-email" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Password *</label>
+                                <input type="password" class="form-input" id="login-password" required>
+                            </div>
+                            <div class="form-group flex items-center justify-between">
+                                <label class="flex items-center space-x-2">
+                                    <input type="checkbox" class="rounded" id="remember-me">
+                                    <span class="text-sm">Remember me</span>
+                                </label>
+                                <a href="#" class="text-sm text-rust hover:underline">Forgot password?</a>
+                            </div>
+                            <div class="mt-8">
+                                <button type="submit" class="btn-primary mb-4" id="login-submit">
+                                    Login to Wholesale Portal
+                                </button>
+                                <button type="button" class="btn-secondary" onclick="switchTab('new-inquiry')">
+                                    Not a wholesale customer? Apply here
+                                </button>
+                            </div>
+                        </form>
+
+                        <!-- Login Demo Message -->
+                        <div class="mt-6 p-4 bg-yellow-50 border border-yellow-200 rounded-lg">
+                            <p class="text-sm text-yellow-800">
+                                <span class="font-bold">Demo Note:</span> The wholesale login system is currently in
+                                development.
+                                For now, please use the inquiry form to request wholesale access.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Wholesale Products Preview -->
+            <div class="mt-16">
+                <h2 class="text-2xl md:text-3xl font-bold mb-8 text-center">Wholesale Products</h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div class="benefit-card">
+                        <div class="text-rust font-bold text-lg mb-2">🍄 Fresh Mushrooms</div>
+                        <ul class="text-gray-600 space-y-1">
+                            <li>• Lion's Mane (bulk)</li>
+                            <li>• Oyster Varieties</li>
+                            <li>• Shiitake</li>
+                            <li>• Seasonal Specials</li>
+                        </ul>
+                    </div>
+                    <div class="benefit-card">
+                        <div class="text-rust font-bold text-lg mb-2">📦 Grow Blocks</div>
+                        <ul class="text-gray-600 space-y-1">
+                            <li>• Bulk discounts (10+ blocks)</li>
+                            <li>• Custom formulations</li>
+                            <li>• Subscription delivery</li>
+                            <li>• Commercial strains</li>
+                        </ul>
+                    </div>
+                    <div class="benefit-card">
+                        <div class="text-rust font-bold text-lg mb-2">🌾 Grain Spawn</div>
+                        <ul class="text-gray-600 space-y-1">
+                            <li>• 2kg, 5kg, 10kg bags</li>
+                            <li>• Premium strains</li>
+                            <li>• Lab-quality guarantee</li>
+                            <li>• Commercial volumes</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ Section -->
+        <section class="bg-charcoal text-white py-12 md:py-16">
+            <div class="max-w-4xl mx-auto px-6">
+                <h2 class="text-2xl md:text-3xl font-bold mb-8 text-center">Wholesale FAQ</h2>
+                <div class="space-y-6">
+                    <div>
+                        <h4 class="text-rust font-bold mb-2">What are the minimum order requirements?</h4>
+                        <p class="text-gray-400">Minimum order value is $100 for fresh mushrooms and $200 for grow
+                            blocks and spawn. Volume discounts apply for larger orders.</p>
+                    </div>
+                    <div>
+                        <h4 class="text-rust font-bold mb-2">How quickly can I get approved?</h4>
+                        <p class="text-gray-400">We review applications within 24 hours. Once approved, you'll receive
+                            login credentials to access wholesale pricing and place orders.</p>
+                    </div>
+                    <div>
+                        <h4 class="text-rust font-bold mb-2">Do you deliver outside Adelaide?</h4>
+                        <p class="text-gray-400">Yes! We deliver statewide and can arrange shipping to other Australian
+                            states for larger orders.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>© 2025 Dura Fungi. All rights reserved.</footer>
+
+    <!-- JotForm Scripts (Added before closing body) -->
+    <script src='https://cdn.jotfor.ms/s/umd/latest/for-form-embed-handler.js'></script>
+    <script>window.jotformEmbedHandler("iframe[id='JotFormIFrame-252930625361051']", "https://form.jotform.com/")</script>
+
+    <script>
+        // Shared cart functionality (same as other pages)
+        let cartItems = JSON.parse(localStorage.getItem('durafungi_cart')) || [];
+
+        // Tab switching
+        function switchTab(tabId) {
+            // Update tabs
+            document.querySelectorAll('.tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.remove('active');
+            });
+
+            // Activate selected tab
+            const tabElement = document.querySelector(`.tab[onclick*="${tabId}"]`);
+            if (tabElement) {
+                tabElement.classList.add('active');
+            }
+            const contentElement = document.getElementById(tabId);
+            if (contentElement) {
+                contentElement.classList.add('active');
+            }
+
+            // Scroll to top when switching tabs
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Toast notification
+        function showToast(message, type = 'success') {
+            const existingToast = document.querySelector('.toast');
+            if (existingToast) existingToast.remove();
+
+            const toast = document.createElement('div');
+            toast.className = `toast ${type === 'success' ? 'bg-[#28a745]' : 'bg-red-500'}`;
+            toast.textContent = message;
+            document.body.appendChild(toast);
+
+            setTimeout(() => {
+                if (toast.parentNode) {
+                    toast.style.opacity = '0';
+                    setTimeout(() => toast.remove(), 300);
+                }
+            }, 3000);
+        }
+
+        // Login form (demo only) - PRESERVED FROM YOUR CODE
+        document.getElementById('login-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            // This is a demo - in production, this would authenticate with your backend
+            showToast('Wholesale login system coming soon! Please use the inquiry form to request access.', 'info');
+
+            // Clear form
+            document.getElementById('login-form').reset();
+        });
+
+        // Cart functionality (shared across pages)
+        function renderCart() {
+            const list = document.getElementById('cart-items-list');
+            const badge = document.getElementById('cart-badge');
+            const emptyMsg = document.getElementById('cart-empty-msg');
+            const checkoutBtn = document.getElementById('checkout-btn');
+            const totalDisplay = document.getElementById('cart-total-display');
+
+            if (!list) return;
+
+            list.innerHTML = '';
+            let total = 0;
+            let count = 0;
+
+            cartItems.forEach((item, index) => {
+                total += item.unitPrice * item.quantity;
+                count += item.quantity;
+
+                const div = document.createElement('div');
+                div.className = "flex justify-between items-center text-sm border-b pb-2";
+                div.innerHTML = `
+                    <div>
+                        <p class="font-bold">${item.name}</p>
+                        <p class="text-gray-500">${item.quantity} × $${item.unitPrice.toFixed(2)}</p>
+                    </div>
+                    <button onclick="removeFromCart(${index})" class="text-red-500 hover:text-red-700 text-xs">Remove</button>
+                `;
+                list.appendChild(div);
+            });
+
+            if (badge) {
+                badge.innerText = count;
+                badge.classList.toggle('hidden', count === 0);
+            }
+
+            if (emptyMsg) {
+                emptyMsg.classList.toggle('hidden', count > 0);
+            }
+
+            if (totalDisplay) {
+                totalDisplay.innerText = `$${total.toFixed(2)}`;
+            }
+
+            if (checkoutBtn) {
+                checkoutBtn.disabled = (count === 0);
+                checkoutBtn.className = count > 0
+                    ? "w-full bg-[#28a745] text-white py-3 rounded-xl font-bold hover:bg-[#218838] transition"
+                    : "w-full bg-gray-400 text-white py-3 rounded-xl font-bold";
+
+                if (count > 0) {
+                    checkoutBtn.textContent = `Checkout ($${total.toFixed(2)})`;
+                } else {
+                    checkoutBtn.textContent = "Checkout";
+                }
+            }
+        }
+
+        function removeFromCart(index) {
+            const removedItem = cartItems[index];
+            cartItems.splice(index, 1);
+            localStorage.setItem('durafungi_cart', JSON.stringify(cartItems));
+            renderCart();
+            showToast(`Removed ${removedItem.name} from cart`, 'info');
+        }
+
+        // Checkout function (shared)
+        async function handleCheckout() {
+            const btn = document.getElementById('checkout-btn');
+            if (!btn) return;
+
+            const originalText = btn.textContent;
+            btn.textContent = "Processing...";
+            btn.disabled = true;
+
+            try {
+                const hasRecurring = cartItems.some(item => item.recurring);
+                const backendUrl = 'https://api.durafungi.com';
+
+                const response = await fetch(`${backendUrl}/create-checkout-session`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        items: cartItems.map(i => ({
+                            price: i.price,
+                            quantity: i.quantity
+                        })),
+                        returnUrl: window.location.origin + window.location.pathname,
+                        checkoutMode: hasRecurring ? 'subscription' : 'payment'
+                    })
+                });
+
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                }
+
+                const data = await response.json();
+
+                if (data.url) {
+                    cartItems = [];
+                    localStorage.removeItem('durafungi_cart');
+                    renderCart();
+                    window.location.href = data.url;
+                } else {
+                    throw new Error(data.error || "No checkout URL received");
+                }
+            } catch (err) {
+                console.error('Checkout error:', err);
+                showToast(`Checkout failed: ${err.message}`, 'error');
+                btn.textContent = originalText;
+                btn.disabled = false;
+            }
+        }
+
+        // Initialize page
+        function initPage() {
+            // Cart toggle
+            const cartToggle = document.getElementById('cart-toggle');
+            if (cartToggle) {
+                cartToggle.onclick = (e) => {
+                    e.stopPropagation();
+                    const cartDropdown = document.getElementById('cart-dropdown');
+                    if (cartDropdown) {
+                        cartDropdown.classList.toggle('open');
+                    }
+                };
+            }
+
+            // Close cart when clicking outside
+            document.addEventListener('click', (e) => {
+                const cartDropdown = document.getElementById('cart-dropdown');
+                const cartToggle = document.getElementById('cart-toggle');
+                if (cartDropdown && !cartDropdown.contains(e.target) &&
+                    (!cartToggle || !cartToggle.contains(e.target))) {
+                    cartDropdown.classList.remove('open');
+                }
+            });
+
+            // Prevent cart from closing when clicking inside
+            const cartDropdown = document.getElementById('cart-dropdown');
+            if (cartDropdown) {
+                cartDropdown.onclick = (e) => e.stopPropagation();
+            }
+
+            // Check for return from Stripe
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.has('checkout') && urlParams.get('checkout') === 'success') {
+                showToast('🎉 Thank you for your purchase!', 'success');
+                window.history.replaceState({}, document.title, window.location.pathname);
+            }
+
+            // Initial render
+            renderCart();
+        }
+
+        // Run initialization
+        document.addEventListener('DOMContentLoaded', initPage);
+    </script>
+
+</body>
+
+</html>
