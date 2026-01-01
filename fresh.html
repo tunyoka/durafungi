@@ -57,7 +57,10 @@
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
         }
 
-        /* MOBILE MENU LOGIC */
+        .nav-link:hover {
+            color: var(--green);
+        }
+
         .nav-toggle {
             display: block;
             cursor: pointer;
@@ -98,49 +101,56 @@
             }
         }
 
-        .nav-link:hover {
-            color: var(--green);
-        }
-
         .page-section {
             padding: 2rem 1.25rem;
         }
 
-        .mode-btn {
-            flex: 1;
-            padding: 0.85rem 0.5rem;
-            border-radius: 9999px;
-            font-weight: 700;
-            font-size: 0.8rem;
-            transition: all 0.3s ease;
-            border: 2px solid var(--silver);
+        .plan-card {
             background: #fff;
-            color: var(--black);
+            border: 2px solid #e5e7eb;
+            padding: 1.25rem 1rem;
+            border-radius: 1rem;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-height: 180px;
+            transition: all 0.2s;
         }
 
-        @media (min-width: 640px) {
-            .mode-btn {
-                font-size: 1rem;
-                padding: 0.75rem 2.5rem;
-                flex: none;
-            }
-        }
-
-        .mode-btn.active {
-            background: var(--green);
-            color: white;
+        .plan-card.added {
             border-color: var(--green);
+            background-color: #f0fdf4;
+        }
+
+        .add-plan-btn {
+            margin-top: 1rem;
+            background-color: var(--green);
+            color: white;
+            font-weight: bold;
+            padding: 0.875rem;
+            border-radius: 0.75rem;
+            transition: opacity 0.15s ease;
+        }
+
+        .add-plan-btn.added {
+            background-color: white;
+            color: var(--green);
+            border: 2px solid var(--green);
+        }
+
+        .add-plan-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
         }
 
         .product-card {
             background: #fff;
             border: 2px solid transparent;
-            transition: all 0.3s ease;
             border-radius: 1.5rem;
             overflow: hidden;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-            display: flex;
-            flex-direction: column;
+            transition: transform 0.12s ease;
         }
 
         .product-card.has-items {
@@ -148,46 +158,8 @@
             background-color: #f0fdf4;
         }
 
-        .plan-card {
-            background: #fff;
-            border: 2px solid #e5e7eb;
-            padding: 1rem;
-            border-radius: 1rem;
-            cursor: pointer;
-            transition: 0.2s;
-            -webkit-tap-highlight-color: transparent;
-            text-align: center;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            min-height: 160px;
-            /* Ensures consistent height on mobile */
-        }
-
-        .plan-card.active {
-            border-color: var(--green);
-            background-color: #f0fdf4;
-        }
-
-        .plan-select-btn {
-            margin-top: 1rem;
-            background-color: var(--green);
-            color: white;
-            font-weight: bold;
-            padding: 0.75rem 1rem;
-            border-radius: 0.75rem;
-            transition: background-color 0.2s;
-            font-size: 0.95rem;
-        }
-
-        .plan-select-btn:hover {
-            background-color: #2d6046;
-        }
-
-        .plan-card.active .plan-select-btn {
-            background-color: white;
-            color: var(--green);
-            border: 2px solid var(--green);
+        .product-card.flash {
+            transform: translateY(-2px);
         }
 
         .qty-input {
@@ -211,59 +183,86 @@
             font-weight: bold;
             font-size: 1.25rem;
             touch-action: manipulation;
+            user-select: none;
         }
 
-        #checkout-btn {
+        /* Mini-cart styles */
+        #cart-dropdown {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            width: 340px;
+            max-height: 70vh;
+            overflow-y: auto;
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 1rem;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+            display: none;
+            z-index: 200;
+        }
+
+        #cart-dropdown.open {
+            display: block;
+        }
+
+        #proceed-btn {
             background-color: #9ca3af;
             width: 100%;
-            max-width: 400px;
         }
 
-        #checkout-btn:not(:disabled) {
+        #proceed-btn:not(:disabled) {
             background-color: var(--green);
+        }
+
+        #proceed-btn:disabled {
+            cursor: not-allowed;
         }
 
         .hidden {
             display: none;
         }
 
-        /* Mobile-specific improvements */
+        /* Toast */
+        #toast {
+            position: fixed;
+            left: 50%;
+            bottom: 24px;
+            transform: translateX(-50%);
+            background: rgba(31, 31, 31, 0.95);
+            color: white;
+            padding: 10px 14px;
+            border-radius: 9999px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            z-index: 500;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.15s ease;
+            max-width: calc(100% - 24px);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        #toast.show {
+            opacity: 1;
+        }
+
         @media (max-width: 767px) {
             .page-section {
                 padding: 1.5rem 1rem;
             }
 
-            .mode-btn {
-                font-size: 0.875rem;
-                padding: 0.75rem 1rem;
+            header {
+                padding: 0.65rem 1rem;
             }
 
-            .plan-card {
-                padding: 1.25rem 1rem;
-                min-height: 180px;
-            }
-
-            .plan-select-btn {
-                padding: 0.875rem 1rem;
-                font-size: 1rem;
-            }
-
-            #email-wrapper {
-                margin-top: 2rem;
-                padding: 0 0.5rem;
-            }
-
-            .mt-12 {
-                margin-top: 2.5rem !important;
-            }
-
-            #total-display {
-                font-size: 1.5rem;
-            }
-
-            #checkout-btn {
-                padding: 1.25rem;
-                font-size: 1.125rem;
+            #cart-dropdown {
+                width: 100%;
+                left: 0;
+                right: 0;
+                border-radius: 0;
             }
         }
     </style>
@@ -281,6 +280,44 @@
             <a href="fresh.html" class="text-[#3B7A57]">Fresh Mushrooms</a>
             <a href="wholesale.html" class="nav-link">Wholesale</a>
         </nav>
+
+        <div class="relative">
+            <button id="cart-toggle" class="relative p-2" aria-label="Cart">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-gray-700" fill="none" viewBox="0 0 24 24"
+                    stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+                </svg>
+                <span id="cart-badge"
+                    class="absolute -top-1 -right-1 bg-green-600 text-white text-xs rounded-full h-6 w-6 flex items-center justify-center hidden">0</span>
+            </button>
+
+            <div id="cart-dropdown" class="mt-2">
+                <div class="p-4 border-b">
+                    <h3 class="font-bold text-lg">Your Cart</h3>
+                    <p id="mode-hint" class="text-xs text-gray-500 mt-1"></p>
+                </div>
+
+                <div id="cart-items" class="p-4 space-y-3"></div>
+                <div id="cart-empty" class="p-8 text-center text-gray-500">Your cart is empty</div>
+
+                <div class="p-4 border-t">
+                    <div id="email-section" class="mb-4 hidden">
+                        <label for="customer-email" class="block text-sm font-bold mb-2">Email (required for
+                            subscriptions)</label>
+                        <input id="customer-email" type="email" placeholder="you@example.com"
+                            class="w-full rounded-xl border px-4 py-3" oninput="validateProceed()" />
+                        <p id="email-error" class="text-red-500 text-sm mt-1 hidden">Please enter a valid email.</p>
+                    </div>
+
+                    <button id="proceed-btn" onclick="proceedToCheckout()" disabled
+                        class="w-full text-white py-4 rounded-full font-bold text-lg transition">
+                        Proceed to Checkout
+                    </button>
+                    <p id="checkout-status" class="text-sm mt-2 text-gray-500 text-center"></p>
+                </div>
+            </div>
+        </div>
 
         <button class="nav-toggle" onclick="toggleMenu()" aria-label="Toggle Menu">
             <div class="nav-toggle-line"></div>
@@ -303,419 +340,652 @@
                     <span class="text-gourmet">Gourmet</span><br class="md:hidden">
                     <span class="text-mushrooms">Mushrooms</span>
                 </h1>
-                <p class="text-gray-600 mb-8 max-w-2xl mx-auto px-6 text-sm md:text-base">
-                    Harvested to order from our Adelaide farm. Choose subscription for savings or build your own one-off
-                    box.
+                <p class="text-gray-600 mb-12 max-w-2xl mx-auto px-6 text-sm md:text-base">
+                    Harvested to order from our Adelaide farm. Add a subscription plan for savings, plus any extra
+                    one-off boxes.
                 </p>
 
-                <div class="flex justify-center gap-2 md:gap-4 mb-10 px-4">
-                    <button type="button" id="btn-sub" class="mode-btn active"
-                        onclick="toggleMode('subscription')">Subscribe & Save</button>
-                    <button type="button" id="btn-oneoff" class="mode-btn" onclick="toggleMode('one-off')">One-Off
-                        Purchase</button>
-                </div>
+                <h2 class="text-3xl font-bold mb-8">Subscription Plans</h2>
 
-                <div id="section-subscription" class="space-y-12 px-2">
-                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 text-left">
-                        <div class="space-y-4">
-                            <h2 class="text-xl font-bold border-b pb-2 text-center">Weekly</h2>
-                            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-1 gap-4">
-                                <div class="plan-card"
-                                    onclick="selectPlan(this, 'price_1SdSS9B03V57KY6P1w2mylJ5', '$20.00/wk')">
-                                    <div class="font-bold text-base">1-Variety</div>
-                                    <div class="text-sm text-gray-500">(250g)</div>
-                                    <div class="mt-2 font-bold text-green-700 text-lg">$20/wk</div>
-                                    <button type="button" class="plan-select-btn"
-                                        onclick="event.stopPropagation(); selectPlan(this.closest('.plan-card'), 'price_1SdSS9B03V57KY6P1w2mylJ5', '$20.00/wk')">
-                                        Choose Plan
-                                    </button>
-                                </div>
-                                <div class="plan-card"
-                                    onclick="selectPlan(this, 'price_1SdSO7B03V57KY6P6OiZkgvF', '$25.00/wk')">
-                                    <div class="font-bold text-base">2-Variety</div>
-                                    <div class="text-sm text-gray-500">(500g)</div>
-                                    <div class="mt-2 font-bold text-green-700 text-lg">$25/wk</div>
-                                    <button type="button" class="plan-select-btn"
-                                        onclick="event.stopPropagation(); selectPlan(this.closest('.plan-card'), 'price_1SdSO7B03V57KY6P6OiZkgvF', '$25.00/wk')">
-                                        Choose Plan
-                                    </button>
-                                </div>
-                                <div class="plan-card"
-                                    onclick="selectPlan(this, 'price_1SdSXkB03V57KY6PnfAUocFz', '$35.00/wk')">
-                                    <div class="font-bold text-base">3-Variety</div>
-                                    <div class="text-sm text-gray-500">(750g)</div>
-                                    <div class="mt-2 font-bold text-green-700 text-lg">$35/wk</div>
-                                    <button type="button" class="plan-select-btn"
-                                        onclick="event.stopPropagation(); selectPlan(this.closest('.plan-card'), 'price_1SdSXkB03V57KY6PnfAUocFz', '$35.00/wk')">
-                                        Choose Plan
-                                    </button>
-                                </div>
-                                <div class="plan-card"
-                                    onclick="selectPlan(this, 'price_1Sj3JZB03V57KY6PUl9AnG95', '$45.00/wk')">
-                                    <div class="font-bold text-base">4-Variety</div>
-                                    <div class="text-sm text-gray-500">(1kg)</div>
-                                    <div class="mt-2 font-bold text-green-700 text-lg">$45/wk</div>
-                                    <button type="button" class="plan-select-btn"
-                                        onclick="event.stopPropagation(); selectPlan(this.closest('.plan-card'), 'price_1Sj3JZB03V57KY6PUl9AnG95', '$45.00/wk')">
-                                        Choose Plan
-                                    </button>
-                                </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16 text-left">
+                    <div class="space-y-4">
+                        <h3 class="text-xl font-bold text-center border-b pb-2">Weekly</h3>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-1 gap-4">
+                            <div class="plan-card">
+                                <div class="font-bold text-base">1-Variety</div>
+                                <div class="text-sm text-gray-500">(250g)</div>
+                                <div class="mt-2 font-bold text-green-700 text-2xl">$20/wk</div>
+                                <button type="button" class="add-plan-btn"
+                                    onclick="addPlanToCart(this, 'price_1SdSS9B03V57KY6P1w2mylJ5', '$20/wk – 1-Variety (250g)')">
+                                    Add Plan
+                                </button>
                             </div>
-                        </div>
-                        <div class="space-y-4">
-                            <h2 class="text-xl font-bold border-b pb-2 text-center">Fortnightly</h2>
-                            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-1 gap-4">
-                                <div class="plan-card"
-                                    onclick="selectPlan(this, 'price_1Sj3awB03V57KY6PCX55FRHv', '$22.00/fn')">
-                                    <div class="font-bold text-base">1-Variety</div>
-                                    <div class="text-sm text-gray-500">(250g)</div>
-                                    <div class="mt-2 font-bold text-green-700 text-lg">$22/fn</div>
-                                    <button type="button" class="plan-select-btn"
-                                        onclick="event.stopPropagation(); selectPlan(this.closest('.plan-card'), 'price_1Sj3awB03V57KY6PCX55FRHv', '$22.00/fn')">
-                                        Choose Plan
-                                    </button>
-                                </div>
-                                <div class="plan-card"
-                                    onclick="selectPlan(this, 'price_1Sj3YxB03V57KY6PoNoaBiRn', '$27.00/fn')">
-                                    <div class="font-bold text-base">2-Variety</div>
-                                    <div class="text-sm text-gray-500">(500g)</div>
-                                    <div class="mt-2 font-bold text-green-700 text-lg">$27/fn</div>
-                                    <button type="button" class="plan-select-btn"
-                                        onclick="event.stopPropagation(); selectPlan(this.closest('.plan-card'), 'price_1Sj3YxB03V57KY6PoNoaBiRn', '$27.00/fn')">
-                                        Choose Plan
-                                    </button>
-                                </div>
-                                <div class="plan-card"
-                                    onclick="selectPlan(this, 'price_1Sj3edB03V57KY6PenA9ZByZ', '$32.00/fn')">
-                                    <div class="font-bold text-base">3-Variety</div>
-                                    <div class="text-sm text-gray-500">(750g)</div>
-                                    <div class="mt-2 font-bold text-green-700 text-lg">$32/fn</div>
-                                    <button type="button" class="plan-select-btn"
-                                        onclick="event.stopPropagation(); selectPlan(this.closest('.plan-card'), 'price_1Sj3edB03V57KY6PenA9ZByZ', '$32.00/fn')">
-                                        Choose Plan
-                                    </button>
-                                </div>
-                                <div class="plan-card"
-                                    onclick="selectPlan(this, 'price_1Sj3VZB03V57KY6PxDUrEFNg', '$40.00/fn')">
-                                    <div class="font-bold text-base">4-Variety</div>
-                                    <div class="text-sm text-gray-500">(1kg)</div>
-                                    <div class="mt-2 font-bold text-green-700 text-lg">$40/fn</div>
-                                    <button type="button" class="plan-select-btn"
-                                        onclick="event.stopPropagation(); selectPlan(this.closest('.plan-card'), 'price_1Sj3VZB03V57KY6PxDUrEFNg', '$40.00/fn')">
-                                        Choose Plan
-                                    </button>
-                                </div>
+                            <div class="plan-card">
+                                <div class="font-bold text-base">2-Variety</div>
+                                <div class="text-sm text-gray-500">(500g)</div>
+                                <div class="mt-2 font-bold text-green-700 text-2xl">$25/wk</div>
+                                <button type="button" class="add-plan-btn"
+                                    onclick="addPlanToCart(this, 'price_1SdSO7B03V57KY6P6OiZkgvF', '$25/wk – 2-Variety (500g)')">
+                                    Add Plan
+                                </button>
                             </div>
-                        </div>
-                        <div class="space-y-4">
-                            <h2 class="text-xl font-bold border-b pb-2 text-center">Monthly</h2>
-                            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-1 gap-4">
-                                <div class="plan-card"
-                                    onclick="selectPlan(this, 'price_1Sj3rlB03V57KY6Pi9IJdF8y', '$20.00/mo')">
-                                    <div class="font-bold text-base">1-Variety</div>
-                                    <div class="text-sm text-gray-500">(250g)</div>
-                                    <div class="mt-2 font-bold text-green-700 text-lg">$20/mo</div>
-                                    <button type="button" class="plan-select-btn"
-                                        onclick="event.stopPropagation(); selectPlan(this.closest('.plan-card'), 'price_1Sj3rlB03V57KY6Pi9IJdF8y', '$20.00/mo')">
-                                        Choose Plan
-                                    </button>
-                                </div>
-                                <div class="plan-card"
-                                    onclick="selectPlan(this, 'price_1Sj3nTB03V57KY6Phuo34Ps2', '$32.00/mo')">
-                                    <div class="font-bold text-base">2-Variety</div>
-                                    <div class="text-sm text-gray-500">(500g)</div>
-                                    <div class="mt-2 font-bold text-green-700 text-lg">$32/mo</div>
-                                    <button type="button" class="plan-select-btn"
-                                        onclick="event.stopPropagation(); selectPlan(this.closest('.plan-card'), 'price_1Sj3nTB03V57KY6Phuo34Ps2', '$32.00/mo')">
-                                        Choose Plan
-                                    </button>
-                                </div>
-                                <div class="plan-card"
-                                    onclick="selectPlan(this, 'price_1Sj3llB03V57KY6PuHfwaxuQ', '$40.00/mo')">
-                                    <div class="font-bold text-base">3-Variety</div>
-                                    <div class="text-sm text-gray-500">(1kg)</div>
-                                    <div class="mt-2 font-bold text-green-700 text-lg">$40/mo</div>
-                                    <button type="button" class="plan-select-btn"
-                                        onclick="event.stopPropagation(); selectPlan(this.closest('.plan-card'), 'price_1Sj3llB03V57KY6PuHfwaxuQ', '$40.00/mo')">
-                                        Choose Plan
-                                    </button>
-                                </div>
-                                <div class="plan-card"
-                                    onclick="selectPlan(this, 'price_1Sj3jYB03V57KY6PwCVObZmX', '$55.00/mo')">
-                                    <div class="font-bold text-base">4-Variety</div>
-                                    <div class="text-sm text-gray-500">(1.5kg)</div>
-                                    <div class="mt-2 font-bold text-green-700 text-lg">$55/mo</div>
-                                    <button type="button" class="plan-select-btn"
-                                        onclick="event.stopPropagation(); selectPlan(this.closest('.plan-card'), 'price_1Sj3jYB03V57KY6PwCVObZmX', '$55.00/mo')">
-                                        Choose Plan
-                                    </button>
-                                </div>
+                            <div class="plan-card">
+                                <div class="font-bold text-base">3-Variety</div>
+                                <div class="text-sm text-gray-500">(750g)</div>
+                                <div class="mt-2 font-bold text-green-700 text-2xl">$35/wk</div>
+                                <button type="button" class="add-plan-btn"
+                                    onclick="addPlanToCart(this, 'price_1SdSXkB03V57KY6PnfAUocFz', '$35/wk – 3-Variety (750g)')">
+                                    Add Plan
+                                </button>
+                            </div>
+                            <div class="plan-card">
+                                <div class="font-bold text-base">4-Variety</div>
+                                <div class="text-sm text-gray-500">(1kg)</div>
+                                <div class="mt-2 font-bold text-green-700 text-2xl">$45/wk</div>
+                                <button type="button" class="add-plan-btn"
+                                    onclick="addPlanToCart(this, 'price_1Sj3JZB03V57KY6PUl9AnG95', '$45/wk – 4-Variety (1kg)')">
+                                    Add Plan
+                                </button>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Email field moved below plan grid for subscription mode -->
-                    <div id="email-wrapper" class="max-w-md mx-auto mt-12 px-4 text-left">
-                        <label for="email" class="block text-sm font-bold mb-2 ml-1">Your email (required for all
-                            orders)</label>
-                        <input id="email" type="email" placeholder="you@example.com" oninput="validateCheckout()"
-                            class="w-full rounded-2xl border border-gray-300 px-4 py-4 outline-none focus:ring-2 focus:ring-[#3B7A57] text-lg shadow-sm" />
-                        <p class="text-xs text-gray-600 mt-2 ml-1">We'll use this to create your account and send order
-                            updates.</p>
-                        <p id="email-error" class="text-red-500 text-sm mt-2 hidden ml-1">Please enter a valid email.
-                        </p>
+                    <div class="space-y-4">
+                        <h3 class="text-xl font-bold text-center border-b pb-2">Fortnightly</h3>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-1 gap-4">
+                            <div class="plan-card">
+                                <div class="font-bold text-base">1-Variety</div>
+                                <div class="text-sm text-gray-500">(250g)</div>
+                                <div class="mt-2 font-bold text-green-700 text-2xl">$22/fn</div>
+                                <button type="button" class="add-plan-btn"
+                                    onclick="addPlanToCart(this, 'price_1Sj3awB03V57KY6PCX55FRHv', '$22/fn – 1-Variety (250g)')">
+                                    Add Plan
+                                </button>
+                            </div>
+                            <div class="plan-card">
+                                <div class="font-bold text-base">2-Variety</div>
+                                <div class="text-sm text-gray-500">(500g)</div>
+                                <div class="mt-2 font-bold text-green-700 text-2xl">$27/fn</div>
+                                <button type="button" class="add-plan-btn"
+                                    onclick="addPlanToCart(this, 'price_1Sj3YxB03V57KY6PoNoaBiRn', '$27/fn – 2-Variety (500g)')">
+                                    Add Plan
+                                </button>
+                            </div>
+                            <div class="plan-card">
+                                <div class="font-bold text-base">3-Variety</div>
+                                <div class="text-sm text-gray-500">(750g)</div>
+                                <div class="mt-2 font-bold text-green-700 text-2xl">$32/fn</div>
+                                <button type="button" class="add-plan-btn"
+                                    onclick="addPlanToCart(this, 'price_1Sj3edB03V57KY6PenA9ZByZ', '$32/fn – 3-Variety (750g)')">
+                                    Add Plan
+                                </button>
+                            </div>
+                            <div class="plan-card">
+                                <div class="font-bold text-base">4-Variety</div>
+                                <div class="text-sm text-gray-500">(1kg)</div>
+                                <div class="mt-2 font-bold text-green-700 text-2xl">$40/fn</div>
+                                <button type="button" class="add-plan-btn"
+                                    onclick="addPlanToCart(this, 'price_1Sj3VZB03V57KY6PxDUrEFNg', '$40/fn – 4-Variety (1kg)')">
+                                    Add Plan
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="space-y-4">
+                        <h3 class="text-xl font-bold text-center border-b pb-2">Monthly</h3>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-1 gap-4">
+                            <div class="plan-card">
+                                <div class="font-bold text-base">1-Variety</div>
+                                <div class="text-sm text-gray-500">(250g)</div>
+                                <div class="mt-2 font-bold text-green-700 text-2xl">$20/mo</div>
+                                <button type="button" class="add-plan-btn"
+                                    onclick="addPlanToCart(this, 'price_1Sj3rlB03V57KY6Pi9IJdF8y', '$20/mo – 1-Variety (250g)')">
+                                    Add Plan
+                                </button>
+                            </div>
+                            <div class="plan-card">
+                                <div class="font-bold text-base">2-Variety</div>
+                                <div class="text-sm text-gray-500">(500g)</div>
+                                <div class="mt-2 font-bold text-green-700 text-2xl">$32/mo</div>
+                                <button type="button" class="add-plan-btn"
+                                    onclick="addPlanToCart(this, 'price_1Sj3nTB03V57KY6Phuo34Ps2', '$32/mo – 2-Variety (500g)')">
+                                    Add Plan
+                                </button>
+                            </div>
+                            <div class="plan-card">
+                                <div class="font-bold text-base">3-Variety</div>
+                                <div class="text-sm text-gray-500">(1kg)</div>
+                                <div class="mt-2 font-bold text-green-700 text-2xl">$40/mo</div>
+                                <button type="button" class="add-plan-btn"
+                                    onclick="addPlanToCart(this, 'price_1Sj3llB03V57KY6PuHfwaxuQ', '$40/mo – 3-Variety (1kg)')">
+                                    Add Plan
+                                </button>
+                            </div>
+                            <div class="plan-card">
+                                <div class="font-bold text-base">4-Variety</div>
+                                <div class="text-sm text-gray-500">(1.5kg)</div>
+                                <div class="mt-2 font-bold text-green-700 text-2xl">$55/mo</div>
+                                <button type="button" class="add-plan-btn"
+                                    onclick="addPlanToCart(this, 'price_1Sj3jYB03V57KY6PwCVObZmX', '$55/mo – 4-Variety (1.5kg)')">
+                                    Add Plan
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
-                <div id="section-oneoff" class="hidden grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 px-2">
+                <h2 class="text-3xl font-bold mb-8">Add Extra One-Off Boxes</h2>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 px-2 mb-12 text-left">
                     <div class="product-card" id="card-oyster">
                         <img src="https://s3.ap-southeast-2.amazonaws.com/durafungi.com/assets/img/blue-grey-oyster-mushroom-grain-spawn-kit.webp"
-                            class="h-48 w-full object-cover">
+                            class="h-48 w-full object-cover" alt="Oyster Mix">
                         <div class="p-6 flex flex-col flex-grow">
                             <h3 class="font-bold text-lg">Oyster Mix (250g)</h3>
                             <p class="text-sm text-gray-600 mb-4 flex-grow">Blue, Grey, or White. Meaty and smoky umami.
                             </p>
                             <p class="text-fresh font-bold text-xl mb-4">$20.00</p>
                             <div class="flex justify-center items-center gap-6">
-                                <button class="qty-btn" onclick="updateQty('oyster', -1, event)">-</button>
+                                <button class="qty-btn" onclick="updateOneOffQty('oyster', -1, event)">-</button>
                                 <input id="qty-oyster" class="qty-input" value="0" readonly />
-                                <button class="qty-btn" onclick="updateQty('oyster', 1, event)">+</button>
+                                <button class="qty-btn" onclick="updateOneOffQty('oyster', 1, event)">+</button>
                             </div>
+                            <button id="addbtn-oyster"
+                                class="mt-4 bg-green-600 text-white py-3 rounded-lg font-bold disabled:opacity-50"
+                                onclick="addOneOffToCart('oyster')" disabled>
+                                Select quantity
+                            </button>
                         </div>
                     </div>
+
                     <div class="product-card" id="card-shiitake">
                         <img src="https://s3.ap-southeast-2.amazonaws.com/durafungi.com/assets/img/shiitake_grow_block_2.jpg"
-                            class="h-48 w-full object-cover">
+                            class="h-48 w-full object-cover" alt="Fresh Shiitake">
                         <div class="p-6 flex flex-col flex-grow">
                             <h3 class="font-bold text-lg">Fresh Shiitake (250g)</h3>
                             <p class="text-sm text-gray-600 mb-4 flex-grow">Earthy, meaty, and slightly smoky with a
                                 savory umami depth.</p>
                             <p class="text-fresh font-bold text-xl mb-4">$25.00</p>
                             <div class="flex justify-center items-center gap-6">
-                                <button class="qty-btn" onclick="updateQty('shiitake', -1, event)">-</button>
+                                <button class="qty-btn" onclick="updateOneOffQty('shiitake', -1, event)">-</button>
                                 <input id="qty-shiitake" class="qty-input" value="0" readonly />
-                                <button class="qty-btn" onclick="updateQty('shiitake', 1, event)">+</button>
+                                <button class="qty-btn" onclick="updateOneOffQty('shiitake', 1, event)">+</button>
                             </div>
+                            <button id="addbtn-shiitake"
+                                class="mt-4 bg-green-600 text-white py-3 rounded-lg font-bold disabled:opacity-50"
+                                onclick="addOneOffToCart('shiitake')" disabled>
+                                Select quantity
+                            </button>
                         </div>
                     </div>
+
                     <div class="product-card" id="card-lions">
                         <img src="https://s3.ap-southeast-2.amazonaws.com/durafungi.com/assets/img/lions_mane_pride.webp"
-                            class="h-48 w-full object-cover">
+                            class="h-48 w-full object-cover" alt="Lion's Mane">
                         <div class="p-6 flex flex-col flex-grow">
                             <h3 class="font-bold text-lg">Lion's Mane (250g)</h3>
                             <p class="text-sm text-gray-600 mb-4 flex-grow">Delicate seafood sweetness with a
                                 lobster-mimicking texture.</p>
                             <p class="text-fresh font-bold text-xl mb-4">$25.00</p>
                             <div class="flex justify-center items-center gap-6">
-                                <button class="qty-btn" onclick="updateQty('lions', -1, event)">-</button>
+                                <button class="qty-btn" onclick="updateOneOffQty('lions', -1, event)">-</button>
                                 <input id="qty-lions" class="qty-input" value="0" readonly />
-                                <button class="qty-btn" onclick="updateQty('lions', 1, event)">+</button>
+                                <button class="qty-btn" onclick="updateOneOffQty('lions', 1, event)">+</button>
                             </div>
+                            <button id="addbtn-lions"
+                                class="mt-4 bg-green-600 text-white py-3 rounded-lg font-bold disabled:opacity-50"
+                                onclick="addOneOffToCart('lions')" disabled>
+                                Select quantity
+                            </button>
                         </div>
                     </div>
+
                     <div class="product-card" id="card-maitake">
                         <img src="https://s3.ap-southeast-2.amazonaws.com/durafungi.com/assets/img/Maitake+mushroom.webp"
-                            class="h-48 w-full object-cover">
+                            class="h-48 w-full object-cover" alt="Maitake">
                         <div class="p-6 flex flex-col flex-grow">
                             <h3 class="font-bold text-lg">Maitake (250g)</h3>
                             <p class="text-sm text-gray-600 mb-4 flex-grow">Bold, nutty earthiness with a rich, hearty
                                 chew.</p>
                             <p class="text-fresh font-bold text-xl mb-4">$35.00</p>
                             <div class="flex justify-center items-center gap-6">
-                                <button class="qty-btn" onclick="updateQty('maitake', -1, event)">-</button>
+                                <button class="qty-btn" onclick="updateOneOffQty('maitake', -1, event)">-</button>
                                 <input id="qty-maitake" class="qty-input" value="0" readonly />
-                                <button class="qty-btn" onclick="updateQty('maitake', 1, event)">+</button>
+                                <button class="qty-btn" onclick="updateOneOffQty('maitake', 1, event)">+</button>
                             </div>
+                            <button id="addbtn-maitake"
+                                class="mt-4 bg-green-600 text-white py-3 rounded-lg font-bold disabled:opacity-50"
+                                onclick="addOneOffToCart('maitake')" disabled>
+                                Select quantity
+                            </button>
                         </div>
                     </div>
+
                     <div class="product-card" id="card-bundle3">
                         <div
                             class="h-48 bg-gray-100 flex items-center justify-center font-bold text-gray-400 uppercase text-center p-4">
-                            3-Variety Box</div>
+                            3-Variety Box
+                        </div>
                         <div class="p-6 flex flex-col flex-grow">
                             <h3 class="font-bold text-lg">3-Variety Bundle (750g)</h3>
                             <p class="text-sm text-gray-600 mb-4 flex-grow">A symphony of sweet, smoky, and buttery
                                 flavors.</p>
                             <p class="text-fresh font-bold text-xl mb-4">$45.00</p>
                             <div class="flex justify-center items-center gap-6">
-                                <button class="qty-btn" onclick="updateQty('bundle3', -1, event)">-</button>
+                                <button class="qty-btn" onclick="updateOneOffQty('bundle3', -1, event)">-</button>
                                 <input id="qty-bundle3" class="qty-input" value="0" readonly />
-                                <button class="qty-btn" onclick="updateQty('bundle3', 1, event)">+</button>
+                                <button class="qty-btn" onclick="updateOneOffQty('bundle3', 1, event)">+</button>
                             </div>
+                            <button id="addbtn-bundle3"
+                                class="mt-4 bg-green-600 text-white py-3 rounded-lg font-bold disabled:opacity-50"
+                                onclick="addOneOffToCart('bundle3')" disabled>
+                                Select quantity
+                            </button>
                         </div>
                     </div>
+
                     <div class="product-card" id="card-bundle4">
                         <div
                             class="h-48 bg-gray-100 flex items-center justify-center font-bold text-gray-400 uppercase text-center p-4">
-                            4-Variety Box</div>
+                            4-Variety Box
+                        </div>
                         <div class="p-6 flex flex-col flex-grow">
                             <h3 class="font-bold text-lg">4-Variety Bundle (1kg)</h3>
                             <p class="text-sm text-gray-600 mb-4 flex-grow">The ultimate balance of all our gourmet
                                 varieties.</p>
                             <p class="text-fresh font-bold text-xl mb-4">$55.00</p>
                             <div class="flex justify-center items-center gap-6">
-                                <button class="qty-btn" onclick="updateQty('bundle4', -1, event)">-</button>
+                                <button class="qty-btn" onclick="updateOneOffQty('bundle4', -1, event)">-</button>
                                 <input id="qty-bundle4" class="qty-input" value="0" readonly />
-                                <button class="qty-btn" onclick="updateQty('bundle4', 1, event)">+</button>
+                                <button class="qty-btn" onclick="updateOneOffQty('bundle4', 1, event)">+</button>
                             </div>
+                            <button id="addbtn-bundle4"
+                                class="mt-4 bg-green-600 text-white py-3 rounded-lg font-bold disabled:opacity-50"
+                                onclick="addOneOffToCart('bundle4')" disabled>
+                                Select quantity
+                            </button>
                         </div>
                     </div>
                 </div>
 
-                <div class="mt-12 bg-gray-50 p-8 rounded-3xl inline-block w-full md:w-auto shadow-inner">
-                    <p id="total-display" class="text-2xl font-bold mb-6" aria-live="polite">Select a plan to continue
-                    </p>
-                    <button id="checkout-btn" onclick="checkout()" disabled
-                        class="text-white px-12 py-5 rounded-full font-bold transition shadow-md text-lg">Secure
-                        Checkout</button>
-                    <p id="checkout-status" class="text-sm mt-4 text-gray-500 font-medium h-4"></p>
-                </div>
+                <p class="text-xs text-gray-500 max-w-3xl mx-auto px-6">
+                    Tip: Add a subscription plan for ongoing deliveries, then add any extra one-off boxes you want in
+                    the same checkout.
+                </p>
             </div>
         </section>
     </main>
 
-    <footer class="text-center p-8 text-gray-400 text-sm">© 2025 Dura Fungi. All rights reserved.</footer>
+    <footer class="text-center p-8 text-gray-400 text-sm">© 2026 Dura Fungi. All rights reserved.</footer>
+
+    <div id="toast">Added</div>
 
     <script>
         function toggleMenu() {
             document.getElementById('mobile-menu').classList.toggle('open');
         }
 
-        let currentMode = 'subscription';
-        let selectedSubId = null;
-        let selectedSubLabel = "";
+        const API = "https://api.durafungi.com/create-checkout-session";
 
-        const catalog = {
-            oyster: { id: 'price_1Si7xMB03V57KY6PGoBS1kWm', price: 20, qty: 0 },
-            shiitake: { id: 'price_1SdTYlB03V57KY6Pv6knoTkV', price: 25, qty: 0 },
-            lions: { id: 'price_1SdTV0B03V57KY6PKtiPgCdf', price: 25, qty: 0 },
-            maitake: { id: 'price_1SdTaMB03V57KY6Pqj4zPCi9', price: 35, qty: 0 },
-            bundle3: { id: 'price_1Sj3D4B03V57KY6PiBgibOnK', price: 45, qty: 0 },
-            bundle4: { id: 'price_1Sj3EjB03V57KY6PVeCPdl0P', price: 55, qty: 0 }
-        };
-
-        function toggleMode(mode) {
-            currentMode = mode;
-            document.getElementById('btn-sub').classList.toggle('active', mode === 'subscription');
-            document.getElementById('btn-oneoff').classList.toggle('active', mode === 'one-off');
-            document.getElementById('section-subscription').classList.toggle('hidden', mode !== 'subscription');
-            document.getElementById('section-oneoff').classList.toggle('hidden', mode !== 'one-off');
-            document.getElementById('email-wrapper').classList.toggle('hidden', mode === 'one-off');
-            document.getElementById('checkout-status').innerText = "";
-
-            if (mode === 'subscription') {
-                document.getElementById('total-display').innerText = selectedSubId ? `Plan Selected: ${selectedSubLabel}` : "Select a plan to continue";
-            } else {
-                calculateTotal();
-            }
-            validateCheckout();
-        }
-
-        function selectPlan(el, id, label) {
-            document.querySelectorAll('.plan-card').forEach(c => c.classList.remove('active'));
-            el.classList.add('active');
-            selectedSubId = id;
-            selectedSubLabel = label;
-            document.getElementById('total-display').innerText = `Plan Selected: ${label}`;
-            validateCheckout();
-        }
-
-        function updateQty(key, delta, event) {
-            if (event) event.stopPropagation();
-            catalog[key].qty = Math.max(0, catalog[key].qty + delta);
-            const qtyEl = document.getElementById(`qty-${key}`);
-            const cardEl = document.getElementById(`card-${key}`);
-            if (qtyEl) qtyEl.value = catalog[key].qty;
-            if (cardEl) cardEl.classList.toggle('has-items', catalog[key].qty > 0);
-            calculateTotal();
-        }
-
-        function calculateTotal() {
-            let total = 0;
-            for (let k in catalog) total += catalog[k].qty * catalog[k].price;
-            if (currentMode === 'one-off') {
-                document.getElementById('total-display').innerText = total > 0 ? `Total: $${total.toFixed(2)}` : "Total: $0.00";
-            }
-            validateCheckout();
-        }
-
-        const CART_KEY = "durafungi_cart_v1";
+        const CART_KEY = "durafungi_cart_v2";
 
         function getCart() {
-            try { return JSON.parse(localStorage.getItem(CART_KEY) || "{}"); }
-            catch { return {}; }
+            try {
+                const raw = localStorage.getItem(CART_KEY);
+                return raw ? JSON.parse(raw) : [];
+            } catch (e) {
+                localStorage.removeItem(CART_KEY);
+                return [];
+            }
         }
 
         function setCart(cart) {
             localStorage.setItem(CART_KEY, JSON.stringify(cart));
+            updateCartUI();
         }
 
-        function validateCheckout() {
-            const btn = document.getElementById('checkout-btn');
-            const email = document.getElementById('email').value.trim();
-            const emailError = document.getElementById('email-error');
-            const isEmailValid = /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email);
+        function cartCount() {
+            return getCart().reduce((sum, it) => sum + (parseInt(it.quantity, 10) || 0), 0);
+        }
 
-            let canCheckout = false;
-            if (currentMode === 'subscription') {
-                canCheckout = !!selectedSubId && isEmailValid;
-                if (selectedSubId && !isEmailValid) emailError.classList.remove('hidden');
-                else emailError.classList.add('hidden');
-            } else {
-                let totalQty = 0;
-                for (let k in catalog) totalQty += catalog[k].qty;
-                canCheckout = totalQty > 0;
-                emailError.classList.add('hidden');
+        function hasRecurring() {
+            return getCart().some(it => !!it.recurring);
+        }
+
+        function addToCart(item) {
+            const price = String(item.price || "").trim();
+            const label = String(item.label || "").trim();
+            const recurring = !!item.recurring;
+            const q = Math.max(1, parseInt(item.quantity, 10) || 1);
+
+            if (!price) return;
+
+            let cart = getCart();
+
+            if (recurring) {
+                cart = cart.filter(it => !it.recurring);
             }
-            btn.disabled = !canCheckout;
+
+            const existing = cart.find(it => it.price === price);
+            if (existing) existing.quantity = (parseInt(existing.quantity, 10) || 0) + q;
+            else cart.push({ price: price, quantity: q, recurring: recurring, label: label });
+
+            setCart(cart);
         }
 
-        async function checkout() {
-            const emailInput = document.getElementById('email');
-            const btn = document.getElementById('checkout-btn');
-            const status = document.getElementById('checkout-status');
-            const email = emailInput.value.trim();
-            const isEmailValid = /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email);
+        function removeFromCart(price) {
+            const cart = getCart().filter(it => it.price !== price);
+            setCart(cart);
+            syncPlanUIFromCart();
+        }
 
-            let items = [];
-            if (currentMode === 'subscription') {
-                items.push({ price: selectedSubId, quantity: 1 });
-            } else {
-                for (let k in catalog) {
-                    if (catalog[k].qty > 0) items.push({ price: catalog[k].id, quantity: catalog[k].qty });
+        function cartToLineItems() {
+            return getCart()
+                .map(it => ({ price: it.price, quantity: Math.max(1, parseInt(it.quantity, 10) || 1) }))
+                .filter(x => x.price && x.quantity > 0);
+        }
+
+        function isValidEmail(email) {
+            return /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(String(email || "").trim());
+        }
+
+        function toast(msg) {
+            const t = document.getElementById('toast');
+            if (!t) return;
+            t.textContent = msg || "Added";
+            t.classList.add('show');
+            window.clearTimeout(window.__dfToastTimer);
+            window.__dfToastTimer = window.setTimeout(() => t.classList.remove('show'), 1400);
+        }
+
+        function flashCard(cardId) {
+            const el = document.getElementById(cardId);
+            if (!el) return;
+            el.classList.add('flash');
+            window.setTimeout(() => el.classList.remove('flash'), 180);
+        }
+
+        function addPlanToCart(btn, priceId, label) {
+            const buttons = document.querySelectorAll('.add-plan-btn');
+            buttons.forEach(b => {
+                b.textContent = "Add Plan";
+                b.classList.remove('added');
+                b.disabled = false;
+            });
+
+            btn.disabled = true;
+            btn.textContent = "Adding…";
+
+            addToCart({ price: priceId, quantity: 1, recurring: true, label: label });
+
+            btn.textContent = "Plan Added ✓";
+            btn.classList.add('added');
+            btn.disabled = false;
+
+            document.querySelectorAll('.plan-card').forEach(c => c.classList.remove('added'));
+            const card = btn.closest('.plan-card');
+            if (card) card.classList.add('added');
+
+            toast("Subscription plan added");
+        }
+
+        const oneOffCatalog = {
+            oyster: { price: 'price_1Si7xMB03V57KY6PGoBS1kWm', label: 'Oyster Mix (250g) – $20' },
+            shiitake: { price: 'price_1SdTYlB03V57KY6Pv6knoTkV', label: 'Fresh Shiitake (250g) – $25' },
+            lions: { price: 'price_1SdTV0B03V57KY6PKtiPgCdf', label: "Lion's Mane (250g) – $25" },
+            maitake: { price: 'price_1SdTaMB03V57KY6Pqj4zPCi9', label: 'Maitake (250g) – $35' },
+            bundle3: { price: 'price_1Sj3D4B03V57KY6PiBgibOnK', label: '3-Variety Bundle (750g) – $45' },
+            bundle4: { price: 'price_1Sj3EjB03V57KY6PVeCPdl0P', label: '4-Variety Bundle (1kg) – $55' }
+        };
+
+        function updateOneOffQty(key, delta, event) {
+            if (event) event.stopPropagation();
+
+            const input = document.getElementById(`qty-${key}`);
+            if (!input) return;
+
+            let qty = parseInt(input.value, 10) || 0;
+            qty = Math.max(0, qty + (parseInt(delta, 10) || 0));
+            input.value = String(qty);
+
+            const card = document.getElementById(`card-${key}`);
+            if (card) card.classList.toggle('has-items', qty > 0);
+
+            const addBtn = document.getElementById(`addbtn-${key}`);
+            if (addBtn) {
+                addBtn.disabled = (qty === 0);
+                addBtn.textContent = (qty === 0) ? "Select quantity" : "Add to Cart";
+            }
+        }
+
+        function addOneOffToCart(key) {
+            const item = oneOffCatalog[key];
+            if (!item) return;
+
+            const qtyInput = document.getElementById(`qty-${key}`);
+            const qty = qtyInput ? (parseInt(qtyInput.value, 10) || 0) : 0;
+            if (qty <= 0) return;
+
+            const btn = document.getElementById(`addbtn-${key}`);
+            if (btn) {
+                btn.disabled = true;
+                btn.textContent = "Adding…";
+            }
+
+            addToCart({ price: item.price, quantity: qty, recurring: false, label: item.label });
+
+            if (qtyInput) qtyInput.value = "0";
+            updateOneOffQty(key, 0);
+
+            if (btn) {
+                btn.textContent = "Added ✓";
+                window.setTimeout(() => {
+                    btn.textContent = "Select quantity";
+                    btn.disabled = true;
+                }, 900);
+            }
+
+            flashCard(`card-${key}`);
+            toast("Added to cart");
+        }
+
+        function validateProceed() {
+            const proceedBtn = document.getElementById('proceed-btn');
+            const emailSection = document.getElementById('email-section');
+            const emailEl = document.getElementById('customer-email');
+            const emailError = document.getElementById('email-error');
+
+            const cart = getCart();
+            const hasItems = cart.length > 0;
+            const needsEmail = hasRecurring();
+
+            if (emailSection) emailSection.classList.toggle('hidden', !needsEmail);
+
+            if (!hasItems) {
+                if (proceedBtn) proceedBtn.disabled = true;
+                if (emailError) emailError.classList.add('hidden');
+                return;
+            }
+
+            if (!needsEmail) {
+                if (proceedBtn) proceedBtn.disabled = false;
+                if (emailError) emailError.classList.add('hidden');
+                return;
+            }
+
+            const email = emailEl ? emailEl.value.trim() : "";
+            const ok = isValidEmail(email);
+
+            if (emailError) emailError.classList.toggle('hidden', ok);
+            if (proceedBtn) proceedBtn.disabled = !ok;
+        }
+
+        function syncPlanUIFromCart() {
+            const cart = getCart();
+            const plan = cart.find(it => it.recurring);
+
+            document.querySelectorAll('.plan-card').forEach(c => c.classList.remove('added'));
+            document.querySelectorAll('.add-plan-btn').forEach(b => {
+                b.textContent = "Add Plan";
+                b.classList.remove('added');
+            });
+
+            if (!plan) return;
+
+            const buttons = document.querySelectorAll('.add-plan-btn');
+            buttons.forEach(btn => {
+                const onclick = btn.getAttribute("onclick") || "";
+                if (onclick.indexOf(plan.price) !== -1) {
+                    btn.textContent = "Plan Added ✓";
+                    btn.classList.add('added');
+                    const card = btn.closest('.plan-card');
+                    if (card) card.classList.add('added');
                 }
+            });
+        }
+
+        function updateCartUI() {
+            const cart = getCart();
+            const badge = document.getElementById('cart-badge');
+            const count = cartCount();
+
+            if (badge) {
+                badge.textContent = String(count);
+                badge.classList.toggle('hidden', count === 0);
+            }
+
+            const itemsContainer = document.getElementById('cart-items');
+            const emptyMsg = document.getElementById('cart-empty');
+            const modeHint = document.getElementById('mode-hint');
+
+            if (!itemsContainer || !emptyMsg) return;
+
+            if (cart.length === 0) {
+                itemsContainer.innerHTML = '';
+                emptyMsg.classList.remove('hidden');
+                if (modeHint) modeHint.textContent = "";
+                validateProceed();
+                return;
+            }
+
+            emptyMsg.classList.add('hidden');
+
+            itemsContainer.innerHTML = cart.map(it => {
+                const safeLabel = (it.label || "Item").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+                const qty = Math.max(1, parseInt(it.quantity, 10) || 1);
+                const tag = it.recurring ? '<span class="text-[10px] font-bold text-green-700 bg-green-50 px-2 py-1 rounded-full ml-2">SUBSCRIPTION</span>' : '';
+                return `
+                    <div class="flex justify-between items-start border-b pb-3">
+                        <div class="pr-3">
+                            <div class="font-medium">${safeLabel}${tag}</div>
+                            <div class="text-sm text-gray-600">Qty: ${qty}</div>
+                        </div>
+                        <button onclick="removeFromCart('${it.price}')" class="text-red-600 text-sm font-bold">Remove</button>
+                    </div>
+                `;
+            }).join('');
+
+            if (modeHint) {
+                if (hasRecurring()) {
+                    modeHint.textContent = "Checkout mode: Subscription";
+                    modeHint.innerHTML = modeHint.textContent + '<span class="block mt-1 text-xs text-gray-500">First payment shown at checkout (recurring).</span>';
+                } else {
+                    modeHint.textContent = "Checkout mode: One-off payment";
+                }
+            }
+
+            validateProceed();
+        }
+
+        function openCart() {
+            const dd = document.getElementById('cart-dropdown');
+            if (dd) dd.classList.add('open');
+        }
+
+        function closeCart() {
+            const dd = document.getElementById('cart-dropdown');
+            if (dd) dd.classList.remove('open');
+        }
+
+        document.getElementById('cart-toggle').addEventListener('click', (e) => {
+            e.stopPropagation();
+            const dd = document.getElementById('cart-dropdown');
+            if (!dd) return;
+            dd.classList.toggle('open');
+        });
+
+        document.addEventListener('click', () => closeCart());
+
+        const ddEl = document.getElementById('cart-dropdown');
+        if (ddEl) ddEl.addEventListener('click', (e) => e.stopPropagation());
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === "Escape") closeCart();
+        });
+
+        async function proceedToCheckout() {
+            const btn = document.getElementById('proceed-btn');
+            const status = document.getElementById('checkout-status');
+            const emailEl = document.getElementById('customer-email');
+
+            const items = cartToLineItems();
+            if (items.length === 0) return;
+
+            const needsEmail = hasRecurring();
+            const email = emailEl ? emailEl.value.trim() : "";
+
+            if (needsEmail && !isValidEmail(email)) {
+                const emailError = document.getElementById('email-error');
+                if (emailError) emailError.classList.remove('hidden');
+                return;
             }
 
             try {
-                btn.disabled = true;
-                status.innerText = "Redirecting to secure checkout...";
+                if (btn) {
+                    btn.disabled = true;
+                    btn.dataset.dfOriginalText = btn.textContent;
+                    btn.textContent = "Redirecting…";
+                }
+                if (status) status.textContent = "Redirecting to secure checkout...";
 
-                const response = await fetch("https://api.durafungi.com/create-checkout-session", {
+                const payload = {
+                    items: items,
+                    returnUrl: window.location.href
+                };
+
+                if (needsEmail) payload.customerEmail = email;
+
+                const res = await fetch(API, {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({
-                        checkoutMode: currentMode === 'subscription' ? 'subscription' : 'payment',
-                        items: items,
-                        returnUrl: window.location.href,
-                        ...(isEmailValid ? { customerEmail: email } : {})
-                    })
+                    body: JSON.stringify(payload)
                 });
 
-                if (!response.ok) {
-                    const text = await response.text();
-                    throw new Error(`Server error (${response.status}): ${text}`);
-                }
+                const data = await res.json().catch(() => ({}));
 
-                const data = await response.json();
-                if (data.url) window.location.href = data.url;
-                else throw new Error(data.error || "Session generation failed.");
+                if (!res.ok) throw new Error(data.error || data.message || ("Server error: " + res.status));
+                if (!data.url) throw new Error("No checkout URL returned from server.");
+
+                window.location.href = data.url;
             } catch (err) {
-                alert("Checkout Error: " + err.message);
-                btn.disabled = false;
-                status.innerText = "";
-                validateCheckout();
+                alert("Checkout error: " + (err.message || "Unknown error"));
+
+                if (btn) {
+                    btn.disabled = false;
+                    btn.textContent = btn.dataset.dfOriginalText || "Proceed to Checkout";
+                }
+                if (status) status.textContent = "";
+                validateProceed();
             }
         }
+
+        function initOneOffButtons() {
+            Object.keys(oneOffCatalog).forEach(k => updateOneOffQty(k, 0));
+        }
+
+        syncPlanUIFromCart();
+        initOneOffButtons();
+        updateCartUI();
     </script>
 </body>
 
