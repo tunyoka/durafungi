@@ -4,10 +4,10 @@
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-    <title>Add-Ons & Supplies – Dura Fungi Adelaide</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Workshops – Dura Fungi Adelaide</title>
     <meta name="description"
-        content="Essential mushroom growing supplies: Soy Hull Pellets, Masters Mix, and cultivation accessories." />
+        content="Join our hands-on mushroom cultivation workshops in Adelaide. Learn to grow Lion's Mane, Oyster, and Shiitake mushrooms." />
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @font-face {
@@ -30,41 +30,49 @@
             background: #F5F5F5;
             color: #1F1F1F;
             overflow-x: hidden;
+            /* Prevents accidental horizontal scrolling on mobile */
         }
 
         header {
             background: linear-gradient(to bottom, #D8C3A5 0%, #F5F5F5 100%);
-            padding: 0.75rem 1rem;
+            padding: 0.75rem 1.5rem;
             display: flex;
             align-items: center;
             justify-content: space-between;
             position: sticky;
             top: 0;
-            z-index: 50;
+            z-index: 20;
         }
 
         .topnav {
             display: flex;
             gap: 1rem;
             font-size: 0.85rem;
-            overflow-x: auto;
-            -webkit-overflow-scrolling: touch;
-            padding-bottom: 4px;
         }
 
-        .topnav::-webkit-scrollbar {
-            display: none;
+        /* Desktop specific nav spacing */
+        @media (min-width: 768px) {
+            .topnav {
+                gap: 1.5rem;
+                font-size: 0.95rem;
+            }
         }
 
-        .hero-section {
+        .workshop-hero {
             background: linear-gradient(to bottom, rgba(31, 31, 31, 0.8) 0%, rgba(31, 31, 31, 0.6) 100%),
                 url("https://s3.ap-southeast-2.amazonaws.com/durafungi.com/assets/img/lions_mane_pride.webp") center/cover no-repeat;
             color: #fff;
             text-align: center;
-            padding: 3rem 1rem;
+            padding: 4rem 1rem;
         }
 
-        .product-card {
+        @media (min-width: 768px) {
+            .workshop-hero {
+                padding: 6rem 1.5rem;
+            }
+        }
+
+        .experience-card {
             background: white;
             border-radius: 12px;
             overflow: hidden;
@@ -76,43 +84,40 @@
             position: relative;
         }
 
-        .product-card.has-items {
+        .experience-card.has-items {
             border-color: var(--green);
             background-color: #f0fdf4;
             transform: translateY(-4px);
         }
 
-        .product-card.added-flash {
+        .experience-card.added-flash {
             outline: 3px solid rgba(40, 167, 69, 0.35);
             transition: outline 0.15s;
         }
 
-        /* Fixed Image Styling */
-        .product-img {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-            background: #e5e7eb;
+        .experience-card:hover {
+            transform: translateY(-5px);
         }
 
-        .btn-add {
+        .btn-book {
             background-color: #28a745;
             color: white;
-            padding: 1rem;
-            border-radius: 8px;
+            padding: 0.85rem 2rem;
+            border-radius: 9999px;
             font-weight: 700;
-            text-align: center;
-            display: block;
-            margin-top: auto;
             transition: background-color 0.2s;
+            text-align: center;
+            width: 100%;
+            margin-top: auto;
+            display: block;
             cursor: pointer;
         }
 
-        .btn-add:hover {
+        .btn-book:hover {
             background-color: #218838;
         }
 
-        .btn-add:disabled {
+        .btn-book:disabled {
             background-color: #9ca3af;
             cursor: not-allowed;
         }
@@ -123,6 +128,7 @@
             text-align: center;
             font-size: 0.85rem;
             border-top: 1px solid #e0e0e0;
+            margin-top: 3rem;
         }
 
         /* Cart Dropdown */
@@ -205,13 +211,13 @@
 
     <header>
         <a href="/"><img src="https://s3.ap-southeast-2.amazonaws.com/durafungi.com/assets/img/logo.png" alt="DuraFungi"
-                style="height:35px;" class="md:h-[48px]"></a>
-        <nav class="topnav">
+                style="height:40px;" class="md:h-[48px]"></a>
+        <nav class="topnav overflow-x-auto whitespace-nowrap pb-1">
             <a href="/fresh-mushrooms.html">Fresh</a>
             <a href="/grow-blocks.html">Blocks</a>
             <a href="/grain-spawn.html">Spawn</a>
-            <a href="/workshops.html">Workshops</a>
-            <a href="/add-ons.html" class="font-bold border-b-2 border-green-700">Add-Ons</a>
+            <a href="/workshops.html" class="font-bold border-b-2 border-green-700">Workshops</a>
+            <a href="/add-ons.html">Add-Ons</a>
         </nav>
 
         <!-- Cart Toggle -->
@@ -244,92 +250,85 @@
     </header>
 
     <main>
-        <section class="hero-section">
-            <h1 class="text-2xl md:text-5xl font-bold mb-2">Grow Supplies</h1>
-            <p class="text-sm md:text-xl opacity-90">Essential substrate and tools for your urban farm.</p>
+        <section class="workshop-hero">
+            <h1 class="text-3xl md:text-5xl font-bold mb-4 px-4">Mushroom Cultivation Workshops</h1>
+            <p class="text-base md:text-xl max-w-2xl mx-auto px-4 opacity-90">Master the art and science of growing
+                exotic fungi. Hands-on learning for all skill levels.</p>
         </section>
 
-        <section class="max-w-7xl mx-auto py-8 px-4">
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <section class="max-w-7xl mx-auto py-10 md:py-16 px-6">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
 
-                <div class="product-card" id="card-soy-hull">
-                    <img src="https://s3.ap-southeast-2.amazonaws.com/durafungi.com/assets/img/soy-hull-pellets.png"
-                        alt="Soy Hull Pellets" class="product-img">
-                    <div class="p-5 flex flex-col flex-grow">
-                        <h3 class="text-lg font-bold mb-1">Organic Soy Hull Pellets (20KG)</h3>
-                        <p class="text-gray-600 text-xs mb-4">Nitrogen-rich supplement for high-yield fruiting.</p>
-                        <p class="text-xl font-bold mb-4">$58.75</p>
-                        <button data-id="soy-hull" data-price="price_1Sjd9hB03V57KY6PzvbuDXXc"
-                            data-name="Organic Soy Hull Pellets (20KG)" data-price="58.75"
-                            class="btn-add add-to-cart-btn">Add to Cart</button>
+                <div class="experience-card p-6 md:p-8" id="card-beginner">
+                    <div class="mb-4">
+                        <span
+                            class="bg-beige text-rust px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest">Entry
+                            Level</span>
                     </div>
+                    <h3 class="text-xl md:text-2xl font-bold mb-4">Beginner Exotic Mushroom Cultivation</h3>
+                    <p class="text-gray-600 mb-6 text-sm md:text-base">A hands-on introduction to the lifecycle of
+                        fungi. Learn basic inoculation techniques and take home your own grow kit. Available in-person
+                        or virtually.</p>
+                    <div class="mb-6">
+                        <p class="text-3xl md:text-4xl font-bold text-charcoal">$180.00</p>
+                    </div>
+                    <button data-id="beginner" data-price="price_1Sj5DaB03V57KY6PxUR9C0p8"
+                        data-name="Beginner Exotic Mushroom Cultivation Workshop" data-price="180.00"
+                        class="btn-book add-to-cart-btn">Book Now</button>
                 </div>
 
-                <div class="product-card border-2 border-beige" id="card-masters-mix">
-                    <img src="https://s3.ap-southeast-2.amazonaws.com/durafungi.com/assets/img/hardwood-sawdust-pellets.png"
-                        alt="Masters Mix" class="product-img">
-                    <div class="p-5 flex flex-col flex-grow">
-                        <h3 class="text-lg font-bold mb-1">Masters Mix Substrate (4kg)</h3>
-                        <p class="text-gray-600 text-xs mb-4">Hydrated and pre-sterilised 50/50 Oak/Soy blend.</p>
-                        <p class="text-xl font-bold mb-4">$45.00</p>
-                        <button data-id="masters-mix" data-price="price_1RTgdTB03V57KY6POw8v2ig0"
-                            data-name="Masters Mix Substrate (4kg)" data-price="45.00"
-                            class="btn-add add-to-cart-btn">Add to Cart</button>
+                <div class="experience-card p-6 md:p-8 border-2 border-rust shadow-sm" id="card-advanced">
+                    <div class="mb-4">
+                        <span
+                            class="bg-rust text-white px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest">Advanced</span>
                     </div>
+                    <h3 class="text-xl md:text-2xl font-bold mb-4">Advanced Techniques: Flow Hoods & Scaling</h3>
+                    <p class="text-gray-600 mb-6 text-sm md:text-base">Designed for serious growers. Master sterile lab
+                        techniques, agar work, liquid cultures, and scaling your production for commercial success.</p>
+                    <div class="mb-6">
+                        <p class="text-3xl md:text-4xl font-bold text-charcoal">$350.00</p>
+                    </div>
+                    <button data-id="advanced" data-price="price_1Sj5EQB03V57KY6Pgm4SSksS"
+                        data-name="Advanced Techniques: Flow Hoods & Scaling Workshop" data-price="350.00"
+                        class="btn-book add-to-cart-btn">Book Now</button>
                 </div>
 
-                <div class="product-card" id="card-hardwood-pellets">
-                    <img src="https://s3.ap-southeast-2.amazonaws.com/durafungi.com/assets/img/hardwood-pellets.png"
-                        alt="Hardwood Pellets" class="product-img">
-                    <div class="p-5 flex flex-col flex-grow">
-                        <h3 class="text-lg font-bold mb-1">Hardwood Sawdust Pellets (15KG)</h3>
-                        <p class="text-gray-600 text-xs mb-4">Clean, compressed hardwood for substrate base.</p>
-                        <p class="text-xl font-bold mb-4">$35.00</p>
-                        <button data-id="hardwood-pellets" data-price="price_1Sjd7DB03V57KY6PMss3Pw4I"
-                            data-name="Hardwood Sawdust Pellets (15KG)" data-price="35.00"
-                            class="btn-add add-to-cart-btn">Add to Cart</button>
+                <div class="experience-card p-6 md:p-8" id="card-family">
+                    <div class="mb-4">
+                        <span
+                            class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest">Family
+                            Friendly</span>
                     </div>
+                    <h3 class="text-xl md:text-2xl font-bold mb-4">Kids Fungi Adventure: School Workshop</h3>
+                    <p class="text-gray-600 mb-6 text-sm md:text-base">An engaging, educational experience for families
+                        and schools. Discover the magic of the "Wood Wide Web" and start a classroom growing project.
+                    </p>
+                    <div class="mb-6">
+                        <p class="text-3xl md:text-4xl font-bold text-charcoal">$80.00</p>
+                    </div>
+                    <button data-id="family" data-price="price_1Sj5FEB03V57KY6Pw0wcH8rR"
+                        data-name="Kids Fungi Adventure: School Workshop" data-price="80.00"
+                        class="btn-book add-to-cart-btn">Book Now</button>
                 </div>
 
-                <div class="product-card" id="card-coco-coir">
-                    <img src="https://s3.ap-southeast-2.amazonaws.com/durafungi.com/assets/img/coco-coir-block.png"
-                        alt="Coco Coir Block" class="product-img">
-                    <div class="p-5 flex flex-col flex-grow">
-                        <h3 class="text-lg font-bold mb-1">Coco Coir Block</h3>
-                        <p class="text-gray-600 text-xs mb-4">High-retention organic growing medium.</p>
-                        <p class="text-xl font-bold mb-4">$45.00</p>
-                        <button data-id="coco-coir" data-price="price_1RThS3B03V57KY6Pb6fp4TyR"
-                            data-name="Coco Coir Block" data-price="45.00" class="btn-add add-to-cart-btn">Add to
-                            Cart</button>
+            </div>
+        </section>
+
+        <section class="bg-charcoal text-white py-12 md:py-16">
+            <div class="max-w-4xl mx-auto px-6 text-center">
+                <h2 class="text-2xl md:text-3xl font-bold mb-6">Why Learn with Dura Fungi?</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10 text-left">
+                    <div>
+                        <h4 class="text-rust font-bold mb-2">Expert Guidance</h4>
+                        <p class="text-gray-400 text-sm md:text-base">Learn directly from Adelaide growers who manage a
+                            high-yield urban farm every day.</p>
+                    </div>
+                    <div>
+                        <h4 class="text-rust font-bold mb-2">Community Building</h4>
+                        <p class="text-gray-400 text-sm md:text-base">Connect with other local hobbyists and
+                            professional growers in the South Australian community.</p>
                     </div>
                 </div>
-
-                <div class="product-card bg-green-50" id="card-starter-kit">
-                    <img src="https://s3.ap-southeast-2.amazonaws.com/durafungi.com/assets/img/lions_mane_pride.webp"
-                        alt="Starter Kit" class="product-img">
-                    <div class="p-5 flex flex-col flex-grow">
-                        <h3 class="text-lg font-bold mb-1 text-green-800">Grow Starter Kit</h3>
-                        <p class="text-gray-600 text-xs mb-4">Tent, spray bottle, and guide. Best for beginners.</p>
-                        <p class="text-xl font-bold mb-4">$20.00</p>
-                        <button data-id="starter-kit" data-price="price_1Sj4zrB03V57KY6PMuYhW3xN"
-                            data-name="Grow Starter Kit" data-price="20.00" class="btn-add add-to-cart-btn">Add to
-                            Cart</button>
-                    </div>
-                </div>
-
-                <div class="product-card" id="card-humidity-tent">
-                    <img src="https://s3.ap-southeast-2.amazonaws.com/durafungi.com/assets/img/Fine-Mist-Spray-Bottle.webp"
-                        alt="Spray Bottle" class="product-img">
-                    <div class="p-5 flex flex-col flex-grow">
-                        <h3 class="text-lg font-bold mb-1">Humidity Tent Kit</h3>
-                        <p class="text-gray-600 text-xs mb-4">Essential for maintaining fruiting moisture.</p>
-                        <p class="text-xl font-bold mb-4">$15.00</p>
-                        <button data-id="humidity-tent" data-price="price_1Sj4q9B03V57KY6PxInoLjWZ"
-                            data-name="Humidity Tent Kit" data-price="15.00" class="btn-add add-to-cart-btn">Add to
-                            Cart</button>
-                    </div>
-                </div>
-
             </div>
         </section>
     </main>
@@ -339,40 +338,22 @@
     <script>
         // 1. PRODUCT CATALOG
         const CATALOG = {
-            'soy-hull': {
-                price: 'price_1Sjd9hB03V57KY6PzvbuDXXc',
-                name: 'Organic Soy Hull Pellets (20KG)',
-                unitPrice: 58.75,
+            'beginner': {
+                price: 'price_1Sj5DaB03V57KY6PxUR9C0p8',
+                name: 'Beginner Exotic Mushroom Cultivation Workshop',
+                unitPrice: 180.00,
                 recurring: false
             },
-            'masters-mix': {
-                price: 'price_1RTgdTB03V57KY6POw8v2ig0',
-                name: 'Masters Mix Substrate (4kg)',
-                unitPrice: 45.00,
+            'advanced': {
+                price: 'price_1Sj5EQB03V57KY6Pgm4SSksS',
+                name: 'Advanced Techniques: Flow Hoods & Scaling Workshop',
+                unitPrice: 350.00,
                 recurring: false
             },
-            'hardwood-pellets': {
-                price: 'price_1Sjd7DB03V57KY6PMss3Pw4I',
-                name: 'Hardwood Sawdust Pellets (15KG)',
-                unitPrice: 35.00,
-                recurring: false
-            },
-            'coco-coir': {
-                price: 'price_1RThS3B03V57KY6Pb6fp4TyR',
-                name: 'Coco Coir Block',
-                unitPrice: 45.00,
-                recurring: false
-            },
-            'starter-kit': {
-                price: 'price_1Sj4zrB03V57KY6PMuYhW3xN',
-                name: 'Grow Starter Kit',
-                unitPrice: 20.00,
-                recurring: false
-            },
-            'humidity-tent': {
-                price: 'price_1Sj4q9B03V57KY6PxInoLjWZ',
-                name: 'Humidity Tent Kit',
-                unitPrice: 15.00,
+            'family': {
+                price: 'price_1Sj5FEB03V57KY6Pw0wcH8rR',
+                name: 'Kids Fungi Adventure: School Workshop',
+                unitPrice: 80.00,
                 recurring: false
             }
         };
@@ -597,13 +578,13 @@
             // Check for return from Stripe
             const urlParams = new URLSearchParams(window.location.search);
             if (urlParams.has('checkout') && urlParams.get('checkout') === 'success') {
-                showToast('🎉 Thank you for your purchase! Your order is confirmed.', 'success');
+                showToast('🎉 Thank you for your purchase! Your workshop booking is confirmed.', 'success');
                 // Remove query parameter
                 window.history.replaceState({}, document.title, window.location.pathname);
             }
 
             if (urlParams.has('checkout') && urlParams.get('checkout') === 'cancelled') {
-                showToast('Checkout was cancelled. Your cart items are still saved.', 'info');
+                showToast('Checkout was cancelled. Your workshop selection is still saved.', 'info');
                 window.history.replaceState({}, document.title, window.location.pathname);
             }
         }
