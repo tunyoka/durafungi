@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Farmers Markets – Dura Fungi Adelaide</title>
+    <meta name="description"
+        content="Pre-order fresh, small-batch exotic mushrooms for Adelaide Hills, Mount Pleasant, and Victor Harbor farmers markets. Farm-fresh, pick-up ready from Dura Fungi." />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @font-face {
+            font-family: 'Montserrat';
+            src: url('/assets/fonts/MontserratVariableFontwght.ttf') format('truetype');
+            font-display: swap;
+        }
+
+        :root {
+            --black: #000000;
+            --charcoal: #1F1F1F;
+            --white: #F5F5F5;
+            --beige: #D8C3A5;
+            --green: #28a745;
+            --rust: #8B5E3C;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: #F5F5F5;
+            color: #1F1F1F;
+            overflow-x: hidden;
+        }
+
+        header {
+            background: linear-gradient(to bottom, #D8C3A5 0%, #F5F5F5 100%);
+            padding: 0.75rem 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 20;
+        }
+
+        .topnav {
+            display: flex;
+            gap: 1rem;
+            font-size: 0.85rem;
+        }
+
+        @media (min-width: 768px) {
+            .topnav {
+                gap: 1.5rem;
+                font-size: 0.95rem;
+            }
+        }
+
+        .farmers-hero {
+            background: linear-gradient(to bottom, rgba(31, 31, 31, 0.9) 0%, rgba(31, 31, 31, 0.7) 100%),
+                url("https://s3.ap-southeast-2.amazonaws.com/durafungi.com/assets/img/farmers_market_lions_mane.jpg") center/cover no-repeat;
+            color: #fff;
+            text-align: center;
+            padding: 4rem 1rem;
+        }
+
+        @media (min-width: 768px) {
+            .farmers-hero {
+                padding: 6rem 1.5rem;
+            }
+        }
+
+        .content-card {
+            background: white;
+            border-radius: 12px;
+            border: 2px solid #f3f4f6;
+            transition: all 0.3s ease;
+            overflow: hidden;
+        }
+
+        .content-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+        }
+
+        .market-card {
+            background: white;
+            border-radius: 8px;
+            padding: 1.5rem;
+            border-left: 4px solid var(--rust);
+            transition: all 0.3s ease;
+        }
+
+        .market-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        .btn-primary {
+            background: linear-gradient(to right, var(--rust), var(--green));
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 9999px;
+            font-weight: 700;
+            transition: all 0.2s;
+            text-align: center;
+            cursor: pointer;
+            border: none;
+            width: 100%;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(139, 94, 60, 0.3);
+        }
+
+        footer {
+            background: #fff;
+            padding: 2rem;
+            text-align: center;
+            font-size: 0.85rem;
+            border-top: 1px solid #e0e0e0;
+            margin-top: 3rem;
+        }
+
+        /* JotForm Container */
+        .jotform-container {
+            width: 100%;
+            min-height: 600px;
+            border: none;
+            position: relative;
+        }
+
+        .jotform-container iframe {
+            transition: height 0.3s ease;
+            border-radius: 8px;
+        }
+
+        /* Cart Dropdown */
+        #cart-dropdown {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            width: 340px;
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 1rem;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            display: none;
+            z-index: 50;
+        }
+
+        #cart-dropdown.open {
+            display: block;
+        }
+
+        /* Cart toggle button */
+        #cart-toggle {
+            position: relative;
+            padding: 8px;
+        }
+
+        #cart-badge {
+            position: absolute;
+            top: 0;
+            right: 0;
+            background: #28a745;
+            color: white;
+            font-size: 10px;
+            border-radius: 50%;
+            width: 18px;
+            height: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Toast notifications */
+        .toast {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #28a745;
+            color: white;
+            padding: 12px 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            z-index: 1000;
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        @media (max-width: 767px) {
+            #cart-dropdown {
+                width: 100%;
+                left: 0;
+                right: 0;
+                border-radius: 0;
+            }
+
+            .jotform-container iframe {
+                min-height: 700px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <a href="/"><img src="https://s3.ap-southeast-2.amazonaws.com/durafungi.com/assets/img/logo.png" alt="DuraFungi"
+                style="height:40px;" class="md:h-[48px]"></a>
+        <nav class="topnav overflow-x-auto whitespace-nowrap pb-1">
+            <a href="/fresh-mushrooms.html">Fresh</a>
+            <a href="/grow-blocks.html">Blocks</a>
+            <a href="/grain-spawn.html">Spawn</a>
+            <a href="/workshops.html">Workshops</a>
+            <a href="/add-ons.html">Add-Ons</a>
+            <a href="/wholesale.html">Wholesale</a>
+            <a href="/farmers-market.html" class="font-bold border-b-2 border-green-700">Farmers Markets</a>
+        </nav>
+
+        <!-- Cart Toggle (same as other pages) -->
+        <div class="relative">
+            <button id="cart-toggle" class="relative p-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" fill="none" viewBox="0 0 24 24"
+                    stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
+                </svg>
+                <span id="cart-badge" class="hidden"></span>
+            </button>
+
+            <div id="cart-dropdown" class="p-4">
+                <div class="border-b pb-3 mb-3">
+                    <h3 class="font-bold text-lg">Your Cart</h3>
+                </div>
+                <div id="cart-items-list" class="space-y-3 mb-4 max-h-60 overflow-y-auto"></div>
+                <div id="cart-empty-msg" class="text-center py-4 text-gray-400">Your cart is empty</div>
+                <div class="border-t pt-3">
+                    <div class="flex justify-between font-bold mb-4">
+                        <span>Total</span>
+                        <span id="cart-total-display">$0.00</span>
+                    </div>
+                    <button id="checkout-btn" onclick="handleCheckout()" disabled
+                        class="w-full bg-gray-400 text-white py-3 rounded-xl font-bold">Checkout</button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="farmers-hero">
+            <h1 class="text-3xl md:text-5xl font-bold mb-4 px-4">Farmers Market Pickups</h1>
+            <p class="text-base md:text-xl max-w-2xl mx-auto px-4 opacity-90">Pre-order fresh, small-batch exotic
+                mushrooms for convenient pickup at your local South Australian market.</p>
+        </section>
+
+        <!-- Main Content -->
+        <section class="max-w-7xl mx-auto py-10 md:py-16 px-6">
+            <!-- Intro Content -->
+            <div class="mb-12 md:mb-16">
+                <div class="content-card p-6 md:p-8 mb-8">
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+                        <div>
+                            <img src="https://s3.ap-southeast-2.amazonaws.com/durafungi.com/assets/img/farmers_market_lions_mane.jpg"
+                                alt="Freshly harvested Lion's Mane mushrooms displayed at a farmers market stall"
+                                class="w-full h-auto rounded-lg shadow-lg">
+                        </div>
+                        <div>
+                            <h2 class="text-2xl md:text-3xl font-bold mb-4 text-charcoal">Farmers Markets: Your Batch,
+                                Your Day</h2>
+                            <p class="text-gray-600 mb-4">Catch us at Adelaide Hills every Saturday, Mount Pleasant
+                                first Saturday, Victor Harbor the third—your call. Pre-order small-batch exotic
+                                mushrooms: Pink Oyster, Lion's Mane, Shiitake, more.</p>
+                            <p class="text-gray-600 mb-6">Pick your market, set your pickup date, pay online, grab at
+                                the stall. No lines, no supermarkets—straight from our South Australian farm to your
+                                plate.</p>
+                            <a href="#market-form" class="btn-primary inline-block text-center">Pre-Order Now</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Why Pre-Order Section -->
+                <div class="mb-12">
+                    <h2 class="text-2xl md:text-3xl font-bold mb-8 text-center">Why Pre-Order Farmers Market Mushrooms?
+                    </h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                        <div class="market-card">
+                            <div class="text-rust font-bold text-lg mb-2">🌱 Fresh-Picked</div>
+                            <p class="text-gray-600">Hand-harvested that week, peak flavor, no waste.</p>
+                        </div>
+                        <div class="market-card">
+                            <div class="text-rust font-bold text-lg mb-2">🍄 Your Choice</div>
+                            <p class="text-gray-600">White, Blue, Grey, Yellow, Pink Oyster, Shiitake, Lion's Mane—get
+                                exactly what you want.</p>
+                        </div>
+                        <div class="market-card">
+                            <div class="text-rust font-bold text-lg mb-2">⏱️ Easy Pickup</div>
+                            <p class="text-gray-600">Select your market and date, pay ahead, skip the queue.</p>
+                        </div>
+                        <div class="market-card">
+                            <div class="text-rust font-bold text-lg mb-2">📍 Local & Sustainable</div>
+                            <p class="text-gray-600">Small-batch, circular farming from South Australia's heart.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Markets Schedule -->
+            <div class="mb-12 md:mb-16">
+                <h2 class="text-2xl md:text-3xl font-bold mb-8 text-center">Market Locations & Schedule</h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="market-card">
+                        <div class="text-rust font-bold text-lg mb-2">🏞️ Adelaide Hills Farmers Market</div>
+                        <p class="text-gray-600 mb-2"><strong>When:</strong> Fortnightly Saturdays, 8am - 12pm</p>
+                        <p class="text-gray-600 mb-2"><strong>Where:</strong> The Heights Community Centre</p>
+                        <p class="text-gray-600"><strong>Cut-off:</strong> Orders close Friday 2pm</p>
+                    </div>
+                    <div class="market-card">
+                        <div class="text-rust font-bold text-lg mb-2">🏛️ Mount Pleasant Farmers Market</div>
+                        <p class="text-gray-600 mb-2"><strong>When:</strong> Fortnightly Saturdays, 8am - 12pm, 8:30am -
+                            12:30pm</p>
+                        <p class="text-gray-600 mb-2"><strong>Where:</strong> Town Hall Precinct</p>
+                        <p class="text-gray-600"><strong>Cut-off:</strong> Orders close Friday 2pm</p>
+                    </div>
+                    <div class="market-card">
+                        <div class="text-rust font-bold text-lg mb-2">🌊 Victor Harbor Farmers Market</div>
+                        <p class="text-gray-600 mb-2"><strong>When:</strong> Fortnightly Saturdays, 8am - 12pm, 9am -
+                            1pm</p>
+                        <p class="text-gray-600 mb-2"><strong>Where:</strong> Warland Reserve</p>
+                        <p class="text-gray-600"><strong>Cut-off:</strong> Orders close Friday 2pm</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- JotForm Section -->
+            <div id="market-form">
+                <div class="content-card p-6 md:p-8">
+                    <h2 class="text-2xl md:text-3xl font-bold mb-4 text-charcoal">Pre-Order Farmers Market Mushrooms
+                    </h2>
+                    <p class="text-gray-600 mb-6">Complete this form to pre-order fresh mushrooms for pickup at your
+                        chosen farmers market. Select your market, pickup date, and mushroom varieties.</p>
+
+                    <!-- Your JotForm iframe -->
+                    <div class="jotform-container">
+                        <iframe id="JotFormIFrame-252927633585872" title="DuraFungi Mushroom Pre-Order Form"
+                            onload="window.parent.scrollTo(0,0)" allowtransparency="true"
+                            allow="geolocation; microphone; camera; fullscreen; payment"
+                            src="https://pci.jotform.com/form/252927633585872" frameborder="0"
+                            style="min-width:100%;max-width:100%;height:539px;border:none;" scrolling="no">
+                        </iframe>
+                    </div>
+
+                    <div class="mt-6 p-4 bg-blue-50 border border-blue-200 rounded-lg">
+                        <p class="text-sm text-blue-800">
+                            <span class="font-bold">Note:</span> All pre-orders must be placed by 5pm Friday for
+                            Saturday market pickup.
+                            You'll receive a confirmation email with pickup instructions.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- FAQ Section -->
+            <div class="mt-16">
+                <h2 class="text-2xl md:text-3xl font-bold mb-8 text-center">Farmers Market FAQ</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="market-card">
+                        <h3 class="text-rust font-bold mb-2">How do I pick up my order?</h3>
+                        <p class="text-gray-600">Bring your confirmation email (digital or printed) to our stall at your
+                            chosen market. Our team will have your order ready for quick pickup.</p>
+                    </div>
+                    <div class="market-card">
+                        <h3 class="text-rust font-bold mb-2">What if I miss the pickup?</h3>
+                        <p class="text-gray-600">Contact us within 24 hours to arrange alternative pickup or delivery.
+                            Unclaimed orders without contact may be subject to cancellation fees.</p>
+                    </div>
+                    <div class="market-card">
+                        <h3 class="text-rust font-bold mb-2">Can I change my order after placing it?</h3>
+                        <p class="text-gray-600">Changes can be made until the Friday 5pm cutoff. Contact us via email
+                            or phone with your order number.</p>
+                    </div>
+                    <div class="market-card">
+                        <h3 class="text-rust font-bold mb-2">What payment methods are accepted?</h3>
+                        <p class="text-gray-600">Online payments via JotForm accept major credit cards. Market stall
+                            pickup also accepts cash and card payments for additional purchases.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>© 2025 Dura Fungi. All rights reserved.</footer>
+
+    <!-- JotForm Scripts (Added before closing body) -->
+    <script src='https://cdn.jotfor.ms/s/umd/latest/for-form-embed-handler.js'></script>
+    <script>window.jotformEmbedHandler("iframe[id='JotFormIFrame-252927633585872']", "https://pci.jotform.com/")</script>
+
+    <script>
+        // Shared cart functionality (same as other pages)
+        let cartItems = JSON.parse(localStorage.getItem('durafungi_cart')) || [];
+
+        // Toast notification
+        function showToast(message, type = 'success') {
+            const existingToast = document.querySelector('.toast');
+            if (existingToast) existingToast.remove();
+
+            const toast = document.createElement('div');
+            toast.className = `toast ${type === 'success' ? 'bg-[#28a745]' : 'bg-red-500'}`;
+            toast.textContent = message;
+            document.body.appendChild(toast);
+
+            setTimeout(() => {
+                if (toast.parentNode) {
+                    toast.style.opacity = '0';
+                    setTimeout(() => toast.remove(), 300);
+                }
+            }, 3000);
+        }
+
+        // Cart functionality (shared across pages)
+        function renderCart() {
+            const list = document.getElementById('cart-items-list');
+            const badge = document.getElementById('cart-badge');
+            const emptyMsg = document.getElementById('cart-empty-msg');
+            const checkoutBtn = document.getElementById('checkout-btn');
+            const totalDisplay = document.getElementById('cart-total-display');
+
+            if (!list) return;
+
+            list.innerHTML = '';
+            let total = 0;
+            let count = 0;
+
+            cartItems.forEach((item, index) => {
+                total += item.unitPrice * item.quantity;
+                count += item.quantity;
+
+                const div = document.createElement('div');
+                div.className = "flex justify-between items-center text-sm border-b pb-2";
+                div.innerHTML = `
+                    <div>
+                        <p class="font-bold">${item.name}</p>
+                        <p class="text-gray-500">${item.quantity} × $${item.unitPrice.toFixed(2)}</p>
+                    </div>
+                    <button onclick="removeFromCart(${index})" class="text-red-500 hover:text-red-700 text-xs">Remove</button>
+                `;
+                list.appendChild(div);
+            });
+
+            if (badge) {
+                badge.innerText = count;
+                badge.classList.toggle('hidden', count === 0);
+            }
+
+            if (emptyMsg) {
+                emptyMsg.classList.toggle('hidden', count > 0);
+            }
+
+            if (totalDisplay) {
+                totalDisplay.innerText = `$${total.toFixed(2)}`;
+            }
+
+            if (checkoutBtn) {
+                checkoutBtn.disabled = (count === 0);
+                checkoutBtn.className = count > 0
+                    ? "w-full bg-[#28a745] text-white py-3 rounded-xl font-bold hover:bg-[#218838] transition"
+                    : "w-full bg-gray-400 text-white py-3 rounded-xl font-bold";
+
+                if (count > 0) {
+                    checkoutBtn.textContent = `Checkout ($${total.toFixed(2)})`;
+                } else {
+                    checkoutBtn.textContent = "Checkout";
+                }
+            }
+        }
+
+        function removeFromCart(index) {
+            const removedItem = cartItems[index];
+            cartItems.splice(index, 1);
+            localStorage.setItem('durafungi_cart', JSON.stringify(cartItems));
+            renderCart();
+            showToast(`Removed ${removedItem.name} from cart`, 'info');
+        }
+
+        // Checkout function (shared)
+        async function handleCheckout() {
+            const btn = document.getElementById('checkout-btn');
+            if (!btn) return;
+
+            const originalText = btn.textContent;
+            btn.textContent = "Processing...";
+            btn.disabled = true;
+
+            try {
+                const hasRecurring = cartItems.some(item => item.recurring);
+                const backendUrl = 'https://api.durafungi.com';
+
+                const response = await fetch(`${backendUrl}/create-checkout-session`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        items: cartItems.map(i => ({
+                            price: i.price,
+                            quantity: i.quantity
+                        })),
+                        returnUrl: window.location.origin + window.location.pathname,
+                        checkoutMode: hasRecurring ? 'subscription' : 'payment'
+                    })
+                });
+
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                }
+
+                const data = await response.json();
+
+                if (data.url) {
+                    cartItems = [];
+                    localStorage.removeItem('durafungi_cart');
+                    renderCart();
+                    window.location.href = data.url;
+                } else {
+                    throw new Error(data.error || "No checkout URL received");
+                }
+            } catch (err) {
+                console.error('Checkout error:', err);
+                showToast(`Checkout failed: ${err.message}`, 'error');
+                btn.textContent = originalText;
+                btn.disabled = false;
+            }
+        }
+
+        // Initialize page
+        function initPage() {
+            // Cart toggle
+            const cartToggle = document.getElementById('cart-toggle');
+            if (cartToggle) {
+                cartToggle.onclick = (e) => {
+                    e.stopPropagation();
+                    const cartDropdown = document.getElementById('cart-dropdown');
+                    if (cartDropdown) {
+                        cartDropdown.classList.toggle('open');
+                    }
+                };
+            }
+
+            // Close cart when clicking outside
+            document.addEventListener('click', (e) => {
+                const cartDropdown = document.getElementById('cart-dropdown');
+                const cartToggle = document.getElementById('cart-toggle');
+                if (cartDropdown && !cartDropdown.contains(e.target) &&
+                    (!cartToggle || !cartToggle.contains(e.target))) {
+                    cartDropdown.classList.remove('open');
+                }
+            });
+
+            // Prevent cart from closing when clicking inside
+            const cartDropdown = document.getElementById('cart-dropdown');
+            if (cartDropdown) {
+                cartDropdown.onclick = (e) => e.stopPropagation();
+            }
+
+            // Check for return from Stripe
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.has('checkout') && urlParams.get('checkout') === 'success') {
+                showToast('🎉 Thank you for your purchase! Your farmers market order is confirmed.', 'success');
+                window.history.replaceState({}, document.title, window.location.pathname);
+            }
+
+            if (urlParams.has('checkout') && urlParams.get('checkout') === 'cancelled') {
+                showToast('Checkout was cancelled. Your items are still saved in your cart.', 'info');
+                window.history.replaceState({}, document.title, window.location.pathname);
+            }
+
+            // Initial render
+            renderCart();
+        }
+
+        // Run initialization
+        document.addEventListener('DOMContentLoaded', initPage);
+    </script>
+
+</body>
+
+</html>
