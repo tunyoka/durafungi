@@ -1,0 +1,15 @@
+[Unit]
+Description=DuraFungi Tuya Air Quality Sensor Monitor
+After=network-online.target tailscaled.service
+Wants=network-online.target
+
+[Service]
+EnvironmentFile=/etc/durafungi/influx_climate.env
+ExecStart=/usr/bin/python3 /home/verts/durafungi-climate/tuya_air_sensor.py
+WorkingDirectory=/home/verts/durafungi-climate
+User=verts
+Restart=always
+RestartSec=15
+
+[Install]
+WantedBy=multi-user.target

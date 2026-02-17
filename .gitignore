@@ -1,0 +1,23 @@
+# Secrets - NEVER COMMIT THESE
+config/devices.json
+config/*.key
+config/*.token
+*.env
+**/secrets/
+
+# Python artifacts
+__pycache__/
+*.pyc
+venv/
+.env
+.venv
+
+# OS garbage
+Thumbs.db
+.DS_Store
+*.log
+
+# DuraFungi specific
+scripts/*.pyc
+data/
+logs/

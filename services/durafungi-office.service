@@ -1,0 +1,15 @@
+[Unit]
+Description=DuraFungi Office Air Quality Monitor (ZPHS01B)
+After=network.target
+
+[Service]
+EnvironmentFile=/etc/durafungi/influx_climate.env
+ExecStart=/usr/bin/python3 /home/verts/durafungi-climate/office_sensor.py
+WorkingDirectory=/home/verts/durafungi-climate
+StandardOutput=inherit
+StandardError=inherit
+Restart=always
+User=verts
+
+[Install]
+WantedBy=multi-user.target

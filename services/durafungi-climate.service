@@ -1,0 +1,15 @@
+[Unit]
+Description=DuraFungi Climate Controller
+After=network.target
+
+[Service]
+EnvironmentFile=/etc/durafungi/influx_climate.env
+ExecStart=/usr/bin/python3 /home/verts/durafungi-climate/climate_controller.py
+WorkingDirectory=/home/verts/durafungi-climate
+StandardOutput=inherit
+StandardError=inherit
+Restart=always
+User=verts
+
+[Install]
+WantedBy=multi-user.target

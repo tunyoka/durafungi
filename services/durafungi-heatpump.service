@@ -1,0 +1,15 @@
+[Unit]
+Description=DuraFungi Aokol Heat Pump JK-BUS Monitor
+After=network-online.target tailscaled.service
+Wants=network-online.target
+
+[Service]
+EnvironmentFile=/etc/durafungi/influx_energy.env
+ExecStart=/usr/bin/python3 /home/verts/durafungi-climate/jkbus_monitor.py
+WorkingDirectory=/home/verts/durafungi-climate
+User=verts
+Restart=always
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target
